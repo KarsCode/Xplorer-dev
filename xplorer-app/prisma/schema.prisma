@@ -19,9 +19,9 @@ model User {
   updatedAt       DateTime @updatedAt
   lastrecordedloc String?
   locality        String?
-  rated         Rating[]
-  posts         Post[]
-  comments      Comment[]
+  rated           Rating[]
+  posts           Post[]
+  comments        Comment[]
 }
 
 model Post {
@@ -32,10 +32,9 @@ model Post {
   userId             String @db.ObjectId
   likedIds           String[] @db.ObjectId
   image              String?
+  comments           Comment[]
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  comments          Comment[]
 }
 
 model Comment {
@@ -57,10 +56,10 @@ model Restaurant {
   cusine         String[]
   location       String
   likedIds       String[] @db.ObjectId
-  userId         String @db.ObjectId
+  userId         String   @db.ObjectId
   locality       String
   image          String     
-  ratings   Rating[] 
+  ratings        Rating[] 
 
 }
 
@@ -68,8 +67,10 @@ model Restaurant {
 model Rating {
   id                 String @id @default(auto()) @map("_id") @db.ObjectId
   userId             String @db.ObjectId
-  restaurantId String @db.ObjectId
-  rating       String @db.ObjectId
+  restaurantId       String @db.ObjectId
+  rating             Int
+  content            String? 
+
 
   user         User     @relation(fields: [userId], references: [id])
   restaurant   Restaurant @relation(fields: [restaurantId], references: [id])
