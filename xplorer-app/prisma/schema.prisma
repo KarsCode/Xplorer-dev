@@ -19,7 +19,7 @@ model User {
   updatedAt       DateTime @updatedAt
   lastrecordedloc String?
   locality        String?
-
+  rated         Rating[]
   posts         Post[]
   comments      Comment[]
 }
@@ -59,6 +59,19 @@ model Restaurant {
   likedIds       String[] @db.ObjectId
   userId         String @db.ObjectId
   locality       String
-  image          String      
+  image          String     
+  ratings   Rating[] 
+
+}
+
+
+model Rating {
+  id                 String @id @default(auto()) @map("_id") @db.ObjectId
+  userId             String @db.ObjectId
+  restaurantId String @db.ObjectId
+  rating       String @db.ObjectId
+
+  user         User     @relation(fields: [userId], references: [id])
+  restaurant   Restaurant @relation(fields: [restaurantId], references: [id])
 
 }
