@@ -7,7 +7,7 @@ const YourPage: React.FC = () => {
   return (
     <div>
       
-      <MapComponent />
+      <p>I removed map component</p>
     </div>
   );
 };
