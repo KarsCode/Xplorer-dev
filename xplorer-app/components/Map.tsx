@@ -98,9 +98,9 @@ const MapComponent: React.FC = () => {
   };
 
   return (
-    <div className="w-full h-full">
+    <div className="flex justify-center items-center w-72 h-72">
       <GoogleMap
-        mapContainerStyle={{ height: '100vh', width: '100vw' }}
+        mapContainerStyle={{ height: '100%', width: '100%' }}
         center={center}
         zoom={17}
         options={{
