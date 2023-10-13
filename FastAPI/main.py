@@ -1,6 +1,9 @@
 import motor.motor_asyncio
 import pandas as pd
 from fastapi import FastAPI
+from bson.json_util import dumps
+from bson import ObjectId
+import json
 
 
 app=FastAPI()
@@ -69,8 +72,10 @@ async def recommend(userId):
     for restaurantId in recommendations:
         if((await db['restaurants'].find_one({'id':restaurantId}))['locality']==pickeduserDoc["locality"]):
             final=final+restaurantId
-
+    finaljson=dumps(final)
+    final=json.loads(finaljson)             #because what is being returned is a bunch of objectids
     return final
+    
 
 
 
@@ -87,12 +92,9 @@ async def xu(userId , target):
         restaurant_info1 = await db["restaurants"].find({"id": {"$in": list(result_dict1.keys())}}).to_list(1000)
         cuisine_ratings = {}
         for restaurant_id, rating in result_dict1.items():
-            # Find the cuisines for the restaurant
             for restaurant_info in restaurant_info1:
                 if restaurant_info['id'] == restaurant_id:
                     cuisines = restaurant_info['cuisines']
-
-                    # Update the cuisine_ratings dictionary
                     for cuisine in cuisines:
                         if cuisine in cuisine_ratings:
                             cuisine_ratings[cuisine].append(rating)
@@ -114,12 +116,9 @@ async def xu(userId , target):
         restaurant_info2 = await db["restaurants"].find({"id": {"$in": list(result_dict2.keys())}}).to_list(1000)
         cuisine_ratings = {}
         for restaurant_id, rating in result_dict2.items():
-            # Find the cuisines for the restaurant
             for restaurant_info in restaurant_info2:
                 if restaurant_info['id'] == restaurant_id:
                     cuisines = restaurant_info['cuisines']
-
-                    # Update the cuisine_ratings dictionary
                     for cuisine in cuisines:
                         if cuisine in cuisine_ratings:
                             cuisine_ratings[cuisine].append(rating)
@@ -142,19 +141,15 @@ async def xu(userId , target):
         jaccard_similarity = len(intersection) / len(union)
         similarity_percentage = jaccard_similarity * 100
 
-
+        
         filtered_restaurants = [doc for doc in restaurantNet if any(cuisine in doc["cuisines"] for cuisine in intersection)][:20]
+        result_json = dumps(filtered_restaurants)                     #very important to when it comes to returning documents with objectid
+        filtered_restaurants = json.loads(result_json)
         sorted_restaurants = sorted(filtered_restaurants, key=lambda x: x["rating"], reverse=True)
         restaurant_ids = ([restaurant["id"] for restaurant in sorted_restaurants])
         restaurant_ids_new=[]
         [restaurant_ids_new.append(item) for item in restaurant_ids if item not in restaurant_ids_new][30]
 
 
-
-
-
-
-
         finalDict={"Percentage":similarity_percentage,"Suggested":restaurant_ids_new}
-
         return finalDict
