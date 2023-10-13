@@ -7,15 +7,17 @@ app=FastAPI()
 client = motor.motor_asyncio.AsyncIOMotorClient('mongodb://localhost:27017')
 db=client.Xplorer
 
-@app.get("/recommendations/{userId}")
+@app.get("/recommendations/{id}")
 async def recommend(userId):
-    pickeduserDoc = await db['users'].find_one({'userId':userId})
-    list = await db["users"].find({'mostVisited':pickeduserDoc["location"]},{'rated_count': {'$gt': 0}}).to_list(100) #goes inside find{'rated_count': {'$gt': 15}}
+    pickeduserDoc = await db['users'].find_one({'id':id})
+    query = {"rated": {"$exists": True, "$size": {"$gt": 10}}}
+    cursor = db["users"].find({'mostVisited': pickeduserDoc["locality"], **query}).limit(100)
+    user_list = await cursor.to_list(100)
     users=[]
     ratings=[]
-    for document in list:
-        docu = document["userId"]
-        docr = document["rated"]
+    for document in user_list:
+        docu = document["id"]
+        docr = [{'restaurantId': d['restaurantId'], 'rating': d['rating']} for d in document.get('rated', [])]
         users.append(docu)
         ratings.append(docr)
     df = pd.DataFrame(ratings)
@@ -26,7 +28,6 @@ async def recommend(userId):
     df=df.subtract(df.mean(axis=1),axis='rows')
     
     user_similarity=df.T.corr()
-    print(user_similarity)
 
 
     
@@ -35,14 +36,12 @@ async def recommend(userId):
     n=10
     user_similarity_threshold=0.3
     similar_users = user_similarity[user_similarity[picked_user]>user_similarity_threshold][picked_user].sort_values(ascending=False)[:n]
-    print(similar_users)
     picked_userId_visited = df[df.index == picked_user].dropna(axis=1, how='all')
     
     
     similar_user_restaurants = df[df.index.isin(similar_users.index)].dropna(axis=1, how='all')
     
     similar_user_restaurants.drop(picked_userId_visited.columns,axis=1, inplace=True, errors='ignore')
-    print(similar_user_restaurants)
 
     item_score = {}
 
@@ -68,9 +67,10 @@ async def recommend(userId):
     recommendations=ranked_item_score['restaurantId'].to_list()
     final=[]
     for restaurantId in recommendations:
-        if((await db['restaurants'].find_one({'restaurantId':restaurantId}))['location']==pickeduserDoc["location"]):
+        if((await db['restaurants'].find_one({'id':restaurantId}))['locality']==pickeduserDoc["locality"]):
             final=final+restaurantId
 
+    return final
 
 
 
