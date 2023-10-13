@@ -17,11 +17,12 @@ model User {
   hashedPassword  String
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
-  lastrecordedloc String?
-  locality        String?
-  rated           Rating[]
-  posts           Post[]
-  comments        Comment[]
+  location        String?   // lat long of user for google maps
+  locality        String?  //city/locality
+  mostVisited     String?   // most visited locality
+  rated           Rating[]    // list of all ratings
+  posts           Post[]     // list of all posts
+  comments        Comment[]   // list of all comments
 }
 
 model Post {
@@ -54,10 +55,10 @@ model Restaurant {
   name           String
   rating         Int 
   cusine         String[]
-  location       String
+  location       String   // either lat long or google maps link
   likedIds       String[] @db.ObjectId
   userId         String   @db.ObjectId
-  locality       String
+  locality       String   // city/locality
   image          String     
   ratings        Rating[] 
 
@@ -70,9 +71,7 @@ model Rating {
   restaurantId       String @db.ObjectId
   rating             Int
   content            String? 
-
-
-  user         User     @relation(fields: [userId], references: [id])
-  restaurant   Restaurant @relation(fields: [restaurantId], references: [id])
+  user         User     @relation(fields: [userId], references: [id],onDelete: Cascade)     // userid of rating will be equal to the id of the User who rated
+  restaurant   Restaurant @relation(fields: [restaurantId], references: [id],onDelete: Cascade) // restaurantid of rating will be the id of the resturant rated
 
 }
