@@ -10,8 +10,13 @@
   },
   "dependencies": {
     "@react-google-maps/api": "^2.19.2",
+    "@supabase/auth-helpers-react": "^0.4.2",
+    "@supabase/supabase-js": "^2.38.1",
+    "google-auth-library": "^9.1.0",
+    "googleapis": "^127.0.0",
     "next": "13.5.4",
-    "react": "^18",
+    "next-auth": "^4.23.2",
+    "react": "18.2",
     "react-dom": "^18"
   },
   "devDependencies": {
