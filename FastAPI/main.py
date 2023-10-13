@@ -76,83 +76,85 @@ async def recommend(userId):
 
 @app.get("/xu/{userId}")
 async def xu(userId , target):
-    pickeduserDoc = await db['users'].find_one({'userId':userId})
-    targetuserDoc = await db['users'].find_one({'userId':target})
-
-    rated1=pickeduserDoc["rated"]
-    rated2=targetuserDoc["rated"]
-
-    restaurant_info1raw =  await db["restaurants"].find({"restaurantId": {"$in": list(rated1.keys())}}).to_list(100)
-    restaurant_info2raw= await db["restaurants"].find({"restaurantId": {"$in": list(rated2.keys())}}).to_list(100)
-    restaurant_info1={}
-    restaurant_info2={}
-
-
-    for restaurant_data in restaurant_info1raw:
-        restaurant_dict = {'cuisines': restaurant_data['cuisines']}
-        restaurant_info1[restaurant_data['restaurantId']] = restaurant_dict
-    
-    for restaurant_data in restaurant_info2raw:
-        restaurant_dict = {'cuisines': restaurant_data['cuisines']}
-        restaurant_info2[restaurant_data['restaurantId']] = restaurant_dict
-
-
-    cuisine_ratings = {}
-    for restaurant_id, rating in pickeduserDoc['rated'].items():
+        pickeduserDoc = await db['users'].find_one({'id': userId})
+        rated1 = pickeduserDoc["rated"]
+        result_dict1 = {}
+        for rating_data in rated1:
+            restaurant_id = rating_data['restaurantId']
+            rating = rating_data['rating']
+            result_dict1[restaurant_id] = rating
         
-        # Find the cuisines for the restaurant
-        if restaurant_id in restaurant_info1:
-            cuisines = restaurant_info1[restaurant_id]['cuisines']
-            
-            # Update the cuisine_ratings dictionary
-            for cuisine in cuisines:
-                if cuisine in cuisine_ratings:
-                    cuisine_ratings[cuisine].append(rating)
-                else:
-                    cuisine_ratings[cuisine] = [rating]
+        restaurant_info1 = await db["restaurants"].find({"id": {"$in": list(result_dict1.keys())}}).to_list(1000)
+        cuisine_ratings = {}
+        for restaurant_id, rating in result_dict1.items():
+            # Find the cuisines for the restaurant
+            for restaurant_info in restaurant_info1:
+                if restaurant_info['id'] == restaurant_id:
+                    cuisines = restaurant_info['cuisines']
 
-    # Calculate the average rating for each cuisine
-    cuisine_avg_ratings = {}
-    for cuisine, ratings in cuisine_ratings.items():
-        avg_rating = sum(ratings) / len(ratings)
-        cuisine_avg_ratings[cuisine] = avg_rating
-    list1 = sorted(cuisine_avg_ratings, key=cuisine_avg_ratings.get, reverse=True)[:10]
+                    # Update the cuisine_ratings dictionary
+                    for cuisine in cuisines:
+                        if cuisine in cuisine_ratings:
+                            cuisine_ratings[cuisine].append(rating)
+                        else:
+                            cuisine_ratings[cuisine] = [rating]
+        cuisine_avg_ratings = {}
+        for cuisine, ratings in cuisine_ratings.items():
+            avg_rating = sum(ratings) / len(ratings)
+            cuisine_avg_ratings[cuisine] = avg_rating
+        list1 = sorted(cuisine_avg_ratings, key=cuisine_avg_ratings.get, reverse=True)[:100]
 
+        targetuserDoc = await db['users'].find_one({'id': target})
+        rated2 = targetuserDoc["rated"]
+        result_dict2 = {}
+        for rating_data in rated2:
+            restaurant_id = rating_data['restaurantId']
+            rating = rating_data['rating']
+            result_dict2[restaurant_id] = rating
+        restaurant_info2 = await db["restaurants"].find({"id": {"$in": list(result_dict2.keys())}}).to_list(1000)
+        cuisine_ratings = {}
+        for restaurant_id, rating in result_dict2.items():
+            # Find the cuisines for the restaurant
+            for restaurant_info in restaurant_info2:
+                if restaurant_info['id'] == restaurant_id:
+                    cuisines = restaurant_info['cuisines']
 
-    cuisine_ratings = {}
-    for restaurant_id, rating in targetuserDoc['rated'].items():
-        
-        # Find the cuisines for the restaurant
-        if restaurant_id in restaurant_info2:
-            cuisines = restaurant_info2[restaurant_id]['cuisines']
-            
-            # Update the cuisine_ratings dictionary
-            for cuisine in cuisines:
-                if cuisine in cuisine_ratings:
-                    cuisine_ratings[cuisine].append(rating)
-                else:
-                    cuisine_ratings[cuisine] = [rating]
-
-    # Calculate the average rating for each cuisine
-    cuisine_avg_ratings = {}
-    for cuisine, ratings in cuisine_ratings.items():
-        avg_rating = sum(ratings) / len(ratings)
-        cuisine_avg_ratings[cuisine] = avg_rating
-    list2 = sorted(cuisine_avg_ratings, key=cuisine_avg_ratings.get, reverse=True)[:10]
-
-    set1 = set(list1)
-    set2 = set(list2)
-    intersection = len(set1.intersection(set2))
-    union = len(set1.union(set2))
-    jaccard_similarity = intersection / union
-    similarity_percentage = jaccard_similarity * 100
-
-    finalDict={"Percentage":similarity_percentage}
+                    # Update the cuisine_ratings dictionary
+                    for cuisine in cuisines:
+                        if cuisine in cuisine_ratings:
+                            cuisine_ratings[cuisine].append(rating)
+                        else:
+                            cuisine_ratings[cuisine] = [rating]
+        cuisine_avg_ratings = {}
+        for cuisine, ratings in cuisine_ratings.items():
+            avg_rating = sum(ratings) / len(ratings)
+            cuisine_avg_ratings[cuisine] = avg_rating
+        list2 = sorted(cuisine_avg_ratings, key=cuisine_avg_ratings.get, reverse=True)[:100] 
 
 
 
+        restaurantNet = restaurant_info1 +restaurant_info2
 
-    return finalDict
-    
+        set1 = set(list1)
+        set2 = set(list2)
+        intersection = (set1.intersection(set2))
+        union = (set1.union(set2))
+        jaccard_similarity = len(intersection) / len(union)
+        similarity_percentage = jaccard_similarity * 100
 
-     
+
+        filtered_restaurants = [doc for doc in restaurantNet if any(cuisine in doc["cuisines"] for cuisine in intersection)][:20]
+        sorted_restaurants = sorted(filtered_restaurants, key=lambda x: x["rating"], reverse=True)
+        restaurant_ids = ([restaurant["id"] for restaurant in sorted_restaurants])
+        restaurant_ids_new=[]
+        [restaurant_ids_new.append(item) for item in restaurant_ids if item not in restaurant_ids_new][30]
+
+
+
+
+
+
+
+        finalDict={"Percentage":similarity_percentage,"Suggested":restaurant_ids_new}
+
+        return finalDict
