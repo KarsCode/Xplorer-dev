@@ -8,6 +8,7 @@ const YourPage: React.FC = () => {
     <div>
       
       <p>I removed map component</p>
+      <p> This is a different branch </p>
     </div>
   );
 };
