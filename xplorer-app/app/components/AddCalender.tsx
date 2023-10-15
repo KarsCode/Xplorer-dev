@@ -2,7 +2,7 @@ import React from 'react'
 
 import {useSupabaseClient, useSession, useSessionContext} from '@supabase/auth-helpers-react'
 import {google} from 'googleapis'
-const Button = () => {
+const AddCalender = () => {
 
 
     
@@ -94,4 +94,4 @@ const Button = () => {
   )
 }
 
-export default Button
+export default AddCalender
