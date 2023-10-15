@@ -2,9 +2,11 @@
 "use client";
 import React from 'react';
 import MapComponent from '@/components/Map';
+import WeatherApp from '@/components/WeatherApp';
 import { createClient } from '@supabase/supabase-js';
 import { SessionContextProvider } from '@supabase/auth-helpers-react';
 import Button from '@/components/Button';
+
 
 const YourPage: React.FC = () => {
   const supabase = createClient(
@@ -17,7 +19,9 @@ const YourPage: React.FC = () => {
       <SessionContextProvider supabaseClient={supabase}>
         <MapComponent />
         <Button />
+        <WeatherApp></WeatherApp>
       </SessionContextProvider>
+      
     </div>
   );
 };
