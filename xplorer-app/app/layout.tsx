@@ -11,7 +11,6 @@ import LoginModal from '@/app/components/modals/LoginModal';
 import getCurrentUser from './actions/getCurrentUser';
 import MapComponent from './components/Map';
 
-
 export const metadata = {
   title: 'Xplorer',
   description: 'Explore to your hearts content',
@@ -26,7 +25,6 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-  const currentUser = await getCurrentUser();
   /** To have the RegisterModal modal popup you need to give onclick function as registerModal.onOpen */
 
   return (
@@ -34,6 +32,7 @@ export default async function RootLayout({
       <body className={font.className}>
           <ClientOnly>
             <ToasterProvider/>
+
             <RegisterModal/>  
             <LoginModal/>
           </ClientOnly>
