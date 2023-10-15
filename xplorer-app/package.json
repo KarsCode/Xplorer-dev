@@ -12,6 +12,7 @@
     "@react-google-maps/api": "^2.19.2",
     "@supabase/auth-helpers-react": "^0.4.2",
     "@supabase/supabase-js": "^2.38.1",
+    "axios": "^1.5.1",
     "google-auth-library": "^9.1.0",
     "googleapis": "^127.0.0",
     "next": "13.5.4",
