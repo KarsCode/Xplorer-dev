@@ -4,13 +4,26 @@
 import React, { useEffect, useState } from 'react';
 import { GoogleMap, LoadScript, Marker, InfoWindow } from '@react-google-maps/api';
 import { useJsApiLoader } from '@react-google-maps/api';
+import { User } from '@prisma/client';
+import useLoginModal from '../hooks/useLoginModal';
 
 
 type Restaurant = {
     lat: number;
     lng: number;
+    
   };
-const MapComponent: React.FC = () => {
+  interface MapComponentProps{
+    currentUser:  User | null | undefined
+    auth? : boolean
+
+  }
+  
+
+
+const MapComponent: React.FC<MapComponentProps> = ({
+  currentUser
+}) => {
   const center = {
     lat: 52.3676,
     lng: 4.9041,

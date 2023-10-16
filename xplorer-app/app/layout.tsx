@@ -1,5 +1,5 @@
 import { Nunito } from 'next/font/google'
-import Modal from '@/app/components/Modal';
+
 import ClientOnly from '@/app/components/ClientOnly';
 
 
@@ -9,7 +9,9 @@ import RegisterModal from '@/app/components/modals/RegisterModal';
 import ToasterProvider from './providers/ToasterProvider';
 import LoginModal from '@/app/components/modals/LoginModal';
 import getCurrentUser from './actions/getCurrentUser';
-import MapComponent from './components/Map';
+
+import NavBar from './components/NavBar';
+import MapComponent from './components/MapComponent';
 
 export const metadata = {
   title: 'Xplorer',
@@ -25,14 +27,17 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-  /** To have the RegisterModal modal popup you need to give onclick function as registerModal.onOpen */
-
+   /** To have the RegisterModal modal popup you need to give onclick function as registerModal.onOpen */
+  const currentUser =( await getCurrentUser())?.currentUser;
+  console.log(typeof(currentUser));
   return (
     <html lang="en">
       <body className={font.className}>
+
+          <NavBar currentUser={currentUser}/>
           <ClientOnly>
             <ToasterProvider/>
-
+            <MapComponent currentUser={currentUser}/>
             <RegisterModal/>  
             <LoginModal/>
           </ClientOnly>
