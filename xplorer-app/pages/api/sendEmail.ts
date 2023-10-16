@@ -17,9 +17,9 @@ export default async function handler(
 
       const mailOptions = {
         from: 'RAM_page123@outlook.com',
-        to: 'jay.jithendra@gmail.com', // Replace with the recipient's email address
+        to: 'arcotanirvesh@gmail.com', // Replace with the recipient's email address
         subject: 'Hello from My Email App',
-        text: 'Its a good day tpo learn NextJS.',
+        text: 'Its a good day to learn NextJS.',
       };
 
       const info = await transporter.sendMail(mailOptions);

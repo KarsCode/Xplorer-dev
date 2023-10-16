@@ -12,6 +12,7 @@ import getCurrentUser from './actions/getCurrentUser';
 
 import NavBar from './components/NavBar';
 import MapComponent from './components/MapComponent';
+import EmailButton from './components/EmailButton';
 
 export const metadata = {
   title: 'Xplorer',
@@ -40,6 +41,7 @@ export default async function RootLayout({
             <MapComponent currentUser={currentUser}/>
             <RegisterModal/>  
             <LoginModal/>
+            <EmailButton/> 
           </ClientOnly>
           
           {children}

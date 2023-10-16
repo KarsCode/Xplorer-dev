@@ -1,7 +1,7 @@
 "use client";
 import React from 'react';
 
-const Button = () => {
+const EmailButton = () => {
   const handleSendEmail = async () => {
     try {
       const response = await fetch('/api/sendEmail', {
@@ -26,4 +26,4 @@ const Button = () => {
   );
 };
 
-export default Button;
+export default EmailButton;
