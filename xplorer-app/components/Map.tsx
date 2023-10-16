@@ -100,9 +100,9 @@ const MapComponent: React.FC = () => {
   return (
     <div className="googlemap">
       <GoogleMap
-        mapContainerStyle={{ height: '60vh', width: '50vw' }}
+        mapContainerStyle={{ height: '70vh', width: '70vw' }}
         center={center}
-        zoom={18}
+        zoom={17}
         options={{
           mapId: mapStyleID,
         }}

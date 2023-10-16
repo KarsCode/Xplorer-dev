@@ -36,13 +36,13 @@ body {
 }
 
 .modal {
-  background-color: black;
+  background-color: none;
   padding: 10px;
   border: 0px solid #ccc;
   text-align: center;
   position: relative;
   width: 75%; /* Set the desired width for your centered modal */
-  max-width: 2500px; /* Optional maximum width */
+  max-width: 1200px; /* Optional maximum width */
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -67,8 +67,10 @@ body {
 
 /* Define a class for the button with a flexible background image */
 .MapButton {
-  display: inline-block;
-  padding: 100px 150px; /* Adjust the padding as needed */
+  display: inline-flex;
+  padding: 90px 130px; /* Adjust the padding as needed */
+  max-width: 100%;
+  max-height: 100%;
   color: #fff;
   font-size: 16px;
   border: none;
@@ -80,9 +82,6 @@ body {
   background-size: cover; /* Scale the background image to cover the button */
   background-repeat: no-repeat; /* Prevent the image from repeating */
   background-position: center; /* Center the background image */
-
-  /* Create a pseudo-element to maintain the aspect ratio */
-  position: relative;
 }
 
 .Logo
@@ -92,7 +91,7 @@ body {
 }
 
 .LeftSide{
-  padding-left: 30px;
+  padding-left: 20px;
 }
 
 body, html {
@@ -106,7 +105,7 @@ body, html {
     width: 25%;
     height: 100%;
     float: left;
-    background-color: biege;
+    background-color: beige;
     border-collapse: collapse;
 }
 
@@ -116,24 +115,34 @@ body, html {
     float: left;
     background-color: beige;
     border-collapse: collapse;
+    overflow: auto;
 }
 
 .right-component {
   width: 25%;
   height: 100%;
-  position: relative;
   float: right;
   background-color: beige;
   border-collapse: collapse;
-}
-/* Media query for responsive behavior */
-@media (max-width: 800px) {
-  .left-component, .right-component {
-      display: none; /* Hide left and right components */
-  }
 }
 
 
 .testtext{
   color: black;
+}
+
+
+.container{
+  height: 100vh;
+}
+
+
+.box {
+  width: 200px; /* Set the width of the box */
+  height: 200px; /* Set the height of the box */
+  background-color: #f0f0f0; /* Set the background color */
+  border: 2px solid #333; /* Add a border with color */
+  border-radius: 10px; /* Round the corners with a border radius */
+  padding: 20px; /* Add some padding inside the box */
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); /* Add a box shadow */
 }

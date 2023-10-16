@@ -2,15 +2,19 @@
 import React from 'react';
 import LeftSide from '@/components/LeftSide';
 import TestText from '@/components/TestText';
+import TestBox from '@/components/TestBox';
 
 const HomePage = () => {
   return (
-    <div>
+    <div className='container'>
         <div className="left-component">
       <LeftSide />
       </div>
       <div className="middle-component">
-      <TestText/>
+      <TestBox/>
+      <TestBox/>
+      <TestBox/>
+      <TestBox/>
       </div>
       <div className="right-component">
       <TestText/>
