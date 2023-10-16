@@ -4,7 +4,6 @@ import bcrypt from 'bcrypt';
 import prisma from '@/app/libs/prismabd'
 import NextAuth,{ AuthOptions } from "next-auth";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
-import { error } from "console";
 
 
 

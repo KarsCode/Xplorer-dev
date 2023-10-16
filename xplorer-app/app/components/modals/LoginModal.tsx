@@ -13,9 +13,15 @@ import Input from '../Input';
 import toast from 'react-hot-toast';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
+import getCurrentUser from '@/app/actions/getCurrentUser';
+import postUserLocation from '@/app/actions/postuserLocation';
+
+
+
 
 
 const LoginModal = () => {
+
     const router = useRouter();
     const loginModal = useLoginModal();
     const registerModal = useRegisterModal();
@@ -47,6 +53,8 @@ const LoginModal = () => {
                 toast.success('Logged In');
                 router.refresh();
                 loginModal.onClose();
+                postUserLocation(data.email);
+
             }
             if(callback?.error){
                 toast.error(callback.error);

@@ -18,7 +18,8 @@ model User {
   hashedPassword  String
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
-  location        String?   // lat long of user for google maps
+  latitude        Float?  // lat long of user for google maps
+  longitude       Float?
   locality        String?  //city/locality
   mostVisited     String?   // most visited locality
   rated           Rating[]    // list of all ratings
