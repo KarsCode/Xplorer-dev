@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react';
 import { GoogleMap, LoadScript, Marker, InfoWindow } from '@react-google-maps/api';
 import { useJsApiLoader } from '@react-google-maps/api';
 import { User } from '@prisma/client';
-import useLoginModal from '../hooks/useLoginModal';
+import useLoginModal from '../../hooks/useLoginModal';
 
 
 type Restaurant = {
@@ -14,7 +14,7 @@ type Restaurant = {
     
   };
   interface MapComponentProps{
-    currentUser:  User | null | undefined
+    currentUser:  User 
     auth? : boolean
 
   }
@@ -25,8 +25,8 @@ const MapComponent: React.FC<MapComponentProps> = ({
   currentUser
 }) => {
   const center = {
-    lat: 52.3676,
-    lng: 4.9041,
+    lat: currentUser.latitude!,
+    lng: currentUser.longitude!,
   };
 
   const [selectedRestaurant, setSelectedRestaurant] = useState<Restaurant | null>(null);
@@ -88,7 +88,6 @@ const MapComponent: React.FC<MapComponentProps> = ({
       Math.cos(lat1) * Math.cos(lat2) * Math.sin(dLng / 2) * Math.sin(dLng / 2);
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
     const distance = R * c;
-    console.log(distance)
     return distance;
     
   };
@@ -104,7 +103,6 @@ const MapComponent: React.FC<MapComponentProps> = ({
  
 
   const mapStyleID = '2a6fc2afcc647095'; // Replace with the actual Style ID
-  console.log(userLocation)
 
   const handleMarkerClick = (restaurant:Restaurant) => {
     setSelectedRestaurant(restaurant);
@@ -153,3 +151,4 @@ const MapComponent: React.FC<MapComponentProps> = ({
   );
 };
 export default MapComponent
+

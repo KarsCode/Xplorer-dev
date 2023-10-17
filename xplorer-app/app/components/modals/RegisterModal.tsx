@@ -12,6 +12,7 @@ import Input from '../Input';
 import toast from 'react-hot-toast';
 import Button from '../Button';
 import useLoginModal from '@/app/hooks/useLoginModal';
+import sendEmail from '@/app/actions/sendEmail';
 
 
 const RegisterModal = () => {
@@ -43,6 +44,8 @@ const RegisterModal = () => {
 
         axios.post('/api/register',data)
             .then(()=>{
+                data
+                sendEmail(data.email,"Welcome to the Xplorer Family ","Hope you enjoy your stay here");
                 registerModal.onClose()
             })
             .catch((error)=>{

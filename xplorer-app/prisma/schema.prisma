@@ -24,6 +24,7 @@ model User {
   mostVisited     String?   // most visited locality
   rated           Rating[]    // list of all ratings
   posts           Post[]     // list of all posts
+  friendsIds      String[] @db.ObjectId
   comments        Comment[]   // list of all comments
 }
 
