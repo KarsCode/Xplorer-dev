@@ -1,3 +1,4 @@
+'use client'
 // pages/index.js
 import React from 'react';
 import LeftSide from '@/components/LeftSide';
@@ -6,6 +7,7 @@ import TestBox from '@/components/TestBox';
 import {tweets} from '@/app/timeline'
 import Tweet from '@/components/Tweet';
 import RightSide from '@/components/RightSide';
+import RightPanel from '@/components/RightPanel/RightPanel';
 
 const HomePage = () => {
   return (
@@ -28,7 +30,7 @@ const HomePage = () => {
       </div>
   
       <div className="right-component">
-      <RightSide/>
+      <RightPanel />
       </div>
       </div>
   );

@@ -1,0 +1,35 @@
+/* components/popup.css */
+
+.popup-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent grey background */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999; /* Make sure it's on top of other content */
+}
+
+.popup-content {
+  background-color: #fff; /* White background */
+  border: 1px solid #b1afaf;
+  padding: 100px;
+  border-radius: 4px;
+  text-align: center;
+  position: relative;
+}
+
+.close-button {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  background: rgb(rgb(103, 101, 101), rgb(28, 142, 28), blue);
+  border: black;
+  border-radius: 50%;
+  font-size: 10px;
+  color: #9a1818; /* White text color */
+  cursor: pointer;
+}

@@ -1,0 +1,43 @@
+
+.button-list {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-top: 20px; /* Add spacing between the first button and the top of the page */
+  }
+  
+  .button {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px; /* Add spacing between buttons */
+  }
+  
+  .button img {
+    width: 30px; /* Adjust the width as needed for your circular icons */
+    height: 30px; /* Adjust the height as needed for your circular icons */
+    margin-right: 10px; /* Add spacing between the icon and text */
+    filter: grayscale(100%); /* Convert icons to black and white */
+    border-radius: 50%; /* Make the icons circular */
+  }
+  
+  .button span {
+    color: black; /* Set text color to black */
+    font-weight: bold; /* Make text bold */
+    font-size: 14px; /* Set text size to small */
+    font-family:Georgia, 'Times New Roman', Times, serif;
+    cursor: pointer;
+  }
+  
+
+  .login-button {
+    cursor: pointer;
+    font-size: 16px; /* Make the button text slightly bigger */
+    background-color: #b6b6af; /* Example background color */
+    color: black; /* Example text color */
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    font-family:Georgia, 'Times New Roman', Times, serif;
+    padding: 10px 20px; /* Example padding for the button */
+    margin: 230px 0; /* Add some spacing between the "Login/Signup" button and the other buttons */
+  }
