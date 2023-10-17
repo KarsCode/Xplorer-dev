@@ -1,5 +1,7 @@
+'use client';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { User } from '@prisma/client';
 
 interface WeatherData {
   name: string;
@@ -19,9 +21,19 @@ interface Coordinates {
   lon: number;
 }
 
-const WeatherApp: React.FC = () => {
+interface WeatherAppProps{
+  currentUser:  User 
+  auth? : boolean
+
+}
+
+const WeatherApp: React.FC<WeatherAppProps> = ({
+  currentUser
+}) => {
+  const latitude= currentUser.latitude!;
+  const  longitude= currentUser.longitude!;
   const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
-  const [coordinates, setCoordinates] = useState<Coordinates>({ lat: 0, lon: 0 });
+  const [coordinates, setCoordinates] = useState<Coordinates>({ lat: latitude, lon: longitude });
   const apiKey = 'd3375065792398d6e40325dbffa33d9b';
 
   const apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric`;
@@ -41,29 +53,6 @@ const WeatherApp: React.FC = () => {
 
   return (
     <div>
-      <div>
-        <label>Latitude:</label>
-        <input
-          type="number"
-          step="0.0001"
-          placeholder="Enter latitude"
-          value={coordinates.lat}
-          onChange={(e) => setCoordinates({ ...coordinates, lat: parseFloat(e.target.value) })}
-          style={{ color: 'black' }}
-        />
-      </div>
-      <div>
-        <label>Longitude:</label>
-        <input
-          type="number"
-          step="0.0001"
-          placeholder="Enter longitude"
-          value={coordinates.lon}
-          onChange={(e) => setCoordinates({ ...coordinates, lon: parseFloat(e.target.value) })}
-          style={{ color: 'black' }}
-        />
-      </div>
-
       {weatherData && (
         <div>
           <h2>
