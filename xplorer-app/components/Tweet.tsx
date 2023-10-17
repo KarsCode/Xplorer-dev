@@ -19,7 +19,7 @@ interface TweetProps {
       </div>
       <p>{content}</p>
       <img src={imageUrl} alt="Tweet Image" />
-    </div>
+    </div> 
   );
 };
 

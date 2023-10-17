@@ -19,6 +19,13 @@ export const tweets = [
         username: 'angee11',
         content: 'blabla',
         imageUrl: 'MapImage.jpeg',
+    },
+
+    {
+      id:4,
+      username: 'wtfnaman',
+      content: 'this is one of the posts',
+      imageUrl: 'MapImage.jpeg',
     }
   ];
   

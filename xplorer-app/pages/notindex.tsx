@@ -11,12 +11,9 @@ import RightPanel from '@/components/RightPanel/RightPanel';
 
 const HomePage = () => {
   return (
-    <div className='container'>
-        <div className="left-component">
+    <div className='flex max-h-screen'>
       <LeftSide />
-      </div>
-      <div className="middle-component">
-      <div className="twitter-timeline">
+      <div className='flex-1 max-h-screen overflow-y-auto'>
       {tweets.map((tweet) => (
         <Tweet
           key={tweet.id}
@@ -25,13 +22,8 @@ const HomePage = () => {
           imageUrl={tweet.imageUrl}
         />
       ))}
-    </div>
-
       </div>
-  
-      <div className="right-component">
       <RightPanel />
-      </div>
       </div>
   );
 };

@@ -132,11 +132,6 @@ body, html {
 }
 
 
-.container{
-  height: 100vh;
-}
-
-
 .box {
   width: 200px; /* Set the width of the box */
   height: 500px; /* Set the height of the box */
