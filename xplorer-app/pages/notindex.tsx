@@ -1,10 +1,11 @@
 // pages/index.js
 import React from 'react';
 import LeftSide from '@/components/LeftSide';
-import TestText from '@/components/TestText';
+import TestText from '@/components/RightSide';
 import TestBox from '@/components/TestBox';
 import {tweets} from '@/app/timeline'
 import Tweet from '@/components/Tweet';
+import RightSide from '@/components/RightSide';
 
 const HomePage = () => {
   return (
@@ -27,7 +28,7 @@ const HomePage = () => {
       </div>
   
       <div className="right-component">
-      <TestText/>
+      <RightSide/>
       </div>
       </div>
   );
