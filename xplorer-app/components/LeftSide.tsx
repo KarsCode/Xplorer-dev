@@ -6,7 +6,8 @@ import MapButton from './MapButton'
 
 const LeftSide = () => {
   return (
-   <div className="LeftSide"> <Logo/>
+   <div className="LeftSide"> 
+    <Logo/>
     <MapButton/>
     </div>
   )
