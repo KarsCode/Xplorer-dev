@@ -1,4 +1,4 @@
-// timelineData.js
+
 export const tweets = [
     {
       id: 1,
