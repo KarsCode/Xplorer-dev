@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react';
 import { GoogleMap, LoadScript, Marker, InfoWindow } from '@react-google-maps/api';
 import { useJsApiLoader } from '@react-google-maps/api';
 import { User } from '@prisma/client';
-import useLoginModal from '../../hooks/useLoginModal';
+import useLoginModal from '../../../hooks/useLoginModal';
 
 
 type Restaurant = {
@@ -109,9 +109,9 @@ const MapComponent: React.FC<MapComponentProps> = ({
   };
 
   return (
-    <div className="flex justify-center items-center w-72 h-72">
+    <div className="googlemap">
       <GoogleMap
-        mapContainerStyle={{ height: '100%', width: '100%' }}
+        mapContainerStyle={{ height: '70vh', width: '70vw' }}
         center={center}
         zoom={17}
         options={{
@@ -151,4 +151,3 @@ const MapComponent: React.FC<MapComponentProps> = ({
   );
 };
 export default MapComponent
-

@@ -23,7 +23,6 @@ interface Coordinates {
 
 interface WeatherAppProps{
   currentUser:  User 
-  auth? : boolean
 
 }
 
@@ -52,17 +51,22 @@ const WeatherApp: React.FC<WeatherAppProps> = ({
   }, [coordinates]);
 
   return (
-    <div>
-      {weatherData && (
-        <div>
-          <h2>
-            Weather in {weatherData.name}, {weatherData.sys.country}
-          </h2>
-          <p>Temperature: {weatherData.main.temp}°C</p>
-          <p>Weather: {weatherData.weather[0].description}</p>
-        </div>
-      )}
+    <div className="text-white p-2 overflow-x-auto hidden md:block">
+  {weatherData && (
+    <div className="text-center">
+      <h2 className="text-xm md:text-base">
+        Weather in {weatherData.name}, {weatherData.sys.country}
+      </h2>
+      <p className="text-xm md:text-base">
+        Temp: {weatherData.main.temp}°C
+      </p>
+      <p className="text-xm md:text-base">
+        Conditions: {weatherData.weather[0].description}
+      </p>
     </div>
+  )}
+</div>
+
   );
 };
 

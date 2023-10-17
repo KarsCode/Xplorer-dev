@@ -1,3 +1,5 @@
+'use client';
+
 interface ButtonProps{
     label: string;
     secondary?: boolean;
@@ -23,7 +25,7 @@ const Button: React.FC<ButtonProps> = ({
         disabled={disabled}
         onClick={onClick}
         className={`
-          disabled:opacity-70
+          disabled:opacity-70f
           disabled:cursor-not-allowed
           rounded-full
           font-semibold

@@ -1,5 +1,4 @@
 import type { AppProps } from 'next/app';
-import EmailButton from './components/EmailButton';
 
 
 

@@ -1,18 +1,15 @@
-import { Nunito } from 'next/font/google'
-
 import ClientOnly from '@/app/components/ClientOnly';
-
-
-
+import { Nunito } from 'next/font/google'
 import './globals.css'
 import RegisterModal from '@/app/components/modals/RegisterModal';
 import ToasterProvider from './providers/ToasterProvider';
 import LoginModal from '@/app/components/modals/LoginModal';
 import getCurrentUser from './actions/getCurrentUser';
+import Sidebar from './components/layout/Sidebar';
+import Leftbar from './components/layout/FriendsBar';
+import Header from './components/Header';
 
-import NavBar from './components/widgets/NavBar';
-import MapComponent from './components/widgets/MapComponent';
-import WeatherApp from './components/widgets/WeatherApp';
+
 export const metadata = {
   title: 'Xplorer',
   description: 'Explore to your hearts content',
@@ -21,6 +18,7 @@ export const metadata = {
 const font = Nunito({ 
   subsets: ['latin'], 
 });
+
 
 export default async function RootLayout({
   children,
@@ -34,20 +32,21 @@ export default async function RootLayout({
       <body className={font.className}>
           <div className='h-screen bg-black'>
               <div className='container h-full mx-auto xl:px-30 max-w-6xl'>
-              <NavBar currentUser={currentUser}/>
-              {currentUser?.latitude &&<MapComponent currentUser={currentUser} />}
-              {currentUser?.latitude && <WeatherApp currentUser={currentUser} />}
                 <div className='grid grid-cols-4 h-full'>
-                  
-                  <ClientOnly>
-                    <ToasterProvider/>
-                    
-                    <RegisterModal/>  
-                    <LoginModal/>
-
+                <ClientOnly>
+                    <ToasterProvider />
+                    <LoginModal />
+                    <RegisterModal />
+                    <Sidebar currentUser={currentUser} />
                   </ClientOnly>
-                  {children}
+                  
+                  <div className='col-span-3 lg:col-span-2 border-x-[1px] border-neutral-800' >
+                    <Header label='Home'/>
+                    {children}
+                  </div>
+                  {currentUser&&<Leftbar currentUser={currentUser}/>}
                 </div>
+
               </div>
           </div>
           
