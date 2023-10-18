@@ -1,11 +1,11 @@
 "use client";
 //AIzaSyDccgfICZESR1RutaXrZXc1WouJeGXx28k
 
-import React, { useEffect, useState } from 'react';
-import { GoogleMap, LoadScript, Marker, InfoWindow } from '@react-google-maps/api';
+import React, { useEffect, useRef, useState } from 'react';
+import { GoogleMap, LoadScript, Marker, InfoWindow, HeatmapLayer } from '@react-google-maps/api';
 import { useJsApiLoader } from '@react-google-maps/api';
 import { User } from '@prisma/client';
-import useLoginModal from '../../../hooks/useLoginModal';
+
 
 
 type Restaurant = {
@@ -34,41 +34,45 @@ const MapComponent: React.FC<MapComponentProps> = ({
 
   const [userLocation, setUserLocation] = useState<{ lat: number; lng: number } | null>(null);
   const [restaurantsWithin2km, setRestaurantsWithin2km] = useState<{ lat: number; lng: number }[]>([]);
+  const mapRef = useRef<google.maps.Map | null>(null);
+
+  const [zoom, setZoom] = useState<number>(17);
+  const [showMarkers, setShowMarkers] = useState(true);
+  
+
+  const restaurantData = [
+    // Add 10 more restaurants within 2km here
+    { lat: center.lat + 0.002, lng: center.lng + 0.002 },
+    { lat: center.lat - 0.001, lng: center.lng - 0.001 },
+    { lat: center.lat + 0.004, lng: center.lng + 0.004 },
+    { lat: center.lat - 0.002, lng: center.lng - 0.002 },
+    { lat: center.lat + 0.003, lng: center.lng + 0.003 },
+    { lat: center.lat - 0.0015, lng: center.lng - 0.0015 },
+    { lat: center.lat + 0.0035, lng: center.lng + 0.0035 },
+    { lat: center.lat - 0.0018, lng: center.lng - 0.0018 },
+    { lat: center.lat + 0.0025, lng: center.lng + 0.0025 },
+  
+
+    // Add 10 more restaurants outside 2km here
+    { lat: center.lat + 0.015, lng: center.lng + 0.015 },
+    { lat: center.lat - 0.015, lng: center.lng - 0.015 },
+    { lat: center.lat + 0.02, lng: center.lng + 0.02 },
+    { lat: center.lat - 0.02, lng: center.lng - 0.02 },
+    { lat: center.lat + 0.025, lng: center.lng + 0.025 },
+    { lat: center.lat - 0.025, lng: center.lng - 0.025 },
+    { lat: center.lat + 0.03, lng: center.lng + 0.03 },
+    { lat: center.lat - 0.03, lng: center.lng - 0.03 },
+  ];
 
   useEffect(() => {
-    // Simulate user's location (in a real application, get the actual user location)
+    
     const userLocationData = {
       lat: center.lat,  // Modify as needed
       lng: center.lng  // Modify as needed
     };
     setUserLocation(userLocationData);
 
-    // Dummy restaurant data (replace with actual data)
-    const restaurantData = [
-        // Add 10 more restaurants within 2km here
-        { lat: center.lat + 0.002, lng: center.lng + 0.002 },
-        { lat: center.lat - 0.001, lng: center.lng - 0.001 },
-        { lat: center.lat + 0.004, lng: center.lng + 0.004 },
-        { lat: center.lat - 0.002, lng: center.lng - 0.002 },
-        { lat: center.lat + 0.003, lng: center.lng + 0.003 },
-        { lat: center.lat - 0.0015, lng: center.lng - 0.0015 },
-        { lat: center.lat + 0.0035, lng: center.lng + 0.0035 },
-        { lat: center.lat - 0.0018, lng: center.lng - 0.0018 },
-        { lat: center.lat + 0.0025, lng: center.lng + 0.0025 },
-      
-    
-        // Add 10 more restaurants outside 2km here
-        { lat: center.lat + 0.015, lng: center.lng + 0.015 },
-        { lat: center.lat - 0.015, lng: center.lng - 0.015 },
-        { lat: center.lat + 0.02, lng: center.lng + 0.02 },
-        { lat: center.lat - 0.02, lng: center.lng - 0.02 },
-        { lat: center.lat + 0.025, lng: center.lng + 0.025 },
-        { lat: center.lat - 0.025, lng: center.lng - 0.025 },
-        { lat: center.lat + 0.03, lng: center.lng + 0.03 },
-        { lat: center.lat - 0.03, lng: center.lng - 0.03 },
-      ];
-
-    // Filter restaurants within 2 kilometers of the user's location
+  
     const filteredRestaurants = restaurantData.filter((restaurant) => {
       const distance = calculateDistance(userLocationData, restaurant);
       return distance <= 2;
@@ -94,13 +98,14 @@ const MapComponent: React.FC<MapComponentProps> = ({
 
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
-    googleMapsApiKey: 'AIzaSyDccgfICZESR1RutaXrZXc1WouJeGXx28k', // Replace with your Google Maps API key
+    googleMapsApiKey: 'AIzaSyDccgfICZESR1RutaXrZXc1WouJeGXx28k',
+    libraries: ["visualization"] // Replace with your Google Maps API key
   });
-
   if (!isLoaded) {
     return null; // Don't render anything until the API is loaded
   }
  
+
 
   const mapStyleID = '2a6fc2afcc647095'; // Replace with the actual Style ID
 
@@ -108,31 +113,65 @@ const MapComponent: React.FC<MapComponentProps> = ({
     setSelectedRestaurant(restaurant);
   };
 
+  const heatmapData = restaurantsWithin2km.map((restaurant) => ({
+    location: new window.google.maps.LatLng(restaurant.lat, restaurant.lng),
+    weight: 1, // You can adjust the weight as needed
+  }));
+
+  const handleMapLoad = (map: google.maps.Map) => {
+    mapRef.current = map;
+    // Now, mapRef.current holds the Google Map instance, and you can use it to interact with the map.
+  };
+
+  const handleZoomChanged = () => {
+    if (mapRef.current) {
+     console.log("Hello")
+      const currentZoom = mapRef.current.getZoom();
+      if (currentZoom !== undefined) {
+        setZoom(currentZoom);
+        
+
+      // Check if zoom level is above 14 and update the state variable
+      if (currentZoom > 14) {
+        setShowMarkers(true);
+      } else {
+        setShowMarkers(false);
+      }
+    }
+  }};
+
   return (
-    <div className="googlemap">
+        
+
       <GoogleMap
-        mapContainerStyle={{ height: '70vh', width: '70vw' }}
-        center={center}
-        zoom={17}
-        options={{
-          mapId: mapStyleID,
-        }}
-      >
-        {userLocation && (
-          <Marker
-            position={userLocation}
-            title="User Location"
-            icon={{ url: '/icons8-pointing-at-self-30.png', scaledSize: new window.google.maps.Size(30, 30) }}
-          />
-        )}
-        {restaurantsWithin2km.map((restaurant, index) => (
-          <Marker
-            key={index}
-            position={restaurant}
-            title="Restaurant"
-            onClick={() => handleMarkerClick(restaurant)} // Open InfoWindow on click
-          />
-        ))}
+      mapContainerStyle={{ height: '70vh', width: '70vw' }}
+      center={center}
+      zoom={zoom}
+      options={{
+        mapId: mapStyleID,
+      }}
+      onZoomChanged={handleZoomChanged}
+      onLoad={handleMapLoad}
+    > 
+
+        {heatmapData && (
+          <HeatmapLayer data={heatmapData} />
+          )} 
+      {userLocation && (
+        <Marker
+          position={userLocation}
+          title="User Location"
+          icon={{ url: '/icons8-pointing-at-self-30.png', scaledSize: new window.google.maps.Size(30, 30) }}
+        />
+      )}
+      {showMarkers && restaurantsWithin2km.map((restaurant, index) => (
+        <Marker
+          key={index}
+          position={restaurant}
+          title="Restaurant"
+          onClick={() => handleMarkerClick(restaurant)}
+        />
+      ))}
         {selectedRestaurant && (
           <InfoWindow
             position={selectedRestaurant}
@@ -145,9 +184,18 @@ const MapComponent: React.FC<MapComponentProps> = ({
             </p>
            </div>
           </InfoWindow>
-        )}
+        )} 
+
+
+
+        
+          
       </GoogleMap>
-    </div>
+
+
+
+     
+    
   );
 };
 export default MapComponent
