@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import useLoginModal from "@/app/hooks/useLoginModal";
 import getCurrentUser from "@/app/actions/getCurrentUser";
 import { BsDot } from 'react-icons/bs';
+import router from 'next/navigation';
 
 interface SidebarItemProps {
   label: string;
@@ -15,8 +16,20 @@ interface SidebarItemProps {
 }
 
 const SidebarItem: React.FC<SidebarItemProps> =  ({ label, icon: Icon, href,onClick}) => {
+  const router = useRouter();
+  const handleClick = useCallback(() => {
+    if (onClick) {
+      return onClick();
+    }
+    
+    
+   if (href) {
+      router.push(href);
+      
+    }
+  }, [router, href,  onClick, ]);
   return (
-    <div className="flex flex-row items-center" onClick={onClick}>
+    <div className="flex flex-row items-center" onClick={handleClick}>
       <div className="
         relative
         rounded-full 

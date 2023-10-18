@@ -8,6 +8,7 @@ import getCurrentUser from './actions/getCurrentUser';
 import Sidebar from './components/layout/Sidebar';
 import Leftbar from './components/layout/FriendsBar';
 import Header from './components/Header';
+import EditModal from './components/modals/EditModal';
 
 
 export const metadata = {
@@ -32,16 +33,10 @@ export default async function RootLayout({
       <body className={font.className}>
           <div className='h-screen bg-black'>
               <div className='container h-full mx-auto xl:px-30 max-w-6xl'>
-                <div className='grid grid-cols-4 h-full'>
-                <ClientOnly>
-                    <ToasterProvider />
-                    <LoginModal />
-                    <RegisterModal />
+                <div className='grid grid-cols-4 h-full'>    
                     <Sidebar currentUser={currentUser} />
-                  </ClientOnly>
-                  
                   <div className='col-span-3 lg:col-span-2 border-x-[1px] border-neutral-800' >
-                    <Header label='Home'/>
+                    
                     {children}
                   </div>
                   {currentUser&&<Leftbar currentUser={currentUser}/>}
