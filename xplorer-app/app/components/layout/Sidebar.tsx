@@ -1,20 +1,16 @@
 'use client';
 import { BiLogIn, BiLogOut } from 'react-icons/bi';
 import { BsHouseFill, BsBellFill } from 'react-icons/bs';
+import { FaBowlFood} from 'react-icons/fa6'
 import { FaUser } from 'react-icons/fa';
 
 import SidebarItem from "@/app/components/layout/SidebarItem";
 import getCurrentUser from "@/app/actions/getCurrentUser";
 
 import SidebarLogo from './SidebarLogo';
-import Button from '../Button';
 import useLoginModal from '@/app/hooks/useLoginModal';
 import { signOut } from 'next-auth/react';
 import { User } from "@prisma/client";
-import addFriend from '@/app/actions/addFriend';
-import { sign } from 'crypto';
-import LoginModal from '../modals/LoginModal';
-import RegisterModal from '../modals/RegisterModal';
 import MapButton from '../widgets/map/MapButton';
 import WeatherApp from '../widgets/WeatherApp';
 
@@ -34,9 +30,9 @@ const Sidebar: React.FC<SidebarProps> =  ({currentUser}) => {
       href: '/',
     },
     {
-      icon: BsBellFill,
-      label: 'Notifications',
-      href: '/notifications',
+      icon: FaBowlFood,
+      label: 'Restaurants',
+      href: '/restaurants',
       auth: true,
     },
     {
