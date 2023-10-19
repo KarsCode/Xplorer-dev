@@ -11,7 +11,7 @@ interface SidebarProps {
 
 const FriendsBar: React.FC<SidebarProps> = ({currentUser}) => {
 
-  const {data:users=[]}=getFriends(currentUser!.id);    
+  const {data:users=[]}=getFriends(currentUser!.id); 
     return ( 
     <div className="px-6 py-4 hidden lg:block">
       <div className="bg-neutral-800 rounded-xl p-4">
@@ -26,6 +26,7 @@ const FriendsBar: React.FC<SidebarProps> = ({currentUser}) => {
                   </p>
                   <p className="text-neutral-400 text-sm">
                     @{user.username}
+                    
                   </p>
                 </div>
             </div>
