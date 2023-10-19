@@ -5,30 +5,26 @@ import useRestaurantModal from "@/app/hooks/useRestaurantModal";
 import { useState } from "react";
 
 const RestaurantFeed = () => {
-    const {data:restaurants=[] }= getRestaurants();
-    const restaurantData = {
+  const {data:restaurants=[] }= getRestaurants();
+  const restaurantModal = useRestaurantModal();
+  const restaurantData = {
       name: "Egg Factory",
       description: "Italian Restaurant which is a good hangout place for friends and family",
       locality: "Manipal",
       rating: 4.5,
       contact: "8296354888",
     };
-  const restaurantModal = useRestaurantModal();
-  const [activeRestaurant, setActiveRestaurant] = useState<Record<string, any> | null>(null);
-  const openRestaurantModal = (restaurant: Record<string, any>) => {
-    setActiveRestaurant(restaurant);
-    restaurantModal.onOpen();
-  };
+    console.log(restaurants);
     return ( <>
-         {restaurants.map((restauranti:Record<string,any>)=>(
-            <div key={restauranti.id}className="flex flex-row gap-4">
-                <RestModal restaurant={restaurantData} />
+         {restaurants.map((restaurant:Record<string,any>)=>(
+            <div key={restaurant.id}className="flex flex-row gap-4">
+                <RestModal restaurant={restaurant} />
                 <div className="flex flex-col">
                   <p className="text-white font-semibold text-sm" onClick={restaurantModal.onOpen}>
-                    {restauranti.name}
+                    {restaurant.name}
                   </p>
                   <p className="text-neutral-400 text-sm">
-                    @{restauranti.locality}
+                    @{restaurant.locality}
                     
                   </p>
                 </div>
