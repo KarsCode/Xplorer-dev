@@ -8,7 +8,7 @@ import getCurrentUser from './actions/getCurrentUser';
 import Sidebar from './components/layout/Sidebar';
 import Leftbar from './components/layout/FriendsBar';
 import Header from './components/Header';
-import EditModal from './components/modals/EditModal';
+
 
 
 export const metadata = {

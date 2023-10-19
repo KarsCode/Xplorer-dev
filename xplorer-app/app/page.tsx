@@ -4,6 +4,7 @@ import ClientOnly from './components/ClientOnly';
 import ToasterProvider from './providers/ToasterProvider';
 import LoginModal from './components/modals/LoginModal';
 import RegisterModal from './components/modals/RegisterModal';
+import EditModal from './components/modals/EditModal';
 
 
 
