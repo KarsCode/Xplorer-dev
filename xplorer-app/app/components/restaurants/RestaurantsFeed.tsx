@@ -17,7 +17,8 @@ const RestaurantFeed = () => {
     console.log(restaurants);
     return ( <>
          {restaurants.map((restaurant:Record<string,any>)=>(
-            <div key={restaurant.id}className="flex flex-row gap-4">
+            <div key={restaurant.id}className="flex flex-col rounded-xl w-full h-60  border-2 border-white-5 gap-2 border-solid
+            border-white p-10 m-2 ">
                 <RestModal restaurant={restaurant} />
                 <div className="flex flex-col">
                   <p className="text-white font-semibold text-sm" onClick={restaurantModal.onOpen}>
