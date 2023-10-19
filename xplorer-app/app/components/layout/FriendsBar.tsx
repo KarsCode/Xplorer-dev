@@ -2,6 +2,7 @@
 import getFriends from "@/app/actions/getFriends";
 import { User } from "@prisma/client";
 import Avatar from "../Avatar";
+import AddFriend from "../AddFriend";
 
 interface SidebarProps {
   currentUser: User | null | undefined,
@@ -13,6 +14,7 @@ const FriendsBar: React.FC<SidebarProps> = ({currentUser}) => {
 
   const {data:users=[]}=getFriends(currentUser!.id); 
     return ( 
+      <div className="flex flex-col justify-between h-fit">
     <div className="px-6 py-4 hidden lg:block">
       <div className="bg-neutral-800 rounded-xl p-4">
         <h2 className="text-white text-xl font-semibold">Friends</h2>
@@ -34,7 +36,10 @@ const FriendsBar: React.FC<SidebarProps> = ({currentUser}) => {
         </div>
       </div>
     </div>
-
+    <div className="px-6 py-4 hidden lg:block">
+    <AddFriend/>
+    </div>
+    </div>
     
     );
 }
