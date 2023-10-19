@@ -255,3 +255,10 @@ img {
     box-shadow: .2em -.2em 0 0 currentcolor;
   }
 }
+
+.leaflet-bottom,
+.leaflet-control,
+.leaflet-pane,
+.leaflet-top{
+  z-index:0 !important
+}

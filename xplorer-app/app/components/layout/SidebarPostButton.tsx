@@ -1,12 +1,17 @@
 'use client';
-import { FaFeather } from "react-icons/fa";
+import { BsPlusLg } from "react-icons/bs";
 import { useRouter } from "next/navigation";
 
 import useLoginModal from "@/app/hooks/useLoginModal";
 import getCurrentUser from "@/app/actions/getCurrentUser";
 import { useCallback } from "react";
-
-const SidebarTweetButton =  () => {
+import LoginModal from "../modals/LoginModal";
+import { User } from "@prisma/client";
+import usePostModal from "@/app/hooks/usePostModal";
+interface SidebarPostButtonProps {
+  currentUser: User ;
+}
+const SidebarPostButton =  ({currentUser}: SidebarPostButtonProps) => {
   const router = useRouter();
   const loginModal = useLoginModal();
 
@@ -15,8 +20,16 @@ const SidebarTweetButton =  () => {
       return loginModal.onOpen();
   }, [loginModal, router, ]);
 
+  const postModal = usePostModal();
+
+
+  const onPost = useCallback(()=> {
+   postModal.onOpen();
+    
+  },[postModal])
+
   return (
-    <><div onClick={()=>{onclick}}>
+    <><div onClick={onPost}>
       <div className="
         mt-6
         lg:hidden 
@@ -27,22 +40,22 @@ const SidebarTweetButton =  () => {
         flex
         items-center
         justify-center 
-        bg-sky-500 
+        bg-yellow-500
         hover:bg-opacity-80 
         transition 
         cursor-pointer
       ">
-        <FaFeather size={24} color="white" />
+        <BsPlusLg size={24} color="white" />
       </div>
       <div className="
         mt-6
         hidden 
         lg:block 
-        px-4
+        px-1
         py-2
-        rounded-full
-        bg-sky-500
-        hover:bg-opacity-90 
+        rounded-lg
+        bg-yellow-500
+        hover:opacity-80 
         cursor-pointer
       ">
         <p 
@@ -51,10 +64,10 @@ const SidebarTweetButton =  () => {
             lg:block 
             text-center
             font-semibold
-            text-white 
+            text-white
             text-[20px]
         ">
-          Tweet
+          Xplore Post 
         </p>
       </div>
     </div>
@@ -62,4 +75,4 @@ const SidebarTweetButton =  () => {
   );
 };
 
-export default SidebarTweetButton;
+export default SidebarPostButton;
