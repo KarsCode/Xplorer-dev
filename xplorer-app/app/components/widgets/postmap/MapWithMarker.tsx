@@ -81,23 +81,25 @@ L.Icon.Default.mergeOptions({
 });
 
 interface MapProps {
-  center?: number[]
+  center: L.LatLngExpression
+  passValueToParent: (value: number[]) => void;
 }
 
 const url = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
 const attribution = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
 
 
-const Map: React.FC<MapProps> = ({ center }) => {
+const Map: React.FC<MapProps> = ({ center, passValueToParent }) => {
+  const [markerPosition, setMarkerPosition] = useState<L.LatLngExpression | null>(center);
 
-    //@ts-ignore
-    const [markerPosition, setMarkerPosition] = useState<L.LatLngExpression | null>(center);
-    const handleMarkerDrag = (e: L.LeafletEvent) => {
-        const marker = e.target;
-        const markerLatLng = marker.getLatLng();
-        setMarkerPosition([markerLatLng.lat, markerLatLng.lng]);
-        console.log(`Marker moved to Latitude: ${markerLatLng.lat}, Longitude: ${markerLatLng.lng}`);
-      };
+  const handleMarkerDrag = (e: L.LeafletEvent) => {
+    const marker = e.target;
+    const markerLatLng = marker.getLatLng();
+    setMarkerPosition([markerLatLng.lat, markerLatLng.lng]);
+
+    const someVariable = [markerLatLng.lat,markerLatLng.lng];
+    passValueToParent(someVariable);
+  };
       return (
         <MapContainer 
           //@ts-ignore
@@ -129,4 +131,4 @@ const Map: React.FC<MapProps> = ({ center }) => {
       );
 }
 
-export default Map
+export default Map;
