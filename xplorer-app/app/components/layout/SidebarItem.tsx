@@ -38,7 +38,7 @@ const SidebarItem: React.FC<SidebarItemProps> =  ({ label, icon: Icon, href,onCl
         flex
         items-center
         justify-center 
-        p-4 
+        p-2 
         hover:text-yellow-600
         cursor-pointer 
         lg:hidden
@@ -52,7 +52,7 @@ const SidebarItem: React.FC<SidebarItemProps> =  ({ label, icon: Icon, href,onCl
         lg:flex 
         items-row 
         gap-4 
-        p-4 
+        p-2 
         rounded-xl
         hover:opacity-80
         hover:text-yellow-400

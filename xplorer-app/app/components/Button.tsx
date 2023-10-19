@@ -34,7 +34,7 @@ const Button: React.FC<ButtonProps> = ({
           hover:text-yellow-400
 =======
           hover:text-yellow-500
-          hover:border-8
+          hover:border-7
           hover:border-yellow-500
 >>>>>>> 83ef0b58a9b72ba329cff507c3b079ea76703245
           transition
