@@ -34,13 +34,14 @@ export default async function RootLayout({
           <div className='h-screen bg-black'>
               <div className='container h-full mx-auto xl:px-30 max-w-6xl'>
                 <div className='grid grid-cols-4 h-full'>  
-                {currentUser&&<Friendsbar currentUser={currentUser}/>}  
-                    
+                  
+                <Sidebar currentUser={currentUser} />
                   <div className='col-span-3 lg:col-span-2 border-x-[1px] border-neutral-800' >
                     
                     {children}
                   </div>
-                  <Sidebar currentUser={currentUser} />
+                  
+                  {currentUser&&<Friendsbar currentUser={currentUser}/>}
                 </div>
 
               </div>

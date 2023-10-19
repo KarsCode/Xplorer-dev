@@ -29,9 +29,14 @@ const Button: React.FC<ButtonProps> = ({
           disabled:cursor-not-allowed
           rounded-xl
           font-semibold
+<<<<<<< HEAD
+          hover:opacity-80
+          hover:text-yellow-400
+=======
           hover:text-yellow-500
-          hover:border-8
+          hover:border-7
           hover:border-yellow-500
+>>>>>>> 83ef0b58a9b72ba329cff507c3b079ea76703245
           transition
           border-2
           ${fullWidth ? 'w-full' : 'w-fit'}
