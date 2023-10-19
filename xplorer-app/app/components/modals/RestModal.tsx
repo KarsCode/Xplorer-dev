@@ -11,10 +11,10 @@ import useRestaurantModal from "@/app/hooks/useRestaurantModal";
 interface RestaurantModalProps{
     restaurant: {
       name: string;
-      image?: string | undefined;
+      image?: string | undefined | null;
       description?: string | undefined;
       locality: string;
-      rating?: number | undefined;
+      rating?: number | undefined|null;
       contact?: string | undefined;
 
       };
