@@ -3,7 +3,7 @@ import React from 'react';
 import Header from '../../components/Header';
 import { useParams   } from 'next/navigation';
 import getUser from '@/app/actions/getUser';
-import {ClipLoader} from "react-spinners";
+
 import UserHero from '@/app/components/users/UserHero';
 import UserBio from '@/app/components/users/UserBio';
 import { User } from '@prisma/client';
@@ -25,7 +25,6 @@ const UserPage:React.FC<UserPageProps> =  ({currentUser}) => {
         justify-center
         items-center
         h-full'>
-          {/* <ClipLoader color="yellow" size={60}/> */}
           <span className="loader"></span>
         </div>
       )

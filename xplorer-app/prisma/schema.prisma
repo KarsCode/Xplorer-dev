@@ -58,13 +58,12 @@ model Comment {
 model Restaurant {
   id             String @id @default(auto()) @map("_id") @db.ObjectId
   name           String
-  rating         Int 
-  cusine         String[]
-  location       String   // either lat long or google maps link
-  likedIds       String[] @db.ObjectId
-  userId         String   @db.ObjectId
+  rating         Float?
+  cusines         String[]
+  latitude       Float   // either lat long or google maps link
+  longitude      Float
   locality       String   // city/locality
-  image          String     
+  image          String?     
   ratings        Rating[] 
 
 }
