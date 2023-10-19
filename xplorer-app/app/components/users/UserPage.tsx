@@ -25,7 +25,8 @@ const UserPage:React.FC<UserPageProps> =  ({currentUser}) => {
         justify-center
         items-center
         h-full'>
-          <ClipLoader color="yellow" size={60}/>
+          {/* <ClipLoader color="yellow" size={60}/> */}
+          <span className="loader"></span>
         </div>
       )
   }
@@ -35,6 +36,7 @@ const UserPage:React.FC<UserPageProps> =  ({currentUser}) => {
       <UserHero userId={userId as string}/>
       <UserBio userId={userId as string} currentUser={currentUser} />
       {currentUser&&<EditModal currentUser={currentUser}/>}
+      
 
     </div>
   );
