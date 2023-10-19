@@ -30,11 +30,17 @@ const UserBio:React.FC<UserBioProps> =  ({userId,currentUser}) => {
     return ( 
         <div className="border-b-[1px] border-neutral-800 pb-4">
             <div className="flex justify-end p-2">
-            {currentUser?.id === userId ? (
+            <div className="text-white p-2">
+                <div className="flex flex-col items-end gap-2">
+                {currentUser?.id === userId ? (
                 <Button secondary label="Edit" onClick={editModal.onOpen} />//editModal.onOpen
                 ) : (
                     <Button secondary label="XperienceUnite" onClick={()=>{}} />
                 )} 
+                {currentUser?.id === userId ? (<div className="bg-neutral-800">{fetchedUser?.friendcode} </div>
+                ) : (<div></div> )}
+                </div>
+                </div>
                 </div>
                 <div className="mt-8 px-4 ">
                     <div className="flex flex-col">

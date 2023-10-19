@@ -15,7 +15,7 @@ function MapButton({ currentUser}: OpenedComponentProps){
     <div>
       <button
         onClick={toggleModalVisibility}
-        className="inline-flex p-8 md:p-24 max-w-full md:max-w-64 max-h-full md:max-h-64 text-white text-2xl border-0 rounded cursor-pointer text-center bg-cover bg-no-repeat bg-center overflow-hidden"
+        className="inline-flex p-8 md:p-24 max-w-full lg:w-screen md:max-w-64 max-h-full md:max-h-64 text-white text-2xl border-0 rounded cursor-pointer text-center bg-cover bg-no-repeat bg-center overflow-hidden"
         style={{
           backgroundImage: 'url(/images/MapImage.jpeg)', 
         }}
