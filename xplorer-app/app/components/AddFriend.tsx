@@ -2,10 +2,20 @@
 "use client"
 import React from 'react';
 import NumberInput from './FriendCode';
+import { User } from '@prisma/client';
+import addFriend from '../actions/addFriend';
 
-export default function AddFriend() {
-  const handleNumberSubmit = (number: number) => {
-    alert(`Submitted number: ${number}`);
+interface AddFriendProps{
+  currentUser:User
+}
+
+
+const AddFriend:React.FC<AddFriendProps> = ({currentUser}) =>{
+  const handleNumberSubmit = (string: string) => {
+    if(currentUser.friendcode==string){
+      return;
+    }
+    addFriend(currentUser.id,string);
   };
 
   return (
@@ -16,3 +26,5 @@ export default function AddFriend() {
     </div>
   );
 }
+
+export default AddFriend
