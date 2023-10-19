@@ -8,7 +8,7 @@ interface RestaurantModalStore{
 
 
 const useRestaurantModal = create<RestaurantModalStore>((set)=>({
-    isOpen : true   ,
+    isOpen : false   ,
     onOpen:()=>set({isOpen:true}),
     onClose:()=>set({isOpen:false}),
 }));
