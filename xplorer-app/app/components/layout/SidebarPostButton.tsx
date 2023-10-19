@@ -5,8 +5,13 @@ import { useRouter } from "next/navigation";
 import useLoginModal from "@/app/hooks/useLoginModal";
 import getCurrentUser from "@/app/actions/getCurrentUser";
 import { useCallback } from "react";
-
-const SidebarTweetButton =  () => {
+import LoginModal from "../modals/LoginModal";
+import { User } from "@prisma/client";
+import usePostModal from "@/app/hooks/usePostModal";
+interface SidebarPostButtonProps {
+  currentUser: User ;
+}
+const SidebarPostButton =  ({currentUser}: SidebarPostButtonProps) => {
   const router = useRouter();
   const loginModal = useLoginModal();
 
@@ -15,8 +20,16 @@ const SidebarTweetButton =  () => {
       return loginModal.onOpen();
   }, [loginModal, router, ]);
 
+  const postModal = usePostModal();
+
+
+  const onPost = useCallback(()=> {
+   postModal.onOpen();
+    
+  },[postModal])
+
   return (
-    <><div onClick={()=>{onclick}}>
+    <><div onClick={onPost}>
       <div className="
         mt-6
         lg:hidden 
@@ -40,8 +53,8 @@ const SidebarTweetButton =  () => {
         lg:block 
         px-4
         py-2
-        rounded-full
-        bg-sky-500
+        rounded-lg
+        bg-yellow-500
         hover:bg-opacity-90 
         cursor-pointer
       ">
@@ -54,7 +67,7 @@ const SidebarTweetButton =  () => {
             text-white 
             text-[20px]
         ">
-          Tweet
+          Xplore Post 
         </p>
       </div>
     </div>
@@ -62,4 +75,4 @@ const SidebarTweetButton =  () => {
   );
 };
 
-export default SidebarTweetButton;
+export default SidebarPostButton;

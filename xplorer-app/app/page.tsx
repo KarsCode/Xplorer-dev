@@ -4,6 +4,7 @@ import ClientOnly from './components/ClientOnly';
 import ToasterProvider from './providers/ToasterProvider';
 import LoginModal from './components/modals/LoginModal';
 import RegisterModal from './components/modals/RegisterModal';
+import PostModal from './components/modals/PostModal';
 
 
 
@@ -14,6 +15,7 @@ export default function Home({Component,pageProps}:AppProps) {
           <ToasterProvider />
           <LoginModal />
           <RegisterModal />
+          <PostModal/>
         </ClientOnly>
       <Header label='Home'/>   
     </div>
