@@ -6,17 +6,21 @@ import LoginModal from './components/modals/LoginModal';
 import RegisterModal from './components/modals/RegisterModal';
 import PostModal from './components/modals/PostModal';
 import EditModal from './components/modals/EditModal';
+import getCurrentUser from './actions/getCurrentUser';
 
 
 
-export default function Home({Component,pageProps}:AppProps) {
+export default async function Home({Component,pageProps}:AppProps) {
+  const currentUser =( await getCurrentUser())?.currentUser;
   return (
     <div>
       <ClientOnly>
           <ToasterProvider />
           <LoginModal />
           <RegisterModal />
-          <PostModal/>
+          <PostModal
+          //@ts-ignore
+           currentUser={currentUser} />
         </ClientOnly>
       <Header label='Home'/>   
     </div>

@@ -17,6 +17,7 @@ import ImageUpload from '../ImageUpload'
 import axios from 'axios'
 import toast from 'react-hot-toast'
 import { useRouter } from 'next/navigation'
+import { User } from '@prisma/client'
 enum STEPS{
     TAG =  0,
     LOCATION = 1, 
@@ -25,11 +26,11 @@ enum STEPS{
 
 
 }
+interface PostModalProps{
+  currentUser: User
+}
 
-
-  
-
-const PostModal = () => {
+const PostModal:React.FC<PostModalProps> = ({currentUser}) => {
     const postModal = usePostModal();
     const router = useRouter();
     const { 
@@ -44,11 +45,13 @@ const PostModal = () => {
       } = useForm<FieldValues>({
         defaultValues: {
           tag: '',
-          location: null,
+          latitude: null,
+          longitude:null,
           image: '',
           title: '',
           description: '',
           date:'',
+          currentUser,
         }
       });
 
@@ -86,11 +89,11 @@ const PostModal = () => {
         {return onNext();}
         
         else{
-            postModal.onClose();
+            
             setIsLoading(true)
-            axios.post('/api/events', data)
+            axios.post('/api/post', data)
             .then(() => {
-            toast.success('Listing created!');
+            toast.success('Post created!');
             router.refresh()
             reset();
             setStep(STEPS.TAG)
@@ -101,6 +104,7 @@ const PostModal = () => {
             })
             .finally(() => {
             setIsLoading(false);
+            postModal.onClose();
             })
                 }
             }
@@ -161,6 +165,10 @@ const PostModal = () => {
 
 
       if(step === STEPS.LOCATION){
+        const passValueToParent = (latlng: number[]) => {
+          setValue('latitude', latlng[0]);
+          setValue('longitude', latlng[1]);
+        };
         bodyContent =(
             <div className="flex flex-col gap-8 text-white">
             <Heading
@@ -171,7 +179,7 @@ const PostModal = () => {
               value = {location}
               onChange={(value)=>setCustomValue('location',value)} 
             />
-            <Map center={location?.latlng} />
+            <Map center={location?.latlng} passValueToParent={passValueToParent}/>
           </div>
         )
       }
@@ -213,8 +221,9 @@ const PostModal = () => {
                         //@ts-ignore
                         onChange={(date) => {
                             //@ts-ignore
-                            setSelectedDate(date)
-                            console.log("Selected Date and Time: ", date)
+                            setSelectedDate(date);
+                            console.log(date);
+                            setValue('date', date?.toString());
                         }}
                         showTimeSelect
                         timeFormat="HH:mm"
