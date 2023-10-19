@@ -12,7 +12,9 @@ interface ModalProps {
   body?: React.ReactElement;
   footer?: React.ReactElement;
   actionLabel: string;
+  secondaryActionLabel?: string
   disabled?: boolean;
+  secondaryAction?: () => void;
 }
 
 const Modal: React.FC<ModalProps> = ({ 
@@ -21,7 +23,9 @@ const Modal: React.FC<ModalProps> = ({
   onSubmit, 
   title, 
   body, 
-  actionLabel, 
+  actionLabel,
+  secondaryAction,
+  secondaryActionLabel,
   footer, 
   disabled,
 }) => {
@@ -49,6 +53,14 @@ const Modal: React.FC<ModalProps> = ({
 
     onSubmit();
   }, [onSubmit, disabled]);
+
+  const handleSecondaryAction = useCallback(() => {
+    if (disabled || !secondaryAction) {
+      return;
+    }
+
+    secondaryAction();
+  }, [secondaryAction, disabled]);
 
 
   if (!isOpen) {
@@ -107,7 +119,7 @@ const Modal: React.FC<ModalProps> = ({
                 p-1 
                 ml-auto
                 border-0 
-                text-white 
+                text-white
                 hover:opacity-70
                 transition
               "
@@ -121,11 +133,51 @@ const Modal: React.FC<ModalProps> = ({
             {body}
           </div>
           {/*footer*/}
-          <div className="flex flex-col gap-2 p-10">
-            <Button disabled={disabled} label={actionLabel} secondary fullWidth large onClick={handleSubmit} />
+          {/* <div className="flex flex-col gap-2 p-10">
+          {secondaryAction && secondaryActionLabel && (
+                    <Button 
+                      disabled={disabled} 
+                      label={secondaryActionLabel} 
+                      onClick={handleSecondaryAction}
+                      outline
+                    />  
+                  )}
+            //<Button disabled={disabled} label={actionLabel} secondary fullWidth large onClick={handleSubmit} />
+            
             {footer}
-          </div>
+          </div> */}
+          <div className="flex flex-col gap-2 p-6">
+                <div 
+                  className="
+                    flex 
+                    flex-row 
+                    items-center 
+                    gap-4 
+                    w-full
+                    text-black
+                  "
+                >
+                  {secondaryAction && secondaryActionLabel && (
+                    <Button 
+                      disabled={disabled} 
+                      label={secondaryActionLabel} 
+                      onClick={handleSecondaryAction}
+                      secondary fullWidth large
+                      outline
+                    />  
+                  )}
+                  <Button 
+                    disabled={disabled} 
+                    label={actionLabel} 
+                    onClick={handleSubmit}
+                    secondary fullWidth large
+                  />
+                </div>
+                {footer}
+              </div>
+          
         </div>
+        
       </div>
     </div>
   </>
