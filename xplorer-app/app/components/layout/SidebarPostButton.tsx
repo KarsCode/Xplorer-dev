@@ -1,5 +1,5 @@
 'use client';
-import { FaFeather } from "react-icons/fa";
+import { BsPlusLg } from "react-icons/bs";
 import { useRouter } from "next/navigation";
 
 import useLoginModal from "@/app/hooks/useLoginModal";
@@ -40,22 +40,22 @@ const SidebarPostButton =  ({currentUser}: SidebarPostButtonProps) => {
         flex
         items-center
         justify-center 
-        bg-sky-500 
+        bg-yellow-500
         hover:bg-opacity-80 
         transition 
         cursor-pointer
       ">
-        <FaFeather size={24} color="white" />
+        <BsPlusLg size={24} color="white" />
       </div>
       <div className="
         mt-6
         hidden 
         lg:block 
-        px-4
+        px-1
         py-2
         rounded-lg
         bg-yellow-500
-        hover:bg-opacity-90 
+        hover:opacity-80 
         cursor-pointer
       ">
         <p 
@@ -64,7 +64,7 @@ const SidebarPostButton =  ({currentUser}: SidebarPostButtonProps) => {
             lg:block 
             text-center
             font-semibold
-            text-white 
+            text-white
             text-[20px]
         ">
           Xplore Post 

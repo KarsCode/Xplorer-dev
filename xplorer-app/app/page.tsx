@@ -5,6 +5,7 @@ import ToasterProvider from './providers/ToasterProvider';
 import LoginModal from './components/modals/LoginModal';
 import RegisterModal from './components/modals/RegisterModal';
 import PostModal from './components/modals/PostModal';
+import EditModal from './components/modals/EditModal';
 
 
 

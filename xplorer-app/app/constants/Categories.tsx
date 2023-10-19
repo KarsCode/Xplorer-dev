@@ -1,49 +1,45 @@
-import { 
-    GiBarn, 
-    GiBoatFishing, 
-    GiCactus, 
-    GiCastle, 
-    GiCaveEntrance, 
-    GiForestCamp, 
-    GiIsland,
-    GiWindmill
-  } from 'react-icons/gi';
+
+  import {MdOutlineSportsBaseball,MdTheaterComedy,MdFestival} from 'react-icons/md';
+  import { IoFastFoodOutline } from 'react-icons/io5';
+  import { PiLeafBold } from 'react-icons/pi';
+  import { RiMusic2Fill } from 'react-icons/ri';
+  import { BsTicketPerforatedFill } from 'react-icons/bs';   
   import { TbBeach, TbMountain, TbPool } from 'react-icons/tb'; 
 
 export const categories = [
     {
       label: 'Sports',
-      icon: TbBeach,
+      icon: MdOutlineSportsBaseball,
       description: 'Game. Set. Match',
     },
     {
       label: 'Food&Drink',
-      icon: GiWindmill,
+      icon: IoFastFoodOutline,
       description: 'Yummy Yummy',
     },
     {
       label: 'Nature',
-      icon: TbBeach,
+      icon: TbMountain,
       description: 'Touching Grass ?'
     },
     {
       label: 'Concerts',
-      icon: TbMountain,
+      icon: RiMusic2Fill,
       description: 'Rock and Roll'
     },
     {
       label: 'Comedy&Theatre',
-      icon: TbPool,
+      icon: MdTheaterComedy,
       description: 'Own the Stage'
     },
     {
       label: 'Movies',
-      icon: GiIsland,
+      icon: BsTicketPerforatedFill,
       description: 'Lights. Camera. Action'
     },
     {
       label: 'Festivals',
-      icon: GiBoatFishing,
+      icon: MdFestival,
       description: 'Cultural Extravaganza'
     }
   ]

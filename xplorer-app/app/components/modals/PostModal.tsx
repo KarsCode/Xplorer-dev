@@ -6,8 +6,17 @@ import usePostModal from '@/app/hooks/usePostModal'
 import Heading from '../Heading'
 import { categories } from '@/app/constants/Categories'
 import TagInput from '../TagInput'
-import { FieldValues, useForm } from 'react-hook-form'
+import { FieldValues, SubmitHandler, useForm } from 'react-hook-form'
 import CountrySelect from '../CountrySelect'
+import dynamic from 'next/dynamic'
+import Map from '../widgets/postmap/MapWithMarker'
+import DescriptionInput from '../DescriptionInput'
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import ImageUpload from '../ImageUpload'
+import axios from 'axios'
+import toast from 'react-hot-toast'
+import { useRouter } from 'next/navigation'
 enum STEPS{
     TAG =  0,
     LOCATION = 1, 
@@ -22,6 +31,7 @@ enum STEPS{
 
 const PostModal = () => {
     const postModal = usePostModal();
+    const router = useRouter();
     const { 
         register, 
         handleSubmit,
@@ -38,11 +48,13 @@ const PostModal = () => {
           image: '',
           title: '',
           description: '',
+          date:'',
         }
       });
+
     
       const tag = watch('tag')
-      const loaction = watch('location')
+      const location = watch('location')
       const setCustomValue = (id: string, value: any) =>{
         setValue(id,value,{
             shouldDirty: true,
@@ -51,7 +63,15 @@ const PostModal = () => {
         })
       }
 
+      const Map = useMemo(() => dynamic(() => import('../widgets/postmap/MapWithMarker'), { 
+        ssr: false 
+      }), [location]);
+
+    const [selectedDate, setSelectedDate] = useState(null);
+    const [eventImage, setEventImage] = useState('');
     const [step,setStep] = useState(STEPS.TAG)
+    const [isLoading, setIsLoading] = useState(false);
+
 
     const onBack = () =>{
         setStep((value)=>value-1)
@@ -60,6 +80,30 @@ const PostModal = () => {
     const onNext = () =>{
         setStep((value)=>value+1)
     }
+
+    const onSubmit: SubmitHandler<FieldValues> = (data)=>{
+        if(step != STEPS.IMAGES )
+        {return onNext();}
+        
+        else{
+            postModal.onClose();
+            setIsLoading(true)
+            axios.post('/api/events', data)
+            .then(() => {
+            toast.success('Listing created!');
+            router.refresh()
+            reset();
+            setStep(STEPS.TAG)
+            
+            })
+            .catch(() => {
+            toast.error('Something went wrong.');
+            })
+            .finally(() => {
+            setIsLoading(false);
+            })
+                }
+            }
 
     const actionLabel = useMemo (() => {
             if(step === STEPS.IMAGES )
@@ -85,7 +129,7 @@ const PostModal = () => {
     },[step])
 
     let bodyContent = (
-        <div className="flex flex-col gap-8">
+        <div className="flex flex-col gap-8 text-white">
           <Heading
             title="Which of these best describes your event?"
             subtitle="Pick a category"
@@ -124,26 +168,99 @@ const PostModal = () => {
               subtitle="Help guests Xplore!"
             />
             <CountrySelect
-              
-              onChange={()=>{}} 
+              value = {location}
+              onChange={(value)=>setCustomValue('location',value)} 
             />
-            
-            {/* <Map center={location?.latlng} /> */}
+            <Map center={location?.latlng} />
           </div>
         )
       }
 
 
+      if(step === STEPS.INFO){
+        bodyContent = (
+            <div className='flex flex-col gap-8'>
+                <Heading
+                 title = "Describe the Event"
+                 subtitle = "Short and Sweet works best :)"
+                />
+                <DescriptionInput
+                id="title"
+                label="Title"
+                disabled = {isLoading}
+                register={register}
+                errors={errors}
+                required
+                />
+
+                <br/>
+
+                <DescriptionInput
+                id="description"
+                label="Description"
+                disabled = {isLoading}
+                register={register}
+                errors={errors}
+                required
+                />
+
+                <br />
+
+                <div className='flex flex-col gap-4'>
+                    <label className='text-white'>Date and Time</label>
+                    <DatePicker className='rounded-xl px-20 py-4 '
+                        selected={selectedDate}
+                        //@ts-ignore
+                        onChange={(date) => {
+                            //@ts-ignore
+                            setSelectedDate(date)
+                            console.log("Selected Date and Time: ", date)
+                        }}
+                        showTimeSelect
+                        timeFormat="HH:mm"
+                        timeIntervals={15}
+                        timeCaption="Time"
+                        dateFormat="MMMM d, yyyy h:mm aa"
+                        disabled={isLoading}
+                        placeholderText='Select Date & Time'
+                    />
+                </div>
+
+                
+
+            </div>
+        )
+
+
+      }
+
+
+        if(step === STEPS.IMAGES){
+            bodyContent = (
+                <div className="flex flex-col gap-8">
+                <Heading
+                  title="Add a photo of the event"
+                  subtitle="Show Xplorers what the event looks like!"
+                />
+                <div>
+                <ImageUpload value={eventImage} disabled={isLoading} onChange={(image) => setEventImage(image)}label='Post Image'/>
+                </div>
+              </div>
+            )
+        }
+
+
   return (
     <Modal
         isOpen={postModal.isOpen}
-        onClose={postModal.onClose}
-        onSubmit={onNext}
+        onClose={postModal.onClose} 
+        onSubmit={handleSubmit(onSubmit)}
         title='Xplore Away'
         actionLabel={actionLabel}
         secondaryActionLabel={secondaryActionLabel}
         secondaryAction = {step === STEPS.TAG ?undefined : onBack}
         body = {bodyContent}
+
     />
   )
 }

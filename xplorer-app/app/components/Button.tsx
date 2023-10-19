@@ -27,9 +27,11 @@ const Button: React.FC<ButtonProps> = ({
         className={`
           disabled:opacity-70f
           disabled:cursor-not-allowed
-          rounded-full
+          rounded-xl
           font-semibold
-          hover:opacity-80
+          hover:text-yellow-500
+          hover:border-8
+          hover:border-yellow-500
           transition
           border-2
           ${fullWidth ? 'w-full' : 'w-fit'}
@@ -41,7 +43,7 @@ const Button: React.FC<ButtonProps> = ({
           ${large ? 'py-3' : 'py-2'}
           ${outline ? 'bg-transparent' : ''}
           ${outline ? 'border-white' : ''}
-          ${outline ? 'text-white' : ''}
+          ${outline ? 'text-black ' : ''}
         `}
       >
         {label}

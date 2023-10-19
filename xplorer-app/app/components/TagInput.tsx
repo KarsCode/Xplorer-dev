@@ -25,10 +25,10 @@ const TagInput: React.FC<TagInputProps>= ({
         flex
         flex-col
         gap-3
-        hover:border-black
+        hover:border-yellow-500
         transition
         cursor-pointer
-        ${selected ? 'border-black' : 'border-neutral-200'}
+        ${selected ? 'border-yellow-500' : 'border-neutral-200'}
       `}
     >
       <Icon size={30} />
