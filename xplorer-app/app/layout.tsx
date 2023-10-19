@@ -6,7 +6,7 @@ import ToasterProvider from './providers/ToasterProvider';
 import LoginModal from '@/app/components/modals/LoginModal';
 import getCurrentUser from './actions/getCurrentUser';
 import Sidebar from './components/layout/Sidebar';
-import Leftbar from './components/layout/FriendsBar';
+import Friendsbar from './components/layout/FriendsBar';
 import Header from './components/Header';
 
 
@@ -33,13 +33,14 @@ export default async function RootLayout({
       <body className={font.className}>
           <div className='h-screen bg-black'>
               <div className='container h-full mx-auto xl:px-30 max-w-6xl'>
-                <div className='grid grid-cols-4 h-full'>    
-                    <Sidebar currentUser={currentUser} />
+                <div className='grid grid-cols-4 h-full'>  
+                {currentUser&&<Friendsbar currentUser={currentUser}/>}  
+                    
                   <div className='col-span-3 lg:col-span-2 border-x-[1px] border-neutral-800' >
                     
                     {children}
                   </div>
-                  {currentUser&&<Leftbar currentUser={currentUser}/>}
+                  <Sidebar currentUser={currentUser} />
                 </div>
 
               </div>
