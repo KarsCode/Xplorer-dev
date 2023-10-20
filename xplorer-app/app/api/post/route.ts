@@ -19,9 +19,8 @@ export async function POST(
           description,
           date,
           latitude,
-          longitude
+          longitude,
          } = body;
-
     const post = await prisma.post.create({
         data:{
             tag,

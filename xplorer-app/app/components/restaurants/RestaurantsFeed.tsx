@@ -1,7 +1,7 @@
 'use client';
 import getRestaurants from "@/app/actions/getRestaurants";
 import RestModal from "../modals/RestModal";
-import useRestaurantModal from "@/app/hooks/useRestaurantModal";
+import useRestaurantModal from "@/app/hooks/useRestModal";
 import { useState } from "react";
 import { Restaurant } from "@prisma/client";
 import { FaBook, FaMapPin } from "react-icons/fa";

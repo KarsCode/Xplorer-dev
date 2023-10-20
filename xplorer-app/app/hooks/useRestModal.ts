@@ -1,13 +1,13 @@
 import {create } from 'zustand';
 
-interface RestaurantModalStore{
+interface RestModalStore{
     isOpen:boolean;
     onOpen:()=> void;
     onClose:()=> void;
 }
 
 
-const useRestaurantModal = create<RestaurantModalStore>((set)=>({
+const useRestModal = create<RestModalStore>((set)=>({
     isOpen : false   ,
     onOpen:()=>set({isOpen:true}),
     onClose:()=>set({isOpen:false}),
@@ -15,4 +15,4 @@ const useRestaurantModal = create<RestaurantModalStore>((set)=>({
 
 
 
-export default useRestaurantModal;
+export default useRestModal;

@@ -14,9 +14,17 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       const { currentUser } = await serverAuth(req, res);
       const { body } = req.body;
 
+
+      const {title, tag , latitude , longitude , eventImage ,description , date }=body;
       const post = await prisma.post.create({
         data: {
-          body,
+          title, 
+          tag , 
+          latitude ,
+           longitude , 
+           eventImage ,
+           description , 
+           date,
           userId: currentUser.id
         }
       });
@@ -29,14 +37,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       let posts;
         posts = await prisma.post.findMany({
           include: {
-            user: true,
             comments: true
           },
           orderBy: {
             createdAt: 'desc'
           }
         });
-
+        console.log(posts);
       return res.status(200).json(posts);
     }
   

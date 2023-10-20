@@ -3,6 +3,7 @@ import getFriends from "@/app/actions/getFriends";
 import { User } from "@prisma/client";
 import Avatar from "../Avatar";
 import AddFriend from "../AddFriend";
+import getPosts from "@/app/actions/getPosts";
 
 interface SidebarProps {
   currentUser: User | null | undefined,
@@ -11,7 +12,6 @@ interface SidebarProps {
 
 
 const FriendsBar: React.FC<SidebarProps> = ({currentUser}) => {
-
   const {data:users=[]}=getFriends(currentUser!.id); 
     return ( 
       <div className="flex flex-col justify-between h-fit">
