@@ -3,7 +3,7 @@ import Header from "../Header";
 import RestaurantFeed from "./RestaurantsFeed";
 
 interface RestaurantsPageProps{
-    currentUser?: User
+    currentUser: User
 }
 
 
@@ -12,7 +12,7 @@ const RestaurantsPage:React.FC<RestaurantsPageProps> = ({currentUser}) => {
     return ( 
         <>
             <Header showBackArrow label={"Restaurants"} />
-            <RestaurantFeed/>
+            <RestaurantFeed currentUser={currentUser}/>
 
         </>
         

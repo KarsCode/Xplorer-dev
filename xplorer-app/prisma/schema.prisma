@@ -68,6 +68,8 @@ model Restaurant {
   longitude      Float
   locality       String   // city/locality
   image          String?   
+  contact        String
+  description    String
   cuisines       String[]  
   ratings        Rating[] 
 
