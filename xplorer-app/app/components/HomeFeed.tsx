@@ -40,7 +40,7 @@ const RestaurantFeed: React.FC<RestaurantFeedProps> = ({currentUser}) => {
         hover:-translate-y-1 
         hover:scale-80
         duration-300">
-         <div className="w-full h-48 bg-neutral-900 text-white flex items-center justify-center rounded-xl relative gap-3" onClick={() => handleRestaurantClick(post)}>
+         <div className="fourth w-full h-48 flex items-center justify-center rounded-xl relative gap-3" onClick={() => handleRestaurantClick(post)}>
          <div className="w-1/3 pl-3" >
          <img src={post.eventImage||"./images/eggfactory.jpeg"} alt="Your Image" className="w-auto max-h-full rounded-md" />
       </div>

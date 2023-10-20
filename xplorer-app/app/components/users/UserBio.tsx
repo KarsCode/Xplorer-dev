@@ -37,21 +37,21 @@ const UserBio:React.FC<UserBioProps> =  ({userId,currentUser}) => {
                 ) : (
                     <Button secondary label="XperienceUnite" onClick={()=>{}} />
                 )} 
-                {currentUser?.id === userId ? (<div className="bg-neutral-800">{fetchedUser?.friendcode} </div>
+                {currentUser?.id === userId ? (<div className="bg-neutral-800 text-white">{fetchedUser?.friendcode} </div>
                 ) : (<div></div> )}
                 </div>
                 </div>
                 </div>
                 <div className="mt-8 px-4 ">
                     <div className="flex flex-col">
-                        <p className="text-white text-2xl font-semibold">
+                        <p className="tenth text-2xl font-semibold">
                             {fetchedUser.name}
                         </p>
                         <p className="text-md text-neutral-500">
                             @{fetchedUser.username}
                         </p>
                         <div className="flex flex-col mt-4">
-                            <p className="text-white">
+                            <p className="tenth">
                                 {fetchedUser?.bio}
                             </p>
                             <div className="flex flex-row items-center gap-4 mt-4 text-neutral-500">

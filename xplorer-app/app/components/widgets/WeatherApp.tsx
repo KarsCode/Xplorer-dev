@@ -51,7 +51,7 @@ const WeatherApp: React.FC<WeatherAppProps> = ({
   }, [coordinates]);
 
   return (
-    <div className="text-white p-2 overflow-x-auto hidden md:block">
+    <div className="p-2 overflow-x-auto hidden md:block" id="third">
   {weatherData && (
     <div className="text-center">
       <h2 className="text-xm md:text-base">
