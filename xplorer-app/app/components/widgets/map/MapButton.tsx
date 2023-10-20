@@ -21,7 +21,7 @@ function MapButton({ currentUser}: OpenedComponentProps){
         hover:scale-110
         duration-300"
         style={{
-          backgroundImage: 'url(/images/MapImageNew.jpeg.jpeg)', 
+          backgroundImage: 'url(/images/Clearback.jpeg.png)', 
         }}
       />
       {isModalVisible && <OpenedComponent currentUser={currentUser} closeModal={toggleModalVisibility} />}

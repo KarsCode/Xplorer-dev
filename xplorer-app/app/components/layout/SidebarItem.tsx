@@ -51,7 +51,7 @@ const SidebarItem: React.FC<SidebarItemProps> =  ({ label, icon: Icon, href,onCl
         <Icon size={28} color="white" />
       </div>
       <div className="
-        text-white
+        second
         relative
         hidden 
         lg:flex 
@@ -70,11 +70,11 @@ const SidebarItem: React.FC<SidebarItemProps> =  ({ label, icon: Icon, href,onCl
         duration-300
       ">
         <Icon size={24} color="dark:white" />
-        <p className="hidden lg:block text-xl">
+        <p className="hidden lg:block text-xl second">
           {label}
         </p>
       </div>
-    </div>
+      </div>
   );
 }
 

@@ -16,6 +16,19 @@
   }
 }
 
+/* styles.module.css */
+.dark-mode {
+  background-color: #000 !important;
+  color: #fff !important;
+  /* Add other dark mode styles here */
+}
+
+.light-mode {
+  background-color: #fff !important;
+  color: #000 !important;
+  /* Add other light mode styles here */
+}
+
 
 
 
@@ -139,4 +152,52 @@ h1 {
 /* Hide corner scrollbar */
 ::-webkit-scrollbar-corner {
   display: none;
+}
+
+
+#first {
+  background-color: black; 
+}
+
+.second{
+  color: white;
+}
+
+#third{
+  color: white;
+}
+
+.fourth{
+  color: white;
+  background-color: rgb(23,23,23);
+}
+
+.fifth{
+  background-color: rgb(38,38,38);
+}
+
+.sixth{
+  color: white;
+}
+
+.seventh{
+  color: white;
+  background-color: rgb(23,23,23);
+}
+
+.eigth{
+  background-color: rgb(38,38,38);
+}
+
+.ninth{
+  color: white;
+}
+
+.tenth{
+  color: white;
+}
+
+.eleventh{
+  color: white;
+  background-color: black;
 }

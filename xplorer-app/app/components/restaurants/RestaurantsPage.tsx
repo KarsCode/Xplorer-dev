@@ -12,8 +12,9 @@ const RestaurantsPage:React.FC<RestaurantsPageProps> = ({currentUser}) => {
     return ( 
         <>
             <Header showBackArrow label={"Restaurants"} />
+            <div className="h-screen overflow-x-auto">
             <RestaurantFeed currentUser={currentUser}/>
-
+            </div>
         </>
         
         

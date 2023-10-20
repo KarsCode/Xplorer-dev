@@ -42,6 +42,19 @@ export async function POST(
         userId,
         rating
     } = body;
+
+    const rest = await prisma.rating.findMany({
+      where:{
+        userId:userId,
+        restaurantId:resId
+      }
+    });
+
+
+    if(rest.length>0){
+
+      return NextResponse.error();
+    }
     const user = await prisma.rating.create({
         data:{
             restaurantId:resId,
