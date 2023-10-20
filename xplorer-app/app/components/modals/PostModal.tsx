@@ -51,7 +51,6 @@ const PostModal:React.FC<PostModalProps> = ({currentUser}) => {
           title: '',
           description: '',
           date:'',
-          currentUser,
         }
       });
 
@@ -227,7 +226,6 @@ const PostModal:React.FC<PostModalProps> = ({currentUser}) => {
                         onChange={(date) => {
                             //@ts-ignore
                             setSelectedDate(date);
-                            console.log(date);
                             setValue('date', date?.toString());
                         }}
                         showTimeSelect

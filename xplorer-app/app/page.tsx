@@ -8,13 +8,15 @@ import PostModal from './components/modals/PostModal';
 import EditModal from './components/modals/EditModal';
 import getCurrentUser from './actions/getCurrentUser';
 import { Nunito } from 'next/font/google'
+import HomeFeed from './components/HomeFeed';
 
 export default async function Home({Component,pageProps}:AppProps) {
   const currentUser =( await getCurrentUser())?.currentUser;
   return (
     <div>
       
-      <Header label='Home'/>   
+      <Header label='Home'/>
+      {currentUser&&<HomeFeed currentUser={currentUser}/>}   
     </div>
   )
 }
