@@ -9,6 +9,7 @@ import useRestaurantModal from "@/app/hooks/useRestModal";
 import  {Restaurant , User} from "@prisma/client";
 import axios from "axios";
 import toast from "react-hot-toast";
+import addRatedCount from "@/app/actions/addRatedCount";
 
 
 interface RestaurantModalProps{
@@ -37,8 +38,10 @@ const RestModal: React.FC<RestaurantModalProps> = ({ restaurant,currentUser }) =
          const resId=restaurant.id;
          axios.post('/api/rating',{rating,userId,resId})
             .then(()=>{
- 
+                const id = currentUser.id;
                 restModal.onClose();
+                currentUser.ratedCount=currentUser.ratedCount+1;
+                addRatedCount(id);
              })
              .catch((error)=>{
                  toast.error("Something Went Wrong");
