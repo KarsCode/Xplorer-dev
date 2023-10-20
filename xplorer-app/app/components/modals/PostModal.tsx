@@ -1,4 +1,4 @@
-"use client"
+'use client';
 
 import React, { useMemo, useState } from 'react'
 import Modal from '../Modal'
@@ -74,6 +74,10 @@ const PostModal:React.FC<PostModalProps> = ({currentUser}) => {
     const [eventImage, setEventImage] = useState('');
     const [step,setStep] = useState(STEPS.TAG)
     const [isLoading, setIsLoading] = useState(false);
+    const handleImageChange = (imageData: string) => {
+      setEventImage(imageData);
+      setValue('eventImage',eventImage);
+    };
     
 
 
@@ -253,7 +257,7 @@ const PostModal:React.FC<PostModalProps> = ({currentUser}) => {
                   subtitle="Show Xplorers what the event looks like!"
                 />
                 <div>
-                <ImageUpload value={eventImage} disabled={isLoading} onChange={(image) => setEventImage(image)} label="Upload event image" />
+                <ImageUpload value={eventImage} disabled={isLoading} onChange={handleImageChange} label="Upload event image" />
                 </div>
               </div>
             )

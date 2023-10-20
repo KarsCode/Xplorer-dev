@@ -21,16 +21,17 @@ export async function POST(
           latitude,
           longitude
          } = body;
+
     const post = await prisma.post.create({
         data:{
             tag,
             latitude:latitude,
             longitude:longitude,
-            //eventImage:eventImage,
+            eventImage:eventImage,
             title,
             description,
             date,
-            userId:currentUser.id
+            userId:currentUser.id,
 
         }
     });
