@@ -7,6 +7,7 @@ import RegisterModal from './components/modals/RegisterModal';
 import PostModal from './components/modals/PostModal';
 import EditModal from './components/modals/EditModal';
 import getCurrentUser from './actions/getCurrentUser';
+import { Nunito } from 'next/font/google'
 
 
 

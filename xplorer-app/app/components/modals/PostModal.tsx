@@ -47,7 +47,7 @@ const PostModal:React.FC<PostModalProps> = ({currentUser}) => {
           tag: '',
           latitude: null,
           longitude:null,
-          image: '',
+          eventImage: '',
           title: '',
           description: '',
           date:'',
@@ -74,6 +74,7 @@ const PostModal:React.FC<PostModalProps> = ({currentUser}) => {
     const [eventImage, setEventImage] = useState('');
     const [step,setStep] = useState(STEPS.TAG)
     const [isLoading, setIsLoading] = useState(false);
+    
 
 
     const onBack = () =>{
@@ -252,7 +253,7 @@ const PostModal:React.FC<PostModalProps> = ({currentUser}) => {
                   subtitle="Show Xplorers what the event looks like!"
                 />
                 <div>
-                <ImageUpload value={eventImage} disabled={isLoading} onChange={(image) => setEventImage(image)}label='Post Image'/>
+                <ImageUpload value={eventImage} disabled={isLoading} onChange={(image) => setEventImage(image)} label="Upload event image" />
                 </div>
               </div>
             )

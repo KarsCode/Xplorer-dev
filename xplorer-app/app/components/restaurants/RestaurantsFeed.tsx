@@ -4,6 +4,7 @@ import RestModal from "../modals/RestModal";
 import useRestaurantModal from "@/app/hooks/useRestaurantModal";
 import { useState } from "react";
 import { Restaurant } from "@prisma/client";
+import { FaBook, FaMapPin } from "react-icons/fa";
 
 const RestaurantFeed: React.FC = () => {
   const { data: restaurants = [] } = getRestaurants();
@@ -21,21 +22,27 @@ const RestaurantFeed: React.FC = () => {
   return (
     <>
       {restaurants.map((restaurant: Restaurant) => (
-        <div
-          key={restaurant.id}
-          className="flex flex-col rounded-xl w-full h-60 border-2 border-white-5 gap-2 border-solid border-white p-10 m-2"
-        >
-          <RestModal restaurant={restaurant} />
-          <div className="flex flex-col">
-            <p
-              className="text-white font-semibold text-sm"
-              onClick={() => handleRestaurantClick(restaurant)}
-            >
-              {restaurant.name}
-            </p>
-            <p className="text-neutral-400 text-sm">@{restaurant.locality}</p>
-          </div>
+        
+        <>
+        <RestModal restaurant={restaurant} />
+        <div className="p-2">
+         <div className="w-full h-48 bg-neutral-900 text-white flex items-center justify-center rounded-xl relative gap-3" onClick={() => handleRestaurantClick(restaurant)}>
+         <div className="w-1/3 pl-3" >
+        <img src="./images/eggfactory.jpeg" alt="Your Image" className="w-auto max-h-full rounded-md" />
+      </div>
+      <div className="w-2/3 flex items-center justify-center">
+      <div>
+                  <h3 className="text-xl font-semibold" >{restaurant.name}</h3>
+                  <br/>
+                  <p className="flex flex-row gap-2"><FaMapPin size={15}/>{restaurant.locality}</p>
+                  <p>Cuisines: {restaurant.cuisines.join(', ')}</p>
+                  <p> Rating: {restaurant.rating}</p>
+                </div>
+        <button className="bg-yellow-500 text-black rounded-sm w-15 h-5 absolute top-2 right-2"><FaBook/></button>
+      </div>
         </div>
+      </div>
+    </>
       ))}
 
       {/* Render the modal with the selected restaurant */}
