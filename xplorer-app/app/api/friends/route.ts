@@ -1,10 +1,4 @@
 
-
-
-
-
-
-
 import prisma from '@/app/libs/prismabd'
 import { NextResponse } from 'next/server';
 

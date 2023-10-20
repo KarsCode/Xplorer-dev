@@ -13,14 +13,7 @@ export default async function Home({Component,pageProps}:AppProps) {
   const currentUser =( await getCurrentUser())?.currentUser;
   return (
     <div>
-      <ClientOnly>
-          <ToasterProvider />
-          <LoginModal />
-          <RegisterModal />
-          <PostModal
-          //@ts-ignore
-           currentUser={currentUser} />
-        </ClientOnly>
+      
       <Header label='Home'/>   
     </div>
   )

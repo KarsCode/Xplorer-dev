@@ -5,8 +5,14 @@ import useRestaurantModal from "@/app/hooks/useRestaurantModal";
 import { useState } from "react";
 import { Restaurant } from "@prisma/client";
 import { FaBook, FaMapPin } from "react-icons/fa";
+import { User } from "@prisma/client";
 
-const RestaurantFeed: React.FC = () => {
+
+
+interface RestaurantFeedProps{
+  currentUser:User;
+}
+const RestaurantFeed: React.FC<RestaurantFeedProps> = ({currentUser}) => {
   const { data: restaurants = [] } = getRestaurants();
   const restaurantModal = useRestaurantModal();
   // State to keep track of the currently selected restaurant
@@ -23,8 +29,8 @@ const RestaurantFeed: React.FC = () => {
     <>
       {restaurants.map((restaurant: Restaurant) => (
         
-        <>
-        <RestModal restaurant={restaurant} />
+        <div key={restaurant.id}>
+        <RestModal restaurant={restaurant} currentUser={currentUser}/>
         <div className="p-2">
          <div className="w-full h-48 bg-neutral-900 text-white flex items-center justify-center rounded-xl relative gap-3" onClick={() => handleRestaurantClick(restaurant)}>
          <div className="w-1/3 pl-3" >
@@ -42,12 +48,12 @@ const RestaurantFeed: React.FC = () => {
       </div>
         </div>
       </div>
-    </>
+    </div>
       ))}
 
       {/* Render the modal with the selected restaurant */}
       {selectedRestaurant && (
-        <RestModal restaurant={selectedRestaurant} />
+        <RestModal restaurant={selectedRestaurant} currentUser={currentUser} />
       )}
     </>
   );

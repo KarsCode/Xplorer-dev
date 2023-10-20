@@ -6,60 +6,142 @@ import { BsTelephoneFill } from "react-icons/bs"
 import React, { useState } from "react";
 import Modal from "../Modal";
 import useRestaurantModal from "@/app/hooks/useRestaurantModal";
+import  {Restaurant , User} from "@prisma/client";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 
 interface RestaurantModalProps{
-    restaurant: {
-      name: string;
-      image?: string | undefined | null;
-      description?: string | undefined;
-      locality: string;
-      rating?: number | undefined|null;
-      contact?: string | undefined;
+    currentUser: User;
+    restaurant: Restaurant;
+}
+// const RestModal:React.FC<RestaurantModalProps> = ({restaurant}) => {
+//     const[isLoading , setIsLoading] = useState(false);
+//     const restaurantModal = useRestaurantModal();
+//     const onSubmit =()=>{};
+//     const { name, image, description, locality , rating, contact} = restaurant;
+    
+//     const bodyContent = (<div className="text-white flex flex-col gap-2">
+//         {!image && <img src="/images/eggfactory.jpeg" alt={name} className="mb-3 rounded-lg" />}
+//         <p>
+//             <strong>Description:</strong> {description}
+//         </p>
+//         <div className="flex flex-row gap-2">
+//             <IoLocationSharp size={20}/>
+//             <strong>Locality :</strong> {locality} 
+
+//         </div>
+//         <div className="flex flex-row gap-2">
+//             <AiFillStar size={19} color="#eab308"/>
+//             <strong>Rating:</strong> {rating}
+//         </div>
+//         <div className="flex flex-row gap-2">
+//             <BsTelephoneFill size={20} color=" #6495ED "/>
+//             <strong>Contact Details:</strong> {contact}
+//         </div>
+//         </div>);
+
+
+
+
+
+//     return ( 
+//         <Modal  
+//         disabled={isLoading}
+//         isOpen={restaurantModal.isOpen}
+//         title={name}
+//         actionLabel='Reserve'
+//         onClose={restaurantModal.onClose}
+//         onSubmit={onSubmit} 
+//         body={bodyContent}
+//         />
+//     );
+// }
+
+
+const RestModal: React.FC<RestaurantModalProps> = ({ restaurant,currentUser }) => {
+    const [isLoading, setIsLoading] = useState(false);
+    const [userRating, setUserRating] = useState(0); // State to manage the user's rating
+    const restaurantModal = useRestaurantModal();
+    const restModal = useRestaurantModal();
+  
+    const onSubmit = () => {
+      // Handle the submission, e.g., send the user's rating to the server
+      //console.log("User's Rating:", userRating);
+  
+      // You can also add code to send the user's rating to the server here
+    };
+  
+    const { name, image, description, locality, rating, contact } = restaurant;
+  
+    const onRatingChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        const rating = parseInt(event.target.value, 10);
+        setUserRating(rating);
+        setIsLoading(true);
+
+         const userId=currentUser.id;
+         const resId=restaurant.id;
+         axios.post('/api/rating',{rating,userId,resId})
+            .then(()=>{
+ 
+                restModal.onClose();
+             })
+             .catch((error)=>{
+                 toast.error("Something Went Wrong");
+             })
+             .finally(()=>{
+                setIsLoading(false);
+             })
 
       };
-}
-const RestModal:React.FC<RestaurantModalProps> = ({restaurant}) => {
-    const[isLoading , setIsLoading] = useState(false);
-    const restaurantModal = useRestaurantModal();
-    const onSubmit =()=>{};
-    const { name, image, description, locality , rating, contact} = restaurant;
-    
-    const bodyContent = (<div className="text-white flex flex-col gap-2">
+  
+    const bodyContent = (
+      <div className="text-white flex flex-col gap-2">
         {!image && <img src="/images/eggfactory.jpeg" alt={name} className="mb-3 rounded-lg" />}
         <p>
-            <strong>Description:</strong> {description}
+          <strong>Description:</strong> {description}
         </p>
         <div className="flex flex-row gap-2">
-            <IoLocationSharp size={20}/>
-            <strong>Locality :</strong> {locality} 
-
+          <IoLocationSharp size={20} />
+          <strong>Locality :</strong> {locality}
         </div>
         <div className="flex flex-row gap-2">
-            <AiFillStar size={19} color="#eab308"/>
-            <strong>Rating:</strong> {rating}
+          <AiFillStar size={19} color="#eab308" />
+          <strong>Rating:</strong> {rating}
         </div>
         <div className="flex flex-row gap-2">
-            <BsTelephoneFill size={20} color=" #6495ED "/>
-            <strong>Contact Details:</strong> {contact}
+          <BsTelephoneFill size={20} color="#6495ED" />
+          <strong>Contact Details:</strong> {contact}
         </div>
-        </div>);
-
-
-
-
-
-    return ( 
-        <Modal  
+        <div className="flex flex-row gap-2">
+          <strong>Your Rating:</strong>
+          <select
+            value={userRating}
+            onChange={onRatingChange}
+            className="text-black"
+          >
+            <option value={0}>Select a rating</option>
+            <option value={1}>1 Star</option>
+            <option value={2}>2 Stars</option>
+            <option value={3}>3 Stars</option>
+            <option value={4}>4 Stars</option>
+            <option value={5}>5 Stars</option>
+          </select>
+        </div>
+      </div>
+    );
+  
+    return (
+      <Modal
         disabled={isLoading}
         isOpen={restaurantModal.isOpen}
         title={name}
-        actionLabel='Reserve'
+        actionLabel="Reserve"
         onClose={restaurantModal.onClose}
-        onSubmit={onSubmit} 
+        onSubmit={onSubmit}
         body={bodyContent}
-        />
+      />
     );
-}
+  };
  
 export default RestModal;   

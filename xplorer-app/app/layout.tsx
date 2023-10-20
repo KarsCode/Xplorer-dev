@@ -8,6 +8,7 @@ import Sidebar from './components/layout/Sidebar';
 import Friendsbar from './components/layout/FriendsBar';
 import Header from './components/Header';
 import { Nunito } from 'next/font/google'
+import PostModal from './components/modals/PostModal';
 
 
 
@@ -39,6 +40,14 @@ export default async function RootLayout({
                   
                 <Sidebar currentUser={currentUser} />
                   <div className='col-span-3 lg:col-span-2 border-x-[1px] border-neutral-800' >
+                  <ClientOnly>
+                    <ToasterProvider />
+                    <LoginModal />
+                    <RegisterModal />
+                    <PostModal
+                    //@ts-ignore
+                    currentUser={currentUser} />
+                  </ClientOnly>
                     
                     {children}
                   </div>
