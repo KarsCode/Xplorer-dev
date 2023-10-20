@@ -1,5 +1,5 @@
 
-  import {MdOutlineSportsBaseball,MdTheaterComedy,MdFestival,MdDiscount} from 'react-icons/md';
+  import {MdOutlineSportsBaseball,MdTheaterComedy,MdFestival} from 'react-icons/md';
   import { IoFastFoodOutline } from 'react-icons/io5';
   import { PiLeafBold } from 'react-icons/pi';
   import { RiMusic2Fill } from 'react-icons/ri';
@@ -41,10 +41,5 @@ export const categories = [
       label: 'Festivals',
       icon: MdFestival,
       description: 'Cultural Extravaganza'
-    },
-    {
-      label: 'Offers',
-      icon: MdDiscount,
-      description:'Love Saving'
     }
   ]

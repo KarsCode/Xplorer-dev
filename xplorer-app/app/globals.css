@@ -6,7 +6,7 @@
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
-  }
+}
 
 @media (prefers-color-scheme: dark) {
   :root {
@@ -16,20 +16,6 @@
   }
 }
 
-body {
-  background-color: beige;
-  transition: background-color 0.3s ease; /* Adjust the duration as needed */
-}
-
-body.dark-theme {
-  background-color: black;
-  /* Other dark theme styles */
-}
-
-body.light-theme {
-  background-color: white;
-  /* Other light theme styles */
-}
 
 
 
@@ -138,19 +124,4 @@ h1 {
 .leaflet-pane,
 .leaflet-top{
   z-index:0 !important
-}
-
-
-::-webkit-scrollbar {
-  width: 12px; /* Set the width of the scrollbar */
-}
-
-::-webkit-scrollbar-thumb {
-  background: gray; /* Set the color of the scrollbar thumb */
-  border-radius: 6px; /* Set the border radius of the thumb */
-}
-
-/* Style the scrollbar track (the area the thumb moves along) */
-::-webkit-scrollbar-track {
-  background: #f1f1f1; /* Set the color of the scrollbar track */
 }
