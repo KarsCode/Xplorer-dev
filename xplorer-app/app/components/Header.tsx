@@ -2,6 +2,8 @@
 import { useRouter } from "next/navigation";
 import { useCallback } from "react";
 import { BiArrowBack } from "react-icons/bi";
+import MyListBox from "./MyListBox";
+import Toggle from "./ToggleButton";
 
 interface HeaderProps {
   showBackArrow?: boolean;
@@ -29,10 +31,13 @@ const Header: React.FC<HeaderProps> = ({showBackArrow, label }) => {
               transition
           "/>
         )}
-        <h1 className="text-white text-xl font-semibold">
+        <div className="text-white text-xl font-semibold flex justify-center">
           {label}
-        </h1>
+        </div>
       </div>
+      <div className="text-white">
+      {label === "Home" && <MyListBox/>}
+    </div>
     </div>
   );
 }

@@ -125,3 +125,18 @@ h1 {
 .leaflet-top{
   z-index:0 !important
 }
+
+/* Hide vertical scrollbar */
+::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide horizontal scrollbar */
+::-webkit-scrollbar-horizontal {
+  display: none;
+}
+
+/* Hide corner scrollbar */
+::-webkit-scrollbar-corner {
+  display: none;
+}

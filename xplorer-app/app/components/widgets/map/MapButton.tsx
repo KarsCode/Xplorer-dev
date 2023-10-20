@@ -15,9 +15,13 @@ function MapButton({ currentUser}: OpenedComponentProps){
     <div>
       <button
         onClick={toggleModalVisibility}
-        className="inline-flex p-8 md:p-24 max-w-full lg:w-screen md:max-w-64 max-h-full md:max-h-64 text-white text-2xl border-0 rounded cursor-pointer text-center bg-cover bg-no-repeat bg-center overflow-hidden"
+        className="inline-flex p-8 md:p-24 max-w-full lg:w-screen md:max-w-64 max-h-full md:max-h-64 text-white text-2xl border-0 rounded cursor-pointer text-center bg-cover bg-no-repeat bg-center overflow-hidden transition-ease-in-out
+        delay-100
+        hover:-translate-y-1 
+        hover:scale-110
+        duration-300"
         style={{
-          backgroundImage: 'url(/images/MapImage.jpeg)', 
+          backgroundImage: 'url(/images/MapImageNew.jpeg.jpeg)', 
         }}
       />
       {isModalVisible && <OpenedComponent currentUser={currentUser} closeModal={toggleModalVisibility} />}

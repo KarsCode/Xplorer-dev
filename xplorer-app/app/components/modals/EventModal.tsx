@@ -54,7 +54,7 @@ const EventModal: React.FC<EventModalProps> = ({ post,currentUser }) => {
         disabled={isLoading}
         isOpen={eventModal.isOpen}
         title={title}
-        actionLabel="Reserve"
+        actionLabel="Remind Me"
         onClose={eventModal.onClose}
         onSubmit={onSubmit}
         body={bodyContent}

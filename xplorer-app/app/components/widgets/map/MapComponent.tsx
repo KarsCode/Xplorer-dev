@@ -5,6 +5,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { GoogleMap, LoadScript, Marker, InfoWindow, HeatmapLayer } from '@react-google-maps/api';
 import { useJsApiLoader } from '@react-google-maps/api';
 import { User } from '@prisma/client';
+import getPosts from '@/app/actions/getPosts';
 
 
 
@@ -17,6 +18,14 @@ type Restaurant = {
     currentUser:  User 
     auth? : boolean
 
+  }
+
+
+  interface Post{
+    latitude: number;
+    longitude: number
+    title: string
+    description: string
   }
   
 
@@ -31,6 +40,7 @@ const MapComponent: React.FC<MapComponentProps> = ({
 
   const [selectedRestaurant, setSelectedRestaurant] = useState<Restaurant | null>(null);
 
+  const [selectedPost, setSelectedPost] = useState<Post | null>(null);
 
   const [userLocation, setUserLocation] = useState<{ lat: number; lng: number } | null>(null);
   const [restaurantsWithin2km, setRestaurantsWithin2km] = useState<{ lat: number; lng: number }[]>([]);
@@ -63,6 +73,8 @@ const MapComponent: React.FC<MapComponentProps> = ({
     { lat: center.lat + 0.03, lng: center.lng + 0.03 },
     { lat: center.lat - 0.03, lng: center.lng - 0.03 },
   ];
+
+  const { data: posts = [] } = getPosts();
 
   useEffect(() => {
     
@@ -113,15 +125,37 @@ const MapComponent: React.FC<MapComponentProps> = ({
     setSelectedRestaurant(restaurant);
   };
 
-  const heatmapData = restaurantsWithin2km.map((restaurant) => ({
-    location: new window.google.maps.LatLng(restaurant.lat, restaurant.lng),
-    weight: 1, // You can adjust the weight as needed
+  const handleEventClick = (post:Post) =>{
+    setSelectedPost(post);
+  }
+
+  const heatmapData = posts.map((post:Post) => ({
+    location: new window.google.maps.LatLng(post.latitude, post.longitude),
+    weight: 1,
+     // You can adjust the weight as needed
   }));
+
+
+  
+  // const [heatmapData, setHeatmapData] = useState<any[] | null>(null);
+
+  // useEffect(() => {
+  //   // Calculate heatmap data whenever `posts` change
+  //   const newHeatmapData = posts.map((post: Post) => ({
+  //     location: new window.google.maps.LatLng(post.latitude, post.longitude),
+  //     weight: 1,
+  //     // You can adjust the weight as needed
+  //   }));
+
+  //   setHeatmapData(newHeatmapData);
+  // }, [posts]);
 
   const handleMapLoad = (map: google.maps.Map) => {
     mapRef.current = map;
     // Now, mapRef.current holds the Google Map instance, and you can use it to interact with the map.
   };
+
+
 
   const handleZoomChanged = () => {
     if (mapRef.current) {
@@ -154,9 +188,8 @@ const MapComponent: React.FC<MapComponentProps> = ({
       onLoad={handleMapLoad}
     > 
 
-        {heatmapData && (
-          <HeatmapLayer data={heatmapData} />
-          )} 
+
+        
       {userLocation && (
         <Marker
           position={userLocation}
@@ -164,27 +197,60 @@ const MapComponent: React.FC<MapComponentProps> = ({
           icon={{ url: '/icons8-pointing-at-self-30.png', scaledSize: new window.google.maps.Size(30, 30) }}
         />
       )}
-      {showMarkers && restaurantsWithin2km.map((restaurant, index) => (
+
+
+
+      {/* {showMarkers && restaurantsWithin2km.map((restaurant, index) => (
         <Marker
           key={index}
           position={restaurant}
           title="Restaurant"
           onClick={() => handleMarkerClick(restaurant)}
         />
-      ))}
-        {selectedRestaurant && (
+      ))} */}
+
+{showMarkers &&
+        posts.map((post:Post, index:number) => (
+          <Marker
+            key={index}
+            position={{ lat: post.latitude, lng: post.longitude }}
+            title="Event"
+            onClick={() => handleEventClick(post)}
+          />
+        ))}
+
+
+
+        {selectedPost && (
           <InfoWindow
-            position={selectedRestaurant}
-            onCloseClick={() => setSelectedRestaurant(null)} // Close   
+          position={{ lat: selectedPost.latitude, lng: selectedPost.longitude }}
+            onCloseClick={() => setSelectedPost(null)} // Close   
           >
            <div>
-            <h1 className='text-pink-500 font-extrabold'>Restaurant Name</h1>
+            <h1 className='text-pink-500 font-extrabold'>{selectedPost.title}</h1>
             <p className='text-black'>
-                Here is displayed the rating of the restaurant. 
+            {selectedPost.description}
             </p>
            </div>
           </InfoWindow>
-        )} 
+        )}    
+
+
+
+        
+{heatmapData && (
+  <HeatmapLayer
+    data={heatmapData} // Adjust the radius value as needed
+  />
+)}
+
+          
+
+
+        
+
+
+
 
 
 

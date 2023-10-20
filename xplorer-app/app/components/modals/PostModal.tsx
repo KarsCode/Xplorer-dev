@@ -75,7 +75,7 @@ const PostModal:React.FC<PostModalProps> = ({currentUser}) => {
     const [isLoading, setIsLoading] = useState(false);
     const handleImageChange = (imageData: string) => {
       setEventImage(imageData);
-      setValue('eventImage',eventImage);
+      setValue('eventImage', imageData); // Update the form field value
     };
     
 
@@ -247,19 +247,19 @@ const PostModal:React.FC<PostModalProps> = ({currentUser}) => {
       }
 
 
-        if(step === STEPS.IMAGES){
-            bodyContent = (
-                <div className="flex flex-col gap-8">
-                <Heading
-                  title="Add a photo of the event"
-                  subtitle="Show Xplorers what the event looks like!"
-                />
-                <div>
-                <ImageUpload value={eventImage} disabled={isLoading} onChange={handleImageChange} label="Upload event image" />
-                </div>
-              </div>
-            )
-        }
+      if (step === STEPS.IMAGES) {
+        bodyContent = (
+          <div className="flex flex-col gap-8">
+            <Heading
+              title="Add a photo of the event"
+              subtitle="Show Xplorers what the event looks like!"
+            />
+            <div>
+              <ImageUpload value={eventImage} disabled={isLoading} onChange={handleImageChange} label="Upload event image" />
+            </div>
+          </div>
+        );
+      }
 
 
   return (

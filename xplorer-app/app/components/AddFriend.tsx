@@ -4,6 +4,7 @@ import React from 'react';
 import NumberInput from './FriendCode';
 import { User } from '@prisma/client';
 import addFriend from '../actions/addFriend';
+import Toggle from './ToggleButton';
 
 interface AddFriendProps{
   currentUser:User

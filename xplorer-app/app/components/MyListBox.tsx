@@ -4,6 +4,7 @@ import { Listbox, Transition } from '@headlessui/react'
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
 
 const people = [
+  { id: 1, name: 'All'},
   { id: 1, name: 'Sports' },
   { id: 2, name: 'Food/Drinks' },
   { id: 3, name: 'Concerts' },
@@ -23,7 +24,7 @@ const MyListBox = () => {
       };
     
   return (
-    <div className="relative top-0 w-full">
+    <div className="relative top-0 w-full z-50">
     <Listbox value={selected} onChange={handleSelectionChange}>
       <div className="relative mt-1 pt-2">
         <Listbox.Button className="relative w-full flex cursor-default rounded-lg bg-black py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 md:text-md">
