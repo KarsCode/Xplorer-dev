@@ -31,7 +31,11 @@ const RestaurantFeed: React.FC<RestaurantFeedProps> = ({currentUser}) => {
         
         <div key={restaurant.id}>
         <RestModal restaurant={restaurant} currentUser={currentUser}/>
-        <div className="p-2">
+        <div className="p-2 transition-ease-in-out
+        delay-100
+        hover:-translate-y-1 
+        hover:scale-110
+        duration-300">
          <div className="w-full h-48 bg-neutral-900 text-white flex items-center justify-center rounded-xl relative gap-3" onClick={() => handleRestaurantClick(restaurant)}>
          <div className="w-1/3 pl-3" >
         <img src="./images/eggfactory.jpeg" alt="Your Image" className="w-auto max-h-full rounded-md" />

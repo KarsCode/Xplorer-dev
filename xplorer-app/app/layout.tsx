@@ -12,7 +12,6 @@ import PostModal from './components/modals/PostModal';
 
 
 
-
 export const metadata = {
   title: 'Xplorer',
   description: 'Explore to your hearts content',
@@ -33,8 +32,7 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={`bg-black ${font.className}`}>
-
-          <div className='max-h-screen bg-black'>
+          <div className='max-h-screen'>
               <div className='container h-full mx-auto xl:px-30 max-w-6xl'>
                 <div className='grid grid-cols-4 h-full'>  
                   
