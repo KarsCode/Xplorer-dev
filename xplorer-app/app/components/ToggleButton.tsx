@@ -3,6 +3,7 @@ import { Switch } from '@headlessui/react';
 
 const Toggle = () => {
   const [enabled, setEnabled] = useState(false);
+  
 
   const toggleBackgroundColor = () => {
     // Get the element with the ID 'first'
@@ -33,7 +34,7 @@ const Toggle = () => {
   if (elements4.length > 0) {
     for (let i = 0; i < elements4.length; i++) {
       elements4[i].style.color = enabled ? 'white' : 'black';
-      elements4[i].style.backgroundColor = enabled? 'rgb(23 23 23)' : 'rgb(212 212 216)';
+      elements4[i].style.backgroundColor = enabled? 'rgb(23 23 23)' : 'rgb(244 244 245)';
   }
  }
 
@@ -42,7 +43,7 @@ const Toggle = () => {
 
  if (elements5.length > 0) {
    for (let i = 0; i < elements5.length; i++) {
-     elements5[i].style.backgroundColor = enabled? 'rgb(38 38 38)' : 'rgb(212 212 216)';
+     elements5[i].style.backgroundColor = enabled? 'rgb(38 38 38)' : 'rgb(244 244 245)';
  }
 }
 
@@ -61,7 +62,7 @@ const elements7 = document.getElementsByClassName('seventh');
  if (elements7.length > 0) {
    for (let i = 0; i < elements7.length; i++) {
      elements7[i].style.color = enabled? 'white' : 'black';
-     elements7[i].style.backgroundColor = enabled? 'rgb(23 23 23)' : 'rgb(212 212 216)';
+     elements7[i].style.backgroundColor = enabled? 'rgb(23 23 23)' : 'rgb(244 244 245)';
  }
 }
 
@@ -71,7 +72,7 @@ const elements8 = document.getElementsByClassName('eigth');
 
  if (elements8.length > 0) {
    for (let i = 0; i < elements8.length; i++) {
-     elements8[i].style.backgroundColor = enabled? 'rgb(38 38 38)' : 'rgb(212 212 216)';
+     elements8[i].style.backgroundColor = enabled? 'rgb(38 38 38)' : 'rgb(244 244 245)';
  }
 }
 
@@ -91,18 +92,27 @@ const elements10 = document.getElementsByClassName('tenth');
  }
 }
 
-  
-    
+
+const elements11 = document.getElementsByClassName('eleventh');
+
+ if (elements11.length > 0) {
+   for (let i = 0; i < elements11.length; i++) {
+     elements11[i].style.color = enabled? 'white' : 'black';
+     elements11[i].style.backgroundColor = enabled? 'black' : 'white';
+ }
+}
     // Toggle the state
     setEnabled(!enabled);
+    
   };
+  
 
   return (
     <div className="py-5">
       <Switch
         checked={enabled}
         onChange={toggleBackgroundColor}
-        className={`${enabled ? 'bg-yellow-700' : 'bg-yellow-300'}
+        className={`${enabled ? 'bg-yellow-300' : 'bg-yellow-700'}
           relative inline-flex h-[38px] w-[74px] shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2  focus-visible:ring-white focus-visible:ring-opacity-75`}
       >
         <span className="sr-only">Use setting</span>

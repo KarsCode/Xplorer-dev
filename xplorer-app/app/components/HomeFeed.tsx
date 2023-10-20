@@ -48,8 +48,7 @@ const RestaurantFeed: React.FC<RestaurantFeedProps> = ({currentUser}) => {
       <div>
                   <h3 className="text-xl font-semibold" >{post.title}</h3>
                   <br/>
-                  <p className="flex flex-row gap-2"><FaMapPin size={15}/>{(post.latitude).toFixed(3)} {(post.longitude).toFixed(3)}</p>
-                  <p>Date and Time: {post.date}</p>
+                  <p> Timing : {post.date}</p>
                   <p> Tag: {post.tag}</p>
                 </div>
         <button className="bg-yellow-500 text-black rounded-sm w-15 h-5 absolute top-2 right-2"><MdOutlineTableRestaurant/></button>
