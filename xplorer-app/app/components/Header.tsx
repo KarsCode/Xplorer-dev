@@ -3,7 +3,6 @@ import { useRouter } from "next/navigation";
 import { useCallback } from "react";
 import { BiArrowBack } from "react-icons/bi";
 import MyListBox from "./MyListBox";
-import Toggle from "./ToggleButton";
 
 interface HeaderProps {
   showBackArrow?: boolean;
@@ -23,7 +22,7 @@ const Header: React.FC<HeaderProps> = ({showBackArrow, label }) => {
         {showBackArrow && (
           <BiArrowBack 
             onClick={handleBack} 
-            color="white" 
+            color="gray" 
             size={20} 
             className="
               cursor-pointer 
@@ -31,7 +30,7 @@ const Header: React.FC<HeaderProps> = ({showBackArrow, label }) => {
               transition
           "/>
         )}
-        <div className="text-white text-xl font-semibold flex justify-center">
+        <div className="ninth text-xl font-semibold flex justify-center">
           {label}
         </div>
       </div>

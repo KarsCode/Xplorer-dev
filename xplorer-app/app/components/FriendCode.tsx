@@ -15,7 +15,7 @@ const StringInput: React.FC<StringInputProps> = ({ onSubmit }) => {
 
 
   return (
-    <div className="bg-neutral-800 p-4 rounded-lg shadow-md flex flex-col gap-2">
+    <div className="eigth p-4 rounded-lg shadow-md flex flex-col gap-2">
       <input
         type="text"
         value={inputValue}

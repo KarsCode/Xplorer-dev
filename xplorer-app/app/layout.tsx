@@ -32,9 +32,9 @@ export default async function RootLayout({
   const currentUser =( await getCurrentUser())?.currentUser;
   return (
     <html lang="en">
-      <body className={`bg-black ${font.className}`}>
+      <body className={`${font.className}`} id="first">
 
-          <div className='max-h-screen bg-black'>
+          <div className='max-h-screen'>
               <div className='container h-full mx-auto xl:px-30 max-w-6xl'>
                 <div className='grid grid-cols-4 h-full'>  
                   

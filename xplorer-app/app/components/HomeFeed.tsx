@@ -40,7 +40,7 @@ const RestaurantFeed: React.FC<RestaurantFeedProps> = ({currentUser}) => {
         hover:-translate-y-1 
         hover:scale-80
         duration-300">
-         <div className="w-full h-48 bg-neutral-900 text-white flex items-center justify-center rounded-xl relative gap-3" onClick={() => handleRestaurantClick(post)}>
+         <div className="fourth w-full h-48 flex items-center justify-center rounded-xl relative gap-3" onClick={() => handleRestaurantClick(post)}>
          <div className="w-1/3 pl-3" >
          <img src={post.eventImage||"./images/eggfactory.jpeg"} alt="Your Image" className="w-auto max-h-full rounded-md" />
       </div>
@@ -48,8 +48,7 @@ const RestaurantFeed: React.FC<RestaurantFeedProps> = ({currentUser}) => {
       <div>
                   <h3 className="text-xl font-semibold" >{post.title}</h3>
                   <br/>
-                  <p className="flex flex-row gap-2"><FaMapPin size={15}/>{(post.latitude).toFixed(3)} {(post.longitude).toFixed(3)}</p>
-                  <p>Date and Time: {post.date}</p>
+                  <p> Timing : {post.date}</p>
                   <p> Tag: {post.tag}</p>
                 </div>
         <button className="bg-yellow-500 text-black rounded-sm w-15 h-5 absolute top-2 right-2"><MdOutlineTableRestaurant/></button>
