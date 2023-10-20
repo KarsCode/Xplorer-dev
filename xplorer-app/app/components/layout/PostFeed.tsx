@@ -1,0 +1,9 @@
+
+
+
+
+
+
+
+
+    const { data: restaurants = [] } = getRestaurants();

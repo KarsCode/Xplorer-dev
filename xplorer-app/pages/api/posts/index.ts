@@ -9,7 +9,22 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
 
   try {
-    
+    if (req.method === 'GET') {
+      let posts;
+      posts = await prisma.post.findMany({
+          include: {
+            user: true,
+            comments: true
+          },
+          orderBy: {
+            createdAt: 'desc'
+          }
+        });
+      
+
+      return res.status(200).json(posts);
+    }
+
     if (req.method === 'POST') {
       const { currentUser } = await serverAuth(req, res);
       const { body } = req.body;
@@ -40,8 +55,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       return res.status(200).json(posts);
     }
   
-}catch (error) {
+    
+  }catch (error) {
     console.log(error);
     return res.status(400).end();
-  }
+
+}
 }

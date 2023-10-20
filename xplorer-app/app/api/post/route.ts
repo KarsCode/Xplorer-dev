@@ -1,6 +1,5 @@
 import getCurrentUser from '@/app/actions/getCurrentUser';
 import prisma from '@/app/libs/prismabd'
-import { latLng } from 'leaflet';
 import { NextResponse } from 'next/server';
 
 export async function POST(
