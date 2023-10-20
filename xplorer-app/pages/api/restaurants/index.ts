@@ -31,6 +31,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         const { currentUser } = await serverAuth(req, res);
 
       let posts;
+      //const userId=currentUser.id;
+      //const response = await axios.get(`http://127.0.0.1:8000/recommendations/${userId}`);
         posts = await prisma.restaurant.findMany({
           where:{
             latitude:{
