@@ -289,3 +289,15 @@ h1 {
 .leaflet-top{
   z-index:0 !important
 }
+
+
+/* styles.css */
+.dark {
+  background-color: #000; /* Dark mode background color */
+  color: #fff; /* Dark mode text color */
+}
+
+.light {
+  background-color: #fff; /* Light mode background color */
+  color: #000; /* Light mode text color */
+}

@@ -4,7 +4,7 @@ import { IoLocationSharp } from "react-icons/io5";
 import { AiFillStar } from "react-icons/ai";
 import { BsTelephoneFill } from "react-icons/bs"
 import React, { useState } from "react";
-import Modal from "../Modal";
+import RModal from "../Modal";
 import useRestaurantModal from "@/app/hooks/useRestaurantModal";
 
 
@@ -25,7 +25,8 @@ const RestModal:React.FC<RestaurantModalProps> = ({restaurant}) => {
     const onSubmit =()=>{};
     const { name, image, description, locality , rating, contact} = restaurant;
     
-    const bodyContent = (<div className="text-white flex flex-col gap-2">
+    const bodyContent = (
+    <div className="text-white flex flex-col gap-2">
         {!image && <img src="/images/eggfactory.jpeg" alt={name} className="mb-3 rounded-lg" />}
         <p>
             <strong>Description:</strong> {description}
@@ -50,7 +51,7 @@ const RestModal:React.FC<RestaurantModalProps> = ({restaurant}) => {
 
 
     return ( 
-        <Modal  
+        <RModal  
         disabled={isLoading}
         isOpen={restaurantModal.isOpen}
         title={name}
