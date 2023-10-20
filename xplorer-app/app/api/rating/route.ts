@@ -48,9 +48,12 @@ export async function POST(
         userId:userId,
         restaurantId:resId
       }
-    })
+    });
+    console.log(rest.length)
+    console.log(rest);
 
-    if(rest.length>1){
+    if(rest.length>0){
+
       return NextResponse.error();
     }
     const user = await prisma.rating.create({
