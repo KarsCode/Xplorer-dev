@@ -26,7 +26,7 @@ const EventModal: React.FC<EventModalProps> = ({ post,currentUser }) => {
     };
   
     const { title, eventImage, description, latitude, longitude, date , tag } = post;
-    console.log(eventImage);
+
   
     const bodyContent = (
       <div className="text-white flex flex-col gap-2">
