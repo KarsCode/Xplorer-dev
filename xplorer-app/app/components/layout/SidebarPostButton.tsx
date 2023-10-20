@@ -57,6 +57,11 @@ const SidebarPostButton =  ({currentUser}: SidebarPostButtonProps) => {
         bg-yellow-500
         hover:opacity-80 
         cursor-pointer
+        transition-ease-in-out
+        delay-100
+        hover:-translate-y-1 
+        hover:scale-110
+        duration-300
       ">
         <p 
           className="
@@ -66,6 +71,11 @@ const SidebarPostButton =  ({currentUser}: SidebarPostButtonProps) => {
             font-semibold
             text-white
             text-[20px]
+            transition-ease-in-out
+            delay-100
+            hover:-translate-y-1 
+            hover:scale-110
+            duration-300
         ">
           Xplore Post 
         </p>
