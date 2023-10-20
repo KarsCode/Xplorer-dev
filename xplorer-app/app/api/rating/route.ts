@@ -49,8 +49,7 @@ export async function POST(
         restaurantId:resId
       }
     });
-    console.log(rest.length)
-    console.log(rest);
+
 
     if(rest.length>0){
 
