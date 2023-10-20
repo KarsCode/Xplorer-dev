@@ -4,11 +4,10 @@ import { Listbox, Transition } from '@headlessui/react'
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
 
 const people = [
-  { id: 0, name: 'All'},
   { id: 1, name: 'Sports' },
-  { id: 2, name: 'Food & Drinks' },
+  { id: 2, name: 'Food/Drinks' },
   { id: 3, name: 'Concerts' },
-  { id: 4, name: 'Comedy & Theatre' },
+  { id: 4, name: 'Comedy/Theatre' },
   { id: 5, name: 'Nature' },
   { id: 6, name: 'Movies'},
   { id: 7, name: 'Theatre'}
