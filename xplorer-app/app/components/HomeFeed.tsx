@@ -8,7 +8,12 @@ import { User } from "@prisma/client";
 import EventModal from "@/app/components/modals/EventModal";
 import getPosts from "../actions/getPosts";
 import useEventModal from "../hooks/useEventModal";
-import { MdOutlineTableRestaurant } from "react-icons/md";
+import { MdOutlineTableRestaurant, MdOutlineWarning } from "react-icons/md";
+
+import axios from "axios";
+import sendEmail from "../actions/sendEmail";
+import toast from "react-hot-toast";
+
 
 
 
@@ -26,6 +31,14 @@ const RestaurantFeed: React.FC<RestaurantFeedProps> = ({currentUser}) => {
   const handleRestaurantClick = (post: Post) => {
     setSelectedPosts(post);
     eventModal.onOpen();
+  };
+
+  const handleReportClick = () => {
+    try {
+      sendEmail("RAMpage123@outlook.com", "Report Filed", "Issue Raised");
+    } catch (error) {
+      toast.error("Something went wrong");
+    }
   };
 
   return (
@@ -52,10 +65,15 @@ const RestaurantFeed: React.FC<RestaurantFeedProps> = ({currentUser}) => {
                   <p>Date and Time: {post.date}</p>
                   <p> Tag: {post.tag}</p>
                 </div>
-        <button className="bg-yellow-500 text-black rounded-sm w-15 h-5 absolute top-2 right-2"><MdOutlineTableRestaurant/></button>
+        <button className="z-10 bg-yellow-500 text-black rounded-sm w-15 h-5 absolute top-2 right-2"><MdOutlineTableRestaurant/></button>
+       
       </div>
+      
         </div>
+        <button  onClick={handleReportClick} className ="z-10 bg-yellow-500 text-black rounded-sm w-15 h-5 absolute bottom-2 right-2"> <MdOutlineWarning/> </button>
+        
       </div>
+      
     </div>
       ))}
 
