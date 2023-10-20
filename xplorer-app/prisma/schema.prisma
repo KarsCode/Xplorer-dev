@@ -84,5 +84,6 @@ model Rating {
   content            String? 
   user         User     @relation(fields: [userId], references: [id],onDelete: Cascade)     // userid of rating will be equal to the id of the User who rated
   restaurant   Restaurant @relation(fields: [restaurantId], references: [id],onDelete: Cascade) // restaurantid of rating will be the id of the resturant rated
+  @@unique([userId,restaurantId])
 
 }
