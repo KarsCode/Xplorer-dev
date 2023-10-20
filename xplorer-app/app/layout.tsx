@@ -11,6 +11,7 @@ import { Nunito } from 'next/font/google'
 
 
 
+
 export const metadata = {
   title: 'Xplorer',
   description: 'Explore to your hearts content',
@@ -47,8 +48,7 @@ export default async function RootLayout({
 
               </div>
           </div>
-          
       </body>
-    </html>
+      </html>
   )
 }

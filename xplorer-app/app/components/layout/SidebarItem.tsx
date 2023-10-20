@@ -42,6 +42,11 @@ const SidebarItem: React.FC<SidebarItemProps> =  ({ label, icon: Icon, href,onCl
         hover:text-yellow-600
         cursor-pointer 
         lg:hidden
+        transition-ease-in-out
+        delay-100
+        hover:-translate-y-1 
+        hover:scale-110
+        duration-300
       ">
         <Icon size={28} color="white" />
       </div>
@@ -58,8 +63,13 @@ const SidebarItem: React.FC<SidebarItemProps> =  ({ label, icon: Icon, href,onCl
         hover:text-yellow-400
         cursor-pointer
         items-center
+        transition-ease-in-out
+        delay-100
+        hover:-translate-y-1 
+        hover:scale-110
+        duration-300
       ">
-        <Icon size={24} color="white" />
+        <Icon size={24} color="dark:white" />
         <p className="hidden lg:block text-xl">
           {label}
         </p>

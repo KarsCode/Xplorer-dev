@@ -20,7 +20,7 @@ import MapButton from '../widgets/map/MapButton';
 import WeatherApp from '../widgets/WeatherApp';
 import SidebarPostButton from './SidebarPostButton';
 import usePostModal from '@/app/hooks/usePostModal';
-
+import styled from "@emotion/styled";
 
 
 interface SidebarProps {
@@ -63,6 +63,7 @@ const Sidebar: React.FC<SidebarProps> =  ({currentUser}) => {
                   icon={item.icon} 
                   label={item.label}
                 />
+                
               ))}
               
               {currentUser && <SidebarItem onClick={() => signOut()} icon={BiLogOut} label="Logout" />}
