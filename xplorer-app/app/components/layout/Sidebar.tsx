@@ -21,6 +21,7 @@ import WeatherApp from '../widgets/WeatherApp';
 import SidebarPostButton from './SidebarPostButton';
 import usePostModal from '@/app/hooks/usePostModal';
 import styled from "@emotion/styled";
+import Toggle from '../ToggleButton';
 
 
 interface SidebarProps {
@@ -72,7 +73,7 @@ const Sidebar: React.FC<SidebarProps> =  ({currentUser}) => {
               {!currentUser && <SidebarItem onClick={loginModal.onOpen} icon={BiLogIn} label="Log In / Sign Up" />}
               {currentUser && <MapButton currentUser={currentUser}/>}
               {currentUser && <WeatherApp currentUser={currentUser}/>}
-              
+              <Toggle/>
 
           </div>
         </div>

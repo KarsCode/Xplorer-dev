@@ -13,10 +13,11 @@ import HomeFeed from './components/HomeFeed';
 export default async function Home({Component,pageProps}:AppProps) {
   const currentUser =( await getCurrentUser())?.currentUser;
   return (
-    <div>
-      
+     <div> 
       <Header label='Home'/>
+      <div className='h-screen overflow-x-auto'>
       {currentUser&&<HomeFeed currentUser={currentUser}/>}   
+      </div>
     </div>
   )
 }

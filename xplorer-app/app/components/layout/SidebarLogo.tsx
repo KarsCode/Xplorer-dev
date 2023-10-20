@@ -6,7 +6,7 @@ const SidebarLogo = () => {
   const router = useRouter();
   
   return (
-    <div className="hidden lg:block text-white text-xl">
+    <div className="hidden lg:block text-white text-xl ">
       <div 
       onClick={() => router.push('/')}
       className="
@@ -18,6 +18,11 @@ const SidebarLogo = () => {
       items-center 
       justify-center 
       cursor-pointer
+      transition-ease-in-out
+        delay-100
+        hover:-translate-y-1 
+        hover:scale-110
+        duration-300
     ">
       <Logo/>
     </div>

@@ -68,19 +68,19 @@ const RestModal: React.FC<RestaurantModalProps> = ({ restaurant,currentUser }) =
           <strong>Contact Details:</strong> {contact}
         </div>
         <div className="flex flex-row gap-2">
-          <strong>Your Rating:</strong>
-          <select
-            value={userRating}
-            onChange={onRatingChange}
-            className="text-black"
-          >
-            <option value={0}>Select a rating</option>
-            <option value={1}>1 Star</option>
-            <option value={2}>2 Stars</option>
-            <option value={3}>3 Stars</option>
-            <option value={4}>4 Stars</option>
-            <option value={5}>5 Stars</option>
-          </select>
+        <strong className="text-white">Your Rating:</strong>
+  <select
+    value={userRating}
+    onChange={onRatingChange}
+    className="text-black border border-gray-300 rounded p-1"
+  >
+    <option value={0}>Select a rating</option>
+    <option value={1}>1 Star</option>
+    <option value={2}>2 Stars</option>
+    <option value={3}>3 Stars</option>
+    <option value={4}>4 Stars</option>
+    <option value={5}>5 Stars</option>
+  </select>
         </div>
       </div>
     );
