@@ -1,5 +1,4 @@
 import ClientOnly from '@/app/components/ClientOnly';
-import { Nunito } from 'next/font/google'
 import './globals.css'
 import RegisterModal from '@/app/components/modals/RegisterModal';
 import ToasterProvider from './providers/ToasterProvider';
@@ -8,6 +7,7 @@ import getCurrentUser from './actions/getCurrentUser';
 import Sidebar from './components/layout/Sidebar';
 import Friendsbar from './components/layout/FriendsBar';
 import Header from './components/Header';
+import { Nunito } from 'next/font/google'
 
 
 
@@ -31,6 +31,7 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={`bg-black ${font.className}`}>
+
           <div className='max-h-screen bg-black'>
               <div className='container h-full mx-auto xl:px-30 max-w-6xl'>
                 <div className='grid grid-cols-4 h-full'>  

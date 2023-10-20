@@ -37,7 +37,7 @@ const FriendsBar: React.FC<SidebarProps> = ({currentUser}) => {
       </div>
     </div>
     <div className="px-6 py-4 hidden lg:block">
-    <AddFriend/>
+    {currentUser&& <AddFriend currentUser={currentUser}/>}
     </div>
     </div>
     

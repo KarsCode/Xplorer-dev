@@ -2,6 +2,7 @@
 import { BiLogIn, BiLogOut } from 'react-icons/bi';
 import { BsHouseFill, BsBellFill } from 'react-icons/bs';
 import { FaUser } from 'react-icons/fa';
+import {FaBowlFood} from 'react-icons/fa6';
 
 import SidebarItem from "@/app/components/layout/SidebarItem";
 import getCurrentUser from "@/app/actions/getCurrentUser";
@@ -36,9 +37,9 @@ const Sidebar: React.FC<SidebarProps> =  ({currentUser}) => {
       href: '/',
     },
     {
-      icon: BsBellFill,
-      label: 'Notifications',
-      href: '/notifications',
+      icon: FaBowlFood,
+      label: 'Restaurants',
+      href: '/restaurants',
       auth: true,
     },
     {

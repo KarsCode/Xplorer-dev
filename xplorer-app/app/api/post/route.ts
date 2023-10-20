@@ -14,7 +14,7 @@ export async function POST(
     const body = await request.json();
     const{
           tag,
-          image,
+          eventImage,
           title,
           description,
           date,
@@ -26,7 +26,7 @@ export async function POST(
             tag,
             latitude:latitude,
             longitude:longitude,
-            image,
+            //eventImage:eventImage,
             title,
             description,
             date,
@@ -36,3 +36,10 @@ export async function POST(
     });
     return NextResponse.json(post);  
 }
+
+
+
+
+
+
+
