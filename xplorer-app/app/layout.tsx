@@ -9,6 +9,7 @@ import Friendsbar from './components/layout/FriendsBar';
 import Header from './components/Header';
 import { Nunito } from 'next/font/google'
 import PostModal from './components/modals/PostModal';
+import { useState } from 'react';
 
 
 
@@ -30,6 +31,7 @@ export default async function RootLayout({
 }) {
    /** To have the RegisterModal modal popup you need to give onclick function as registerModal.onOpen */
   const currentUser =( await getCurrentUser())?.currentUser;
+ 
   return (
     <html lang="en">
       <body className={`${font.className}`} id="first">

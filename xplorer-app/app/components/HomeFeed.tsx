@@ -16,16 +16,16 @@ import toast from "react-hot-toast";
 
 interface RestaurantFeedProps {
   currentUser: User;
-  
+  yourVariable: string;
 }
 
-const RestaurantFeed: React.FC<RestaurantFeedProps> = ({ currentUser }) => {
+const RestaurantFeed: React.FC<RestaurantFeedProps> = ({ currentUser,yourVariable }) => {
   const { data: posts = [] } = getPosts();
   const eventModal = useEventModal();
   const [selectedPosts, setSelectedPosts] = useState<Post | null>(null);
 
   // Filter posts with the "Sports" tag
-  const tag:string = 'Sports'; //change here  
+  const tag:string = yourVariable; //change here  
   const sportsPosts = (tag === 'All') ? posts : posts.filter((post: Post) => post.tag === tag);
 
   const handleRestaurantClick = (post: Post) => {
