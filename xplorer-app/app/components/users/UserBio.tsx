@@ -1,12 +1,14 @@
 'use client';
 import getUser from "@/app/actions/getUser";
 import { format } from "date-fns";
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import Button from "../Button";
 import { User } from "@prisma/client";
 import { BiCalendar } from "react-icons/bi";
 import useEditModal from "@/app/hooks/useEditModal";
 import getXU from "@/app/actions/getXU";
+import XUModal from "../modals/XUModal";
+import useXUModal from "@/app/hooks/useXUModal";
 
 interface UserBioProps{
     userId:string;
@@ -18,11 +20,10 @@ interface UserBioProps{
 
 const UserBio:React.FC<UserBioProps> =  ({userId,currentUser}) => {
     const {data:fetchedUser} = getUser(userId);
-    let data:object;
-    if((currentUser&&fetchedUser) && currentUser!=fetchedUser){
-         data=getXU(currentUser!.id,fetchedUser.id);
-    }
+    
+    
     const editModal = useEditModal();
+    const xuModal = useXUModal();
     const createdAt = useMemo(() => {
         if (!fetchedUser?.createdAt) {
           return null;
@@ -39,7 +40,11 @@ const UserBio:React.FC<UserBioProps> =  ({userId,currentUser}) => {
                 {currentUser?.id === fetchedUser.id ? (
                 <Button secondary label="Edit" onClick={editModal.onOpen} />//editModal.onOpen
                 ) : (
-                    <Button secondary label="XperienceUnite" onClick={()=>{console.log(data)}} />
+                    <><Button secondary label="XperienceUnite" onClick={xuModal.onOpen} />
+                    <XUModal currentUser={currentUser} friendUser={fetchedUser}/>
+
+                    </>
+                    
                 )} 
                 {currentUser?.id === userId ? (<div className="bg-neutral-800 text-white">{fetchedUser?.friendcode} </div>
                 ) : (<div></div> )}
