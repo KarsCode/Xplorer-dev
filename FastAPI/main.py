@@ -227,7 +227,7 @@ async def xu(user1 , user2):
         
         resto1= await recommend(user1)
         resto2=await recommend(user2)
-        net_resto = random.sample(resto1 + resto2, 10)
+        net_resto = random.sample(resto1 + resto2, 5)
         random.shuffle(net_resto)
 
 

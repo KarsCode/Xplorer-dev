@@ -25,23 +25,25 @@ const XUModal: React.FC<XUModalProps> = ({ currentUser, friendUser }) => {
   
   const bodyContent = (
     <div className="text-white flex flex-col gap-2">
-      <div className="text-xl text-center">
-        {data ? `${data.percentage}%` : "Loading..."}
+  <div className="text-4xl text-center font-bold">
+    {data ? `${data.percentage?.toFixed(2)}%` : "Loading..."}
+  </div>
+  <div className="flex flex-col gap-2">
+    <strong className="text-white">Restaurants both of you might like:</strong>
+  </div>
+  <div>
+    {data && data.restaurants?.map((restaurant, index) => (
+      <div key={index} className="bg-gray-900 p-4 rounded-md shadow-md my-4">
+        <strong className="text-yellow-400 text-xl font-semibold mb-2">
+          {restaurant.name}
+        </strong>
+        <p className="text-gray-300 mb-1">Description: {restaurant.cuisines}</p>
+        <p className="text-gray-300 mb-1">Locality: {restaurant.locality}</p>
+        <p className="text-yellow-400">Rating: {restaurant.rating?.toFixed(1)}</p>
       </div>
-      <div className="flex flex-row gap-2">
-        <strong className="text-white">Restaurants:</strong>
-      </div>
-      <div>
-        {data && data.restaurants?.map((restaurant, index) => (
-          <div key={index} className="flex flex-col gap-2">
-            <strong>Name: {restaurant.name}</strong>
-            <p>Description: {restaurant.cuisines}</p>
-            <p>Locality: {restaurant.locality}</p>
-            <p>Rating: {restaurant.rating?.toFixed(1)}</p>
-          </div>
-        ))}
-      </div>
-    </div>
+    ))}
+  </div>
+</div>
   );
     
   return (
@@ -49,7 +51,7 @@ const XUModal: React.FC<XUModalProps> = ({ currentUser, friendUser }) => {
       disabled={isLoading}
       isOpen={XUModal.isOpen}
       title="XperienceUnite"
-      actionLabel="Clear"
+      actionLabel=""
       onClose={XUModal.onClose}
       onSubmit={onSubmit}
       body={bodyContent}
