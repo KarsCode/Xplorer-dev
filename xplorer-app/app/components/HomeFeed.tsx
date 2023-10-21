@@ -8,7 +8,8 @@ import { User } from "@prisma/client";
 import EventModal from "@/app/components/modals/EventModal";
 import getPosts from "../actions/getPosts";
 import useEventModal from "../hooks/useEventModal";
-import { MdOutlineTableRestaurant } from "react-icons/md";
+import { MdOutlineTableRestaurant} from "react-icons/md";
+import {AiFillHeart} from "react-icons/ai";
 
 
 
@@ -23,7 +24,8 @@ const RestaurantFeed: React.FC<RestaurantFeedProps> = ({ currentUser }) => {
   const [selectedPosts, setSelectedPosts] = useState<Post | null>(null);
 
   // Filter posts with the "Sports" tag
-  const sportsPosts = posts.filter((post: Post) => post.tag === 'Sports');
+  const tag:string = 'Sports'; //change here  
+  const sportsPosts = (tag === 'All') ? posts : posts.filter((post: Post) => post.tag === tag);
 
   const handleRestaurantClick = (post: Post) => {
     setSelectedPosts(post);
@@ -34,7 +36,7 @@ const RestaurantFeed: React.FC<RestaurantFeedProps> = ({ currentUser }) => {
     <>
       {sportsPosts.map((post: Post) => (
         <div key={post.id}>
-          <EventModal post={post} currentUser={currentUser} />
+          {/* <EventModal post={post} currentUser={currentUser} /> */}
         <div className="p-3
         transition-ease-in-out
         delay-100
@@ -53,7 +55,7 @@ const RestaurantFeed: React.FC<RestaurantFeedProps> = ({ currentUser }) => {
                   <p>Date and Time: {post.date}</p>
                   <p> Tag: {post.tag}</p>
                 </div>
-        <button className="bg-yellow-500 text-black rounded-sm w-15 h-5 absolute top-2 right-2"><MdOutlineTableRestaurant/></button>
+        <button className="bg-yellow-500 text-black rounded-sm w-15 h-5 absolute top-2 right-2"><AiFillHeart/></button>
       </div>
         </div>
       </div>

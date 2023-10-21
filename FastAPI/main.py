@@ -45,7 +45,7 @@ async def recommend(id):
         },
         {
             "$match": {
-                "num_ratings": {"$gt": 15}
+                "num_ratings": {"$gt": 4}
             }
         },
         {

@@ -101,6 +101,13 @@ const elements11 = document.getElementsByClassName('eleventh');
      elements11[i].style.backgroundColor = enabled? 'black' : 'white';
  }
 }
+const elements12 = document.getElementsByClassName('twelth');
+
+  if (elements12.length > 0) {
+    for (let i = 0; i < elements12.length; i++) {
+      elements12[i].style.border = enabled? 'rgb(23,23,23)' : 'gray';
+  }
+ }
     // Toggle the state
     setEnabled(!enabled);
     
