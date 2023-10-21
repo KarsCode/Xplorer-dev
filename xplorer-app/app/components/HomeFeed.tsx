@@ -12,6 +12,8 @@ import { MdOutlineTableRestaurant,MdWarning} from "react-icons/md";
 import {AiFillHeart} from "react-icons/ai";
 import toast from "react-hot-toast";
 import addLike from "../actions/addLike";
+import sendEmail from "../actions/sendEmail";
+import axios from "axios";
 
 
 
@@ -34,25 +36,27 @@ const RestaurantFeed: React.FC<RestaurantFeedProps> = ({ currentUser,yourVariabl
     eventModal.onOpen();
   };
 
-  const handleReportClick = () => {
-    toast((t) => (
+  const handleReportClick = (a:string) => {
+    const toastContent = (
       <div className="flex flex-row gap-3 items-center">
         <p className="font font-extrabold"><b>Send Report?</b></p>
         <button
           onClick={() => {
-            // Handle 'Yes' click (e.g., report the post to admin)
-            toast.dismiss(t.id);
-            // You can call your report function here
-            // For example: reportToAdmin();
+            
+                sendEmail("RAM_page123@outlook.com", "Report Raised", `Post flagged : ${a}`);
+                toast.success("Email Sent!");
+              
           }}
           className="bg-yellow-500 text-black rounded px-3 py-1"
         >
           Yes
         </button>
-
       </div>
-    ));
+    );
+  
+    toast(() => toastContent);
   };
+
 
 
   return (
@@ -67,7 +71,7 @@ const RestaurantFeed: React.FC<RestaurantFeedProps> = ({ currentUser,yourVariabl
         hover:scale-80
         duration-300">
          <div className="fourth w-full h-48 bg-neutral-900 text-white flex items-center justify-center rounded-xl relative gap-3" onClick={() => handleRestaurantClick(post)}>
-         <div className="w-1/3 pl-3" >
+         <div className="w-1/3 pl-3 h-full flex justify-center align-center rounded-md" >
          <img src={post.eventImage||"./images/eggfactory.jpeg"} alt="Your Image" className="w-auto max-h-full rounded-md" />
       </div>
       <div className="w-2/3 flex items-center justify-center">
@@ -78,15 +82,20 @@ const RestaurantFeed: React.FC<RestaurantFeedProps> = ({ currentUser,yourVariabl
                   <p>Date and Time: {post.date}</p>
                   <p> Tag: {post.tag}</p>
                 </div>
-                <p>{ (post.likedIds).length}</p> 
-          <button className="bg-yellow-500 text-black rounded-sm w-15 h-5 absolute top-2 right-2" onClick={()=>{addLike(currentUser.id,post.id)}}><AiFillHeart/></button>
-          <button className="bg-red-500 text-black rounded-full w-15 h-5 absolute bottom-2 right-2"
-          onClick={(e) => {e.stopPropagation(),handleReportClick(), console.log("Reporting")}}
-          ><MdWarning/></button>
+                <div className="flex flex-row">
+                <button className=" text-black rounded-sm w-15 h-5 absolute bottom-2 right-11 " onClick={(e)=>{e.stopPropagation(),addLike(currentUser.id,post.id)}}><AiFillHeart color="red"/></button>
+                 <p className="absolute bottom-1.5 right-8">{ (post.likedIds).length} </p>
+          </div>
+          <button className="color-red-500 text-black rounded-full w-15 h-5 absolute bottom-2 right-2"
+          onClick={(e) => {e.stopPropagation(),handleReportClick(post.id), console.log("Reporting")}}
+          ><MdWarning color="yellow"/></button>
+      </div>
+                
+          
       </div>
         </div>
       </div>
-    </div>
+    
       ))}
 
       {/* Render the modal with the selected restaurant */}

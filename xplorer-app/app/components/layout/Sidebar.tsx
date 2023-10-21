@@ -22,6 +22,9 @@ import SidebarPostButton from './SidebarPostButton';
 import usePostModal from '@/app/hooks/usePostModal';
 import styled from "@emotion/styled";
 import Toggle from '../ToggleButton';
+import { FaUserFriends } from 'react-icons/fa';
+import Popup from './Popup';
+import React, { useState } from 'react';
 
 
 interface SidebarProps {
@@ -52,6 +55,15 @@ const Sidebar: React.FC<SidebarProps> =  ({currentUser}) => {
   ]
   const loginModal = useLoginModal();
   //const postModal = usePostModal(); 
+  const [isPopupOpen, setPopupOpen] = useState(false);
+
+  const openPopup = () => {
+    setPopupOpen(true);
+  };
+
+  const closePopup = () => {
+    setPopupOpen(false);
+ };
    return (
     <div className="col-span-1 h-full pr-4 md:pr-6">
         <div className="flex flex-col items-end">
@@ -66,12 +78,27 @@ const Sidebar: React.FC<SidebarProps> =  ({currentUser}) => {
                 />
                 
               ))}
-              
+              {currentUser && <button className='
+              lg:hidden 
+              inline-flex        
+              relative
+              items-row 
+              gap-4 
+              p-4 
+              rounded-full 
+             hover:bg-slate-300 
+              hover:bg-opacity-10 
+              cursor-pointer
+              text-white
+              items-center' 
+              onClick={openPopup}><FaUserFriends size={28} /></button>}
               {currentUser && <SidebarItem onClick={() => signOut()} icon={BiLogOut} label="Logout" />}
               
               {currentUser && <SidebarPostButton currentUser={currentUser}/>}
               {!currentUser && <SidebarItem onClick={loginModal.onOpen} icon={BiLogIn} label="Log In / Sign Up" />}
               {currentUser && <MapButton currentUser={currentUser}/>}
+              
+             {currentUser && <Popup open={isPopupOpen} onclose={closePopup} currentUser={currentUser} />}
               {currentUser && <WeatherApp currentUser={currentUser}/>}
               <Toggle/>
 
