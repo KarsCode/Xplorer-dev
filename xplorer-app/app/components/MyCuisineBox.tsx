@@ -5,20 +5,23 @@ import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
 
 const people = [
   { id: 1, name: 'All'},
-  { id: 1, name: 'Sports' },
-  { id: 2, name: 'Food&Drink' },
-  { id: 3, name: 'Concerts' },
-  { id: 4, name: 'Comedy&Theatre' },
-  { id: 5, name: 'Nature' },
-  { id: 6, name: 'Movies'},
-  { id: 7, name: 'Offers'}
+  { id: 2, name: 'Chinese' },
+  { id: 3, name: 'Japanese' },
+  { id: 4, name: 'Caribbean' },
+  { id: 5, name: 'Mexican' },
+  { id: 6, name: 'Thai'},
+  { id: 7, name: 'North Indian'},
+  { id: 8, name: 'Italian' },
+  { id: 9, name: 'South Indian'},
+  { id: 10, name: 'Arabic'},
+  { id: 11, name: 'Jamaican'},
 ]
-interface MyListBoxProps{
+interface MyCuisineBoxProps{
   yourVariable:string;
   setYourVariable:(value: string) => void;
 }
 
-const MyListBox:React.FC<MyListBoxProps> = ({yourVariable,setYourVariable }) => {
+const MyListBox:React.FC<MyCuisineBoxProps> = ({yourVariable,setYourVariable }) => {
     const [selected, setSelected] = useState(people[0])
 
     const handleSelectionChange = (newSelection: React.SetStateAction<{ id: number; name: string }>) => {
