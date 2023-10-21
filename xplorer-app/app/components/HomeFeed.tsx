@@ -11,6 +11,7 @@ import useEventModal from "../hooks/useEventModal";
 import { MdOutlineTableRestaurant,MdWarning} from "react-icons/md";
 import {AiFillHeart} from "react-icons/ai";
 import toast from "react-hot-toast";
+import addLike from "../actions/addLike";
 
 
 
@@ -77,14 +78,8 @@ const RestaurantFeed: React.FC<RestaurantFeedProps> = ({ currentUser,yourVariabl
                   <p>Date and Time: {post.date}</p>
                   <p> Tag: {post.tag}</p>
                 </div>
-        <button className="bg-yellow-500 text-black rounded-sm w-15 h-5 absolute top-2 right-2"><AiFillHeart/></button>
-
-
-
-
-
-
-
+                <p>{ (post.likedIds).length}</p> 
+          <button className="bg-yellow-500 text-black rounded-sm w-15 h-5 absolute top-2 right-2" onClick={()=>{addLike(currentUser.id,post.id)}}><AiFillHeart/></button>
           <button className="bg-red-500 text-black rounded-full w-15 h-5 absolute bottom-2 right-2"
           onClick={(e) => {e.stopPropagation(),handleReportClick(), console.log("Reporting")}}
           ><MdWarning/></button>

@@ -19,8 +19,6 @@ export default async function Home({Component,pageProps}:AppProps) {
   const currentUser =( await getCurrentUser())?.currentUser;
 
   return (
-     <PostPage currentUser={currentUser}>
-
-     </PostPage>
+     <PostPage currentUser={currentUser}/>
   )
 }
