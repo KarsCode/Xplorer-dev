@@ -9,11 +9,10 @@ import EditModal from './components/modals/EditModal';
 import getCurrentUser from './actions/getCurrentUser';
 import { Nunito } from 'next/font/google'
 import HomeFeed from './components/HomeFeed';
-import { useState } from 'react';
 
 export default async function Home({Component,pageProps}:AppProps) {
   const currentUser =( await getCurrentUser())?.currentUser;
-  const [selectedOption, setSelectedOption] = useState(null);
+
   return (
      <div> 
       <Header label='Home'  />
