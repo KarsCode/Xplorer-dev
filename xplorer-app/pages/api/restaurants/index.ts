@@ -2,6 +2,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 
 import serverAuth from "@/app/libs/serverAuth";
 import prisma from "@/app/libs/prismabd";
+import axios from "axios";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== 'POST' && req.method !== 'GET') {
@@ -31,6 +32,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         const { currentUser } = await serverAuth(req, res);
 
       let posts;
+      if(currentUser.ratedCount<5){
         posts = await prisma.restaurant.findMany({
           where:{
             latitude:{
@@ -46,7 +48,19 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             rating: 'desc'
           }
         });
+      }
+      else{
+        const userId=currentUser.id;
+        const response = await axios.get(`http://127.0.0.1:8000/recommendations/${userId}`);
+        posts = await prisma.restaurant.findMany({
+          where: {
+         id: {
+          in: response.data,
+             },
+           },
+        });
 
+      }
       return res.status(200).json(posts);
     }
   

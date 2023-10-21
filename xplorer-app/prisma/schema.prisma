@@ -27,6 +27,7 @@ model User {
   rated           Rating[]    // list of all ratings
   posts           Post[]     // list of all posts
   friendsIds      String[] @db.ObjectId
+  ratedCount      Int @default(0)
 }
 
 model Post {

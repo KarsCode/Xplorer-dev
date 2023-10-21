@@ -7,22 +7,84 @@ import json
 
 
 app=FastAPI()
-client = motor.motor_asyncio.AsyncIOMotorClient('mongodb://localhost:27017')
-db=client.Xplorer
+client = motor.motor_asyncio.AsyncIOMotorClient('mongodb+srv://anirvesh:anirvesh@cluster0.tuw5ikl.mongodb.net/?retryWrites=true&w=majority')
+db=client.test
 
 @app.get("/recommendations/{id}")
-async def recommend(userId):
-    pickeduserDoc = await db['users'].find_one({'id':id})
-    query = {"rated": {"$exists": True, "$size": {"$gt": 10}}}
-    cursor = db["users"].find({'mostVisited': pickeduserDoc["locality"], **query}).limit(100)
-    user_list = await cursor.to_list(100)
-    users=[]
-    ratings=[]
+async def recommend(id):
+    # Define the range and retrieve user information
+    range = 1
+    id=ObjectId(id)
+    pickeduserDoc = await db['User'].find_one({'_id': ObjectId(id)})
+
+    # Check if user information is found
+    if pickeduserDoc is None:
+        return json.loads(dumps([]))  # Return an empty list if user not found
+
+    # Aggregation pipeline to find similar users
+    pipeline = [
+        {
+            "$match": {
+                "latitude": {"$gt": pickeduserDoc['latitude'] - range, "$lt": pickeduserDoc['latitude'] + range},
+                "longitude": {"$gt": pickeduserDoc['longitude'] - range, "$lt": pickeduserDoc['longitude'] + range}
+            }
+        },
+        {
+            "$lookup": {
+                "from": "Rating",  # The name of the Rating collection
+                "localField": "_id",  # The field in the User collection
+                "foreignField": "userId",  # The field in the Rating collection
+                "as": "ratings"  # Create an array field "ratings"
+            }
+        },
+        {
+            "$addFields": {
+                "num_ratings": {"$size": "$ratings"}
+            }
+        },
+        {
+            "$match": {
+                "num_ratings": {"$gt": 15}
+            }
+        },
+        {
+            "$limit": 100
+        }
+    ]
+
+    # Run the aggregation query
+    async def find_users():
+        users = []
+        async for user in db["User"].aggregate(pipeline):
+            users.append(user)
+        return users
+
+    # Run the query asynchronously
+    user_list = await find_users()
+
+    # Data Transformation
+    users = []
+    ratings = []
+
     for document in user_list:
-        docu = document["id"]
-        docr = [{'restaurantId': d['restaurantId'], 'rating': d['rating']} for d in document.get('rated', [])]
-        users.append(docu)
-        ratings.append(docr)
+        docu = document["_id"]
+        docr = [{'restaurantId': d['restaurantId'], 'rating': d['rating']} for d in document.get('ratings', [])]
+ 
+        users.append(str(docu))
+        converted_list = [
+            {
+                "restaurantId": str(item["restaurantId"]),  # Convert ObjectId to string
+                "rating": item["rating"]
+            }
+            for item in docr
+        ]
+        converted_dict = {}
+        for item in converted_list:
+            restaurant_id = item["restaurantId"]
+            rating = item["rating"]
+            converted_dict[restaurant_id] = rating
+        ratings.append(converted_dict)
+
     df = pd.DataFrame(ratings)
     df['userId'] = users
     df = df.melt(id_vars='userId', var_name='restaurantId', value_name='rating')
@@ -31,10 +93,8 @@ async def recommend(userId):
     df=df.subtract(df.mean(axis=1),axis='rows')
     
     user_similarity=df.T.corr()
-
-
     
-    picked_user=userId
+    picked_user=str(id)
     user_similarity.drop(index=picked_user,inplace=True)
     n=10
     user_similarity_threshold=0.3
@@ -68,20 +128,15 @@ async def recommend(userId):
     
     ranked_item_score.head(m)
     recommendations=ranked_item_score['restaurantId'].to_list()
-    final=[]
-    for restaurantId in recommendations:
-        if((await db['restaurants'].find_one({'id':restaurantId}))['locality']==pickeduserDoc["locality"]):
-            final=final+restaurantId
-    finaljson=dumps(final)
-    final=json.loads(finaljson)             #because what is being returned is a bunch of objectids
-    return final
+
+    return recommendations
     
 
 
 
 @app.get("/xu/{userId}")
 async def xu(userId , target):
-        pickeduserDoc = await db['users'].find_one({'id': userId})
+        pickeduserDoc = await db['User'].find_one({'_id': userId})
         rated1 = pickeduserDoc["rated"]
         result_dict1 = {}
         for rating_data in rated1:
@@ -89,7 +144,7 @@ async def xu(userId , target):
             rating = rating_data['rating']
             result_dict1[restaurant_id] = rating
         
-        restaurant_info1 = await db["restaurants"].find({"id": {"$in": list(result_dict1.keys())}}).to_list(1000)
+        restaurant_info1 = await db["Restaurant"].find({"_id": {"$in": list(result_dict1.keys())}}).to_list(1000)
         cuisine_ratings = {}
         for restaurant_id, rating in result_dict1.items():
             for restaurant_info in restaurant_info1:
@@ -106,14 +161,14 @@ async def xu(userId , target):
             cuisine_avg_ratings[cuisine] = avg_rating
         list1 = sorted(cuisine_avg_ratings, key=cuisine_avg_ratings.get, reverse=True)[:100]
 
-        targetuserDoc = await db['users'].find_one({'id': target})
+        targetuserDoc = await db['User'].find_one({'_id': target})
         rated2 = targetuserDoc["rated"]
         result_dict2 = {}
         for rating_data in rated2:
             restaurant_id = rating_data['restaurantId']
             rating = rating_data['rating']
             result_dict2[restaurant_id] = rating
-        restaurant_info2 = await db["restaurants"].find({"id": {"$in": list(result_dict2.keys())}}).to_list(1000)
+        restaurant_info2 = await db["Restaurant"].find({"_id": {"$in": list(result_dict2.keys())}}).to_list(1000)
         cuisine_ratings = {}
         for restaurant_id, rating in result_dict2.items():
             for restaurant_info in restaurant_info2:

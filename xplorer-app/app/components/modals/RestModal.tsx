@@ -12,6 +12,7 @@ import toast from "react-hot-toast";
 import RModal from "../RModal";
 
 
+
 interface RestaurantModalProps{
     currentUser: User;
     restaurant: Restaurant;
@@ -38,8 +39,10 @@ const RestModal: React.FC<RestaurantModalProps> = ({ restaurant,currentUser }) =
          const resId=restaurant.id;
          axios.post('/api/rating',{rating,userId,resId})
             .then(()=>{
- 
+                const id = currentUser.id;
                 restModal.onClose();
+                currentUser.ratedCount=currentUser.ratedCount+1;
+                addRatedCount(id);
              })
              .catch((error)=>{
                  toast.error("Something Went Wrong");
