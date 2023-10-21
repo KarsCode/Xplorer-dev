@@ -135,21 +135,6 @@ const MapComponent: React.FC<MapComponentProps> = ({
      // You can adjust the weight as needed
   }));
 
-
-  
-  // const [heatmapData, setHeatmapData] = useState<any[] | null>(null);
-
-  // useEffect(() => {
-  //   // Calculate heatmap data whenever `posts` change
-  //   const newHeatmapData = posts.map((post: Post) => ({
-  //     location: new window.google.maps.LatLng(post.latitude, post.longitude),
-  //     weight: 1,
-  //     // You can adjust the weight as needed
-  //   }));
-
-  //   setHeatmapData(newHeatmapData);
-  // }, [posts]);
-
   const handleMapLoad = (map: google.maps.Map) => {
     mapRef.current = map;
     // Now, mapRef.current holds the Google Map instance, and you can use it to interact with the map.
@@ -236,13 +221,16 @@ const MapComponent: React.FC<MapComponentProps> = ({
         )}    
 
 
-
-        
+                
 {heatmapData && (
   <HeatmapLayer
     data={heatmapData} // Adjust the radius value as needed
   />
 )}
+
+
+
+
 
           
 

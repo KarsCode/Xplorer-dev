@@ -9,7 +9,8 @@ import useRestaurantModal from "@/app/hooks/useRestModal";
 import  {Restaurant , User} from "@prisma/client";
 import axios from "axios";
 import toast from "react-hot-toast";
-import addRatedCount from "@/app/actions/addRatedCount";
+import RModal from "../RModal";
+
 
 
 interface RestaurantModalProps{
@@ -89,7 +90,7 @@ const RestModal: React.FC<RestaurantModalProps> = ({ restaurant,currentUser }) =
     );
   
     return (
-      <Modal
+      <RModal
         disabled={isLoading}
         isOpen={restaurantModal.isOpen}
         title={name}
