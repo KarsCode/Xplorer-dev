@@ -8,8 +8,9 @@ import { User } from "@prisma/client";
 import EventModal from "@/app/components/modals/EventModal";
 import getPosts from "../actions/getPosts";
 import useEventModal from "../hooks/useEventModal";
-import { MdOutlineTableRestaurant} from "react-icons/md";
+import { MdOutlineTableRestaurant,MdWarning} from "react-icons/md";
 import {AiFillHeart} from "react-icons/ai";
+import toast from "react-hot-toast";
 
 
 
@@ -31,6 +32,27 @@ const RestaurantFeed: React.FC<RestaurantFeedProps> = ({ currentUser,yourVariabl
     setSelectedPosts(post);
     eventModal.onOpen();
   };
+
+  const handleReportClick = () => {
+    toast((t) => (
+      <div className="flex flex-row gap-3 items-center">
+        <p className="font font-extrabold"><b>Send Report?</b></p>
+        <button
+          onClick={() => {
+            // Handle 'Yes' click (e.g., report the post to admin)
+            toast.dismiss(t.id);
+            // You can call your report function here
+            // For example: reportToAdmin();
+          }}
+          className="bg-yellow-500 text-black rounded px-3 py-1"
+        >
+          Yes
+        </button>
+
+      </div>
+    ));
+  };
+
 
   return (
     <>
@@ -56,6 +78,16 @@ const RestaurantFeed: React.FC<RestaurantFeedProps> = ({ currentUser,yourVariabl
                   <p> Tag: {post.tag}</p>
                 </div>
         <button className="bg-yellow-500 text-black rounded-sm w-15 h-5 absolute top-2 right-2"><AiFillHeart/></button>
+
+
+
+
+
+
+
+          <button className="bg-red-500 text-black rounded-full w-15 h-5 absolute bottom-2 right-2"
+          onClick={(e) => {e.stopPropagation(),handleReportClick(), console.log("Reporting")}}
+          ><MdWarning/></button>
       </div>
         </div>
       </div>

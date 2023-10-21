@@ -9,8 +9,10 @@ import EditModal from './components/modals/EditModal';
 import getCurrentUser from './actions/getCurrentUser';
 import { Nunito } from 'next/font/google'
 import HomeFeed from './components/HomeFeed';
+
 import { useState } from 'react';
 import PostPage from './components/PostPage';
+
 
 
 export default async function Home({Component,pageProps}:AppProps) {
