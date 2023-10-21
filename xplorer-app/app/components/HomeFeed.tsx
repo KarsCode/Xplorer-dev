@@ -20,9 +20,10 @@ const RestaurantFeed: React.FC<RestaurantFeedProps> = ({ currentUser }) => {
   const { data: posts = [] } = getPosts();
   const eventModal = useEventModal();
   const [selectedPosts, setSelectedPosts] = useState<Post | null>(null);
+  
 
   // Filter posts with the "Sports" tag
-  const sportsPosts = posts.filter((post: Post) => post.tag === "Movies");
+  const sportsPosts = posts.filter((post: Post) => post.tag === "String");
 
   const handleRestaurantClick = (post: Post) => {
     setSelectedPosts(post);
@@ -30,7 +31,7 @@ const RestaurantFeed: React.FC<RestaurantFeedProps> = ({ currentUser }) => {
   };
 
   return (
-    <>
+      <div>
       {sportsPosts.map((post: Post) => (
         <div key={post.id}>
         <div className="p-3
@@ -60,7 +61,7 @@ const RestaurantFeed: React.FC<RestaurantFeedProps> = ({ currentUser }) => {
       {selectedPosts && (
         <EventModal post={selectedPosts} currentUser={currentUser} />
       )}
-    </>
+      </div>
   );
 };
 
