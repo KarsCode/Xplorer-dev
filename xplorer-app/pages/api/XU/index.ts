@@ -27,10 +27,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
            },
          },
       });
-    const percentage = response.data["Percentage"];
+    const percentage = await response.data["Percentage"];
 
     const doc = {"restaurants":restaurants,"percentage":percentage};
-    console.log(doc);
     return res.status(200).json(doc);
   } catch (error) {
     console.error(error);
