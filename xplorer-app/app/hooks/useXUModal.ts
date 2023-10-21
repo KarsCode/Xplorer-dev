@@ -1,13 +1,13 @@
 import {create } from 'zustand';
 
-interface XUStore{
+interface XUModalStore{
     isOpen:boolean;
     onOpen:()=> void;
     onClose:()=> void;
 }
 
 
-const useXUModal = create<XUStore>((set)=>({
+const useXUModal = create<XUModalStore>((set)=>({
     isOpen : false,
     onOpen:()=>set({isOpen:true}),
     onClose:()=>set({isOpen:false}),

@@ -1,11 +1,12 @@
 'use client';
 import getUser from "@/app/actions/getUser";
 import { format } from "date-fns";
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import Button from "../Button";
 import { User } from "@prisma/client";
 import { BiCalendar } from "react-icons/bi";
 import useEditModal from "@/app/hooks/useEditModal";
+import useXUModal from "@/app/hooks/useXUModal";
 
 interface UserBioProps{
     userId:string;
@@ -13,15 +14,15 @@ interface UserBioProps{
 }
 
 
-
-
 const UserBio:React.FC<UserBioProps> =  ({userId,currentUser}) => {
     const {data:fetchedUser} = getUser(userId);
     const editModal = useEditModal();
+    const XUModal = useXUModal();
     const createdAt = useMemo(() => {
         if (!fetchedUser?.createdAt) {
           return null;
         }
+    
     
         return format(new Date(fetchedUser.createdAt), 'MMMM yyyy');
       }, [fetchedUser?.createdAt])
@@ -34,7 +35,7 @@ const UserBio:React.FC<UserBioProps> =  ({userId,currentUser}) => {
                 {currentUser?.id === userId ? (
                 <Button secondary label="Edit" onClick={editModal.onOpen} />//editModal.onOpen
                 ) : (
-                    <Button secondary label="XperienceUnite" onClick={()=>{}} />
+                    <Button secondary label="XperienceUnite" onClick={XUModal.onOpen} />
                 )} 
                 {currentUser?.id === userId ? (<div className="bg-neutral-800 text-white">{fetchedUser?.friendcode} </div>
                 ) : (<div></div> )}
