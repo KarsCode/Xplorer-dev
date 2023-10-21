@@ -39,7 +39,7 @@ export default async function RootLayout({
                 <div className='grid grid-cols-4 h-full'>  
                   
                 <Sidebar currentUser={currentUser} />
-                  <div className='col-span-3 lg:col-span-2 border-x-[1px] border-neutral-800' >
+                  <div className='col-span-3 lg:col-span-2 border-x-[1px] twelth' >
                   <ClientOnly>
                     <ToasterProvider />
                     <LoginModal />

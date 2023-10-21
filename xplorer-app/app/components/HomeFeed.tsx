@@ -12,16 +12,17 @@ import { MdOutlineTableRestaurant } from "react-icons/md";
 
 
 
-interface RestaurantFeedProps{
-  currentUser:User;
+interface RestaurantFeedProps {
+  currentUser: User;
 }
-const RestaurantFeed: React.FC<RestaurantFeedProps> = ({currentUser}) => {
+
+const RestaurantFeed: React.FC<RestaurantFeedProps> = ({ currentUser }) => {
   const { data: posts = [] } = getPosts();
   const eventModal = useEventModal();
-  // State to keep track of the currently selected restaurant
-  const [selectedPosts, setSelectedPosts] = useState<Post | null>(
-    null
-  );
+  const [selectedPosts, setSelectedPosts] = useState<Post | null>(null);
+
+  // Filter posts with the "Sports" tag
+  const sportsPosts = posts.filter((post: Post) => post.tag === "Movies");
 
   const handleRestaurantClick = (post: Post) => {
     setSelectedPosts(post);
@@ -30,17 +31,15 @@ const RestaurantFeed: React.FC<RestaurantFeedProps> = ({currentUser}) => {
 
   return (
     <>
-      {posts.map((post: Post) => (
-        
+      {sportsPosts.map((post: Post) => (
         <div key={post.id}>
-        <EventModal post={post} currentUser={currentUser}/>
         <div className="p-3
         transition-ease-in-out
         delay-100
         hover:-translate-y-1 
         hover:scale-80
         duration-300">
-         <div className="fourth w-full h-48 flex items-center justify-center rounded-xl relative gap-3" onClick={() => handleRestaurantClick(post)}>
+         <div className="fourth w-full h-48 bg-neutral-900 text-white flex items-center justify-center rounded-xl relative gap-3" onClick={() => handleRestaurantClick(post)}>
          <div className="w-1/3 pl-3" >
          <img src={post.eventImage||"./images/eggfactory.jpeg"} alt="Your Image" className="w-auto max-h-full rounded-md" />
       </div>
@@ -48,7 +47,8 @@ const RestaurantFeed: React.FC<RestaurantFeedProps> = ({currentUser}) => {
       <div>
                   <h3 className="text-xl font-semibold" >{post.title}</h3>
                   <br/>
-                  <p> Timing : {post.date}</p>
+                  <p className="flex flex-row gap-2"><FaMapPin size={15}/>{(post.latitude).toFixed(3)} {(post.longitude).toFixed(3)}</p>
+                  <p>Date and Time: {post.date}</p>
                   <p> Tag: {post.tag}</p>
                 </div>
         <button className="bg-yellow-500 text-black rounded-sm w-15 h-5 absolute top-2 right-2"><MdOutlineTableRestaurant/></button>
@@ -57,8 +57,6 @@ const RestaurantFeed: React.FC<RestaurantFeedProps> = ({currentUser}) => {
       </div>
     </div>
       ))}
-
-      {/* Render the modal with the selected restaurant */}
       {selectedPosts && (
         <EventModal post={selectedPosts} currentUser={currentUser} />
       )}

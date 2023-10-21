@@ -34,7 +34,7 @@ const RestaurantFeed: React.FC<RestaurantFeedProps> = ({currentUser}) => {
         <div className="p-2 transition-ease-in-out
         delay-100
         hover:-translate-y-1 
-        hover:scale-110
+        hover:scale-80
         duration-300">
          <div className="w-full h-48 seventh flex items-center justify-center rounded-xl relative gap-3" onClick={() => handleRestaurantClick(restaurant)}>
          <div className="w-1/3 pl-3" >
