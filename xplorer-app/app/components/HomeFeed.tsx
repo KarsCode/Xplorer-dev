@@ -89,7 +89,6 @@ const RestaurantFeed: React.FC<RestaurantFeedProps> = ({ currentUser,yourVariabl
     </div>
       ))}
 
-      {/* Render the modal with the selected restaurant */}
       {selectedPosts && (
         <EventModal post={selectedPosts} currentUser={currentUser} />
       )}
@@ -97,4 +96,6 @@ const RestaurantFeed: React.FC<RestaurantFeedProps> = ({ currentUser,yourVariabl
   );
 };
 
-export default RestaurantFeed;
+export default RestaurantFeed;
+
+

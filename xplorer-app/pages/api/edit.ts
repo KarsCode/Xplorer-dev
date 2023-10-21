@@ -1,5 +1,4 @@
 import { NextApiRequest, NextApiResponse } from "next";
-
 import serverAuth from "@/app/libs/serverAuth";
 import prisma from "@/app/libs/prismabd";
 

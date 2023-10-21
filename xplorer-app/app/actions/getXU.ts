@@ -1,10 +1,18 @@
+'use client';
+import useSWR from 'swr';
 
+import fetcher from '@/app/libs/fetcher';
 
-import axios from 'axios';
-
-const getXU = async (userId :string , targetId:string ) => {
-    const response = await axios.get(`http://127.0.0.1:8000/xu/${userId}/?user2=${targetId}`);
-    return response.data;
-};
-
-export default getXU;
+const getXU = (userId: string, friendId: string) => {
+    const url = `/api/XU?userId=${userId}&friendId=${friendId}`;
+    const { data, error, isLoading, mutate } = useSWR(url, fetcher);
+  
+    return {
+      data,
+      error,
+      isLoading,
+      mutate
+    };
+  };
+  
+  export default getXU;

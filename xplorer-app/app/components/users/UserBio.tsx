@@ -6,6 +6,7 @@ import Button from "../Button";
 import { User } from "@prisma/client";
 import { BiCalendar } from "react-icons/bi";
 import useEditModal from "@/app/hooks/useEditModal";
+import getXU from "@/app/actions/getXU";
 
 interface UserBioProps{
     userId:string;
@@ -17,6 +18,10 @@ interface UserBioProps{
 
 const UserBio:React.FC<UserBioProps> =  ({userId,currentUser}) => {
     const {data:fetchedUser} = getUser(userId);
+    let data:object;
+    if((currentUser&&fetchedUser) && currentUser!=fetchedUser){
+         data=getXU(currentUser!.id,fetchedUser.id);
+    }
     const editModal = useEditModal();
     const createdAt = useMemo(() => {
         if (!fetchedUser?.createdAt) {
@@ -30,15 +35,15 @@ const UserBio:React.FC<UserBioProps> =  ({userId,currentUser}) => {
         <div className="border-b-[1px] border-neutral-800 pb-4">
             <div className="flex justify-end p-2">
             <div className="text-white p-2">
-                <div className="flex flex-col items-end gap-2">
-                {currentUser?.id === userId ? (
+                {currentUser&&<div className="flex flex-col items-end gap-2">
+                {currentUser?.id === fetchedUser.id ? (
                 <Button secondary label="Edit" onClick={editModal.onOpen} />//editModal.onOpen
                 ) : (
-                    <Button secondary label="XperienceUnite" onClick={()=>{}} />
+                    <Button secondary label="XperienceUnite" onClick={()=>{console.log(data)}} />
                 )} 
                 {currentUser?.id === userId ? (<div className="bg-neutral-800 text-white">{fetchedUser?.friendcode} </div>
                 ) : (<div></div> )}
-                </div>
+                </div>}
                 </div>
                 </div>
                 <div className="mt-8 px-4 ">
