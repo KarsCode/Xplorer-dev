@@ -35,7 +35,7 @@ const Header: React.FC<HeaderProps> = ({showBackArrow, label }) => {
         </div>
       </div>
       <div className="text-white">
-      {label === "Home" && <MyListBox/>}
+      {label === "Home" }
     </div>
     </div>
   );

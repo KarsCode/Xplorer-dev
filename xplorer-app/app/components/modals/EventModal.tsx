@@ -9,6 +9,7 @@ import useEventModal from "@/app/hooks/useEventModal";
 import  {Post , User} from "@prisma/client";
 import axios from "axios";
 import toast from "react-hot-toast";
+import RModal from "../RModal";
 
 
 interface EventModalProps{
@@ -36,7 +37,8 @@ const EventModal: React.FC<EventModalProps> = ({ post,currentUser }) => {
         </p>
         <div className="flex flex-row gap-2">
           <IoLocationSharp size={20} />
-          <strong>Latitude and Longitude :</strong> {latitude.toFixed(4)} {longitude.toFixed(4)}
+          <strong>Latitude and Longitude :</strong> 
+          {latitude !== undefined && longitude !== undefined ? `${latitude.toFixed(4)} ${longitude.toFixed(4)}` : 'N/A'}
         </div>
         <div className="flex flex-row gap-2">
           <AiFillStar size={19} color="#eab308" />
@@ -50,7 +52,7 @@ const EventModal: React.FC<EventModalProps> = ({ post,currentUser }) => {
     );
   
     return (
-      <Modal
+      <RModal
         disabled={isLoading}
         isOpen={eventModal.isOpen}
         title={title}
