@@ -11,6 +11,7 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import RModal from "../RModal";
 import addRatedCount from "@/app/actions/addRatedCount";
+import sendEmail from "@/app/actions/sendEmail";
 
 
 
@@ -26,7 +27,10 @@ const RestModal: React.FC<RestaurantModalProps> = ({ restaurant,currentUser }) =
     const restModal = useRestaurantModal();
   
     const onSubmit = () => {
-      // Reservation here
+      const currentDate = new Date();
+      const formattedDate = currentDate.toISOString().slice(0, 10);
+      sendEmail("RAM_page123@outlook.com", "Reservation Made", `Reservation Made On: ${formattedDate}`);
+      toast.success("Email Sent!");
     };
   
     const { name, image, description, locality, rating, contact } = restaurant;

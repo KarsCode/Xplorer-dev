@@ -84,7 +84,7 @@ const RestaurantFeed: React.FC<RestaurantFeedProps> = ({currentUser , yourVariab
            <div className="w-1/3 pl-3" >
           <img src="./images/eggfactory.jpeg" alt="Your Image" className="w-auto max-h-full rounded-md" />
         </div>
-        <div className="w-2/3 flex items-center justify-center">
+        <div className="w-2/3 flex  justify-start">
         <div>
                     <h3 className="text-xl font-semibold" >{restaurant.name}</h3>
                     <br/>

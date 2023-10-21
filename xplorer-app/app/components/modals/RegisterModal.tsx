@@ -45,7 +45,7 @@ const RegisterModal = () => {
         axios.post('/api/register',data)
             .then(()=>{
                 data
-                //sendEmail(data.email,"Welcome to the Xplorer Family ","Hope you enjoy your stay here");
+                sendEmail(data.email,"Welcome to the Xplorer Family ","Hope you enjoy your stay here");
                 registerModal.onClose()
             })
             .catch((error)=>{
