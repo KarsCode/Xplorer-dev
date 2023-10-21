@@ -9,14 +9,16 @@ import EditModal from './components/modals/EditModal';
 import getCurrentUser from './actions/getCurrentUser';
 import { Nunito } from 'next/font/google'
 import HomeFeed from './components/HomeFeed';
+import { useState } from 'react';
 
 export default async function Home({Component,pageProps}:AppProps) {
   const currentUser =( await getCurrentUser())?.currentUser;
+  const [selectedOption, setSelectedOption] = useState(null);
   return (
      <div> 
-      <Header label='Home'/>
+      <Header label='Home'  />
       <div className='h-screen overflow-x-auto'>
-      {currentUser&&<HomeFeed currentUser={currentUser}/>}   
+      {currentUser&&<HomeFeed currentUser={currentUser} />}   
       </div>
     </div>
   )

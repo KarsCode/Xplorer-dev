@@ -33,7 +33,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
 
     if (req.method === 'GET') {
-
+        
       let posts;
         posts = await prisma.post.findMany({
           orderBy: {

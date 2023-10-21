@@ -10,6 +10,7 @@ import  {Restaurant , User} from "@prisma/client";
 import axios from "axios";
 import toast from "react-hot-toast";
 import RModal from "../RModal";
+import addRatedCount from "@/app/actions/addRatedCount";
 
 
 
@@ -65,7 +66,7 @@ const RestModal: React.FC<RestaurantModalProps> = ({ restaurant,currentUser }) =
         </div>
         <div className="flex flex-row gap-2">
           <AiFillStar size={19} color="#eab308" />
-          <strong>Rating:</strong> {rating}
+          <strong>Rating:</strong> {rating?.toFixed(1)}
         </div>
         <div className="flex flex-row gap-2">
           <BsTelephoneFill size={20} color="#6495ED" />

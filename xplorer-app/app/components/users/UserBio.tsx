@@ -1,5 +1,4 @@
 'use client';
-import getCurrentUser from "@/app/actions/getCurrentUser";
 import getUser from "@/app/actions/getUser";
 import { format } from "date-fns";
 import React, { useMemo } from "react";
@@ -7,7 +6,6 @@ import Button from "../Button";
 import { User } from "@prisma/client";
 import { BiCalendar } from "react-icons/bi";
 import useEditModal from "@/app/hooks/useEditModal";
-import useLoginModal from "@/app/hooks/useLoginModal";
 
 interface UserBioProps{
     userId:string;
@@ -28,6 +26,7 @@ const UserBio:React.FC<UserBioProps> =  ({userId,currentUser}) => {
         return format(new Date(fetchedUser.createdAt), 'MMMM yyyy');
       }, [fetchedUser?.createdAt])
     return ( 
+        
         <div className="border-b-[1px] border-neutral-800 pb-4">
             <div className="flex justify-end p-2">
             <div className="text-white p-2">

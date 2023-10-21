@@ -7,6 +7,7 @@ import MyListBox from "./MyListBox";
 interface HeaderProps {
   showBackArrow?: boolean;
   label: string;
+
 }
 
 const Header: React.FC<HeaderProps> = ({showBackArrow, label }) => {
@@ -17,7 +18,7 @@ const Header: React.FC<HeaderProps> = ({showBackArrow, label }) => {
   }, [router]);
 
   return (
-    <div className="border-b-[1px] border-neutral-800 p-5">
+    <div className="border-b-[1px] twelth p-5">
       <div className="flex flex-row items-center gap-2">
         {showBackArrow && (
           <BiArrowBack 
@@ -35,7 +36,7 @@ const Header: React.FC<HeaderProps> = ({showBackArrow, label }) => {
         </div>
       </div>
       <div className="text-white">
-      {label === "Home" }
+      {label === "Home" && <MyListBox/> }
     </div>
     </div>
   );

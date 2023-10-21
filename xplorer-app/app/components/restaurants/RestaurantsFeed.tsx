@@ -45,8 +45,8 @@ const RestaurantFeed: React.FC<RestaurantFeedProps> = ({currentUser}) => {
                   <h3 className="text-xl font-semibold" >{restaurant.name}</h3>
                   <br/>
                   <p className="flex flex-row gap-2"><FaMapPin size={15}/>{restaurant.locality}</p>
-                  <p>Cuisines: {restaurant.cuisines.join(', ')}</p>
-                  <p> Rating: {restaurant.rating}</p>
+                  <p>Cuisines: {restaurant.cuisines.join(', ')} </p>
+                  <p> Rating: {(restaurant.rating)?.toFixed(1)} </p>
                 </div>
         <button className="bg-yellow-500 text-black rounded-sm w-15 h-5 absolute top-2 right-2"><FaBook/></button>
       </div>
