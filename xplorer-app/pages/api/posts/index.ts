@@ -36,9 +36,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
       let posts;
         posts = await prisma.post.findMany({
-          include: {
-            comments: true
-          },
           orderBy: {
             createdAt: 'desc'
           }

@@ -1,3 +1,4 @@
+import random
 import motor.motor_asyncio
 import pandas as pd
 from fastapi import FastAPI
@@ -134,21 +135,44 @@ async def recommend(id):
 
 
 
-@app.get("/xu/{userId}")
-async def xu(userId , target):
-        pickeduserDoc = await db['User'].find_one({'_id': userId})
+@app.get("/xu/{user1}")
+async def xu(user1 , user2):
+        async def userwithRatings(userId):
+            pipeline = [
+        {
+            "$match": {"_id": ObjectId(userId)}   
+        },
+        {
+            "$lookup": {
+                "from": "Rating",
+                "localField": "_id",
+                "foreignField": "userId",
+                "as": "rated"
+            }
+        }
+    ]       
+            result = await db['User'].aggregate(pipeline).next()
+
+            return result
+
+        pickeduserDoc= await userwithRatings(user1)
+        targetuserDoc=await userwithRatings(user2)
+
         rated1 = pickeduserDoc["rated"]
         result_dict1 = {}
         for rating_data in rated1:
-            restaurant_id = rating_data['restaurantId']
-            rating = rating_data['rating']
+            restaurant_id = str(rating_data['restaurantId'])
+            rating = str(rating_data['rating'])
             result_dict1[restaurant_id] = rating
-        
-        restaurant_info1 = await db["Restaurant"].find({"_id": {"$in": list(result_dict1.keys())}}).to_list(1000)
+        restaurant_info1=[]
+        for key in result_dict1:
+            rest1 = await db["Restaurant"].find_one({"_id": ObjectId(key) })
+            restaurant_info1.append(rest1)
+
         cuisine_ratings = {}
         for restaurant_id, rating in result_dict1.items():
             for restaurant_info in restaurant_info1:
-                if restaurant_info['id'] == restaurant_id:
+                if str(restaurant_info['_id']) == restaurant_id:
                     cuisines = restaurant_info['cuisines']
                     for cuisine in cuisines:
                         if cuisine in cuisine_ratings:
@@ -157,22 +181,26 @@ async def xu(userId , target):
                             cuisine_ratings[cuisine] = [rating]
         cuisine_avg_ratings = {}
         for cuisine, ratings in cuisine_ratings.items():
-            avg_rating = sum(ratings) / len(ratings)
+            intRatings = [int(num_str) for num_str in ratings]    
+            avg_rating = sum(intRatings) / len(ratings)
             cuisine_avg_ratings[cuisine] = avg_rating
         list1 = sorted(cuisine_avg_ratings, key=cuisine_avg_ratings.get, reverse=True)[:100]
 
-        targetuserDoc = await db['User'].find_one({'_id': target})
         rated2 = targetuserDoc["rated"]
         result_dict2 = {}
         for rating_data in rated2:
-            restaurant_id = rating_data['restaurantId']
-            rating = rating_data['rating']
+            restaurant_id = str(rating_data['restaurantId'])
+            rating = str(rating_data['rating'])
             result_dict2[restaurant_id] = rating
-        restaurant_info2 = await db["Restaurant"].find({"_id": {"$in": list(result_dict2.keys())}}).to_list(1000)
+        restaurant_info2=[]
+        for key in result_dict2:
+            rest2 = await db["Restaurant"].find_one({"_id": ObjectId(key) })
+            restaurant_info2.append(rest2)
+
         cuisine_ratings = {}
         for restaurant_id, rating in result_dict2.items():
             for restaurant_info in restaurant_info2:
-                if restaurant_info['id'] == restaurant_id:
+                if str(restaurant_info['_id']) == restaurant_id:
                     cuisines = restaurant_info['cuisines']
                     for cuisine in cuisines:
                         if cuisine in cuisine_ratings:
@@ -181,13 +209,13 @@ async def xu(userId , target):
                             cuisine_ratings[cuisine] = [rating]
         cuisine_avg_ratings = {}
         for cuisine, ratings in cuisine_ratings.items():
-            avg_rating = sum(ratings) / len(ratings)
+            intRatings = [int(num_str) for num_str in ratings]    
+            avg_rating = sum(intRatings) / len(ratings)
             cuisine_avg_ratings[cuisine] = avg_rating
-        list2 = sorted(cuisine_avg_ratings, key=cuisine_avg_ratings.get, reverse=True)[:100] 
+        list2 = sorted(cuisine_avg_ratings, key=cuisine_avg_ratings.get, reverse=True)[:100]
 
 
 
-        restaurantNet = restaurant_info1 +restaurant_info2
 
         set1 = set(list1)
         set2 = set(list2)
@@ -197,14 +225,11 @@ async def xu(userId , target):
         similarity_percentage = jaccard_similarity * 100
 
         
-        filtered_restaurants = [doc for doc in restaurantNet if any(cuisine in doc["cuisines"] for cuisine in intersection)][:20]
-        result_json = dumps(filtered_restaurants)                     #very important to when it comes to returning documents with objectid
-        filtered_restaurants = json.loads(result_json)
-        sorted_restaurants = sorted(filtered_restaurants, key=lambda x: x["rating"], reverse=True)
-        restaurant_ids = ([restaurant["id"] for restaurant in sorted_restaurants])
-        restaurant_ids_new=[]
-        [restaurant_ids_new.append(item) for item in restaurant_ids if item not in restaurant_ids_new][30]
+        resto1= await recommend(user1)
+        resto2=await recommend(user2)
+        net_resto = random.sample(resto1 + resto2, 10)
+        random.shuffle(net_resto)
 
 
-        finalDict={"Percentage":similarity_percentage,"Suggested":restaurant_ids_new}
+        finalDict={"Percentage":similarity_percentage,"Suggested":net_resto}
         return finalDict
